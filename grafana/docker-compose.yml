@@ -16,3 +16,7 @@ services:
       - LETSENCRYPT_HOST=graphs.brooks.network
       - LETSENCRYPT_EMAIL=bswinnerton@gmail.com
     image: grafana/grafana
+
+volumes:
+  data:
+  config:
