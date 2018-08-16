@@ -6,8 +6,8 @@ services:
     expose:
       - 3000
     volumes:
-      - 'grafana-data:/var/lib/grafana'
-      - 'grafana-config:/etc/grafana'
+      - data:/var/lib/grafana
+      - config:/etc/grafana
     env_file:
       - .env
     environment:
