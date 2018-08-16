@@ -20,3 +20,8 @@ services:
 volumes:
   data:
   config:
+
+networks:
+  default:
+    external:
+      name: nginx-proxy_default
