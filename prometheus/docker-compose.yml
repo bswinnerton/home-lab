@@ -8,9 +8,8 @@ services:
     ports:
       - 9090:9090
     volumes:
-      - config:/etc/prometheus
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
       - data:/prometheus
 
 volumes:
-  config:
   data:
