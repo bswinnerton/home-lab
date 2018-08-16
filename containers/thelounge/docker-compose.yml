@@ -8,16 +8,17 @@ services:
       - 9000:9000
     volumes:
       - data:/home/lounge/data
-    environment:
-      - VIRTUAL_HOST=irc.brooks.network
-      - VIRTUAL_PORT=9000
-      - LETSENCRYPT_HOST=irc.brooks.network
-      - LETSENCRYPT_EMAIL=bswinnerton@gmail.com
+    networks:
+      - web
+      - default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.frontend.rule=Host:irc.brooks.network"
 
 volumes:
   data:
 
 networks:
-  default:
-    external:
-      name: nginx-proxy_default
+  web:
+    external: true
