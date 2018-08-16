@@ -32,7 +32,7 @@ services:
 
   nginx-letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
-    container_name: ${LETS_ENCRYPT:-nginx-letsencrypt}
+    container_name: nginx-letsencrypt
     restart: always
     volumes:
       - conf:/etc/nginx/conf.d
