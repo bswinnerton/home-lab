@@ -8,10 +8,11 @@ services:
     volumes:
       - 'grafana-data:/var/lib/grafana'
       - 'grafana-config:/etc/grafana'
+    env_file:
+      - .env
     environment:
       - VIRTUAL_HOST=graphs.brooks.network
       - VIRTUAL_PORT=3000
       - LETSENCRYPT_HOST=graphs.brooks.network
       - LETSENCRYPT_EMAIL=bswinnerton@gmail.com
-      - GF_SECURITY_ADMIN_PASSWORD__FILE=/run/secrets/grafana-GF_SECURITY_ADMIN_PASSWORD
     image: grafana/grafana

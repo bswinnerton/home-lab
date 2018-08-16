@@ -1,10 +1,6 @@
 #/bin/sh
 
-echo "Please enter the Grafana admin password:"
-read GF_SECURITY_ADMIN_PASSWORD
-
-echo $GF_SECURITY_ADMIN_PASSWORD | sudo docker secret create grafana-GF_SECURITY_ADMIN_PASSWORD -
-echo "Grafana admin password stored to Docker secrets."
+[ -f .env ] || echo ".env file not present"; exit 1
 
 echo "Creating Grafana configuration volume..."
 sudo docker volume create grafana-config
