@@ -24,7 +24,7 @@ exposedByDefault = false
 
 [acme]
 email = "bswinnerton@gmail.com"
-storage = "acme.json"
+storage="/etc/traefik/acme/acme.json"
 entryPoint = "https"
 onHostRule = true
 [acme.httpChallenge]
