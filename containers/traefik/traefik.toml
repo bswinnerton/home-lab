@@ -5,6 +5,9 @@ defaultEntryPoints = ["https","http"]
 
 [accessLog]
 
+[metrics]
+  [metrics.prometheus]
+
 [entryPoints]
   [entryPoints.http]
   address = ":80"
