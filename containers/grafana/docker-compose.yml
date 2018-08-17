@@ -1,6 +1,7 @@
 version: '3'
 services:
   grafana:
+    image: grafana/grafana
     container_name: grafana
     restart: always
     expose:
@@ -8,20 +9,19 @@ services:
     volumes:
       - data:/var/lib/grafana
       - config:/etc/grafana
+    networks:
+      - web
     env_file:
       - .env
-    environment:
-      - VIRTUAL_HOST=graphs.brooks.network
-      - VIRTUAL_PORT=3000
-      - LETSENCRYPT_HOST=graphs.brooks.network
-      - LETSENCRYPT_EMAIL=bswinnerton@gmail.com
-    image: grafana/grafana
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.frontend.rule=Host:graphs.brooks.network"
 
 volumes:
   data:
   config:
 
 networks:
-  default:
-    external:
-      name: nginx-proxy_default
+  web:
+    external: true
