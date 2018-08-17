@@ -4,8 +4,8 @@ services:
     image: thelounge/lounge:latest
     container_name: thelounge
     restart: always
-    ports:
-      - 9000:9000
+    expose:
+      - 9000
     volumes:
       - data:/home/lounge/data
     networks:
