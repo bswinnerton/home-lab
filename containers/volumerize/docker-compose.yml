@@ -1,0 +1,19 @@
+version: '3'
+services:
+  volumerize:
+    image: blacklabelops/volumerize
+    container_name: volumerize
+    volumes:
+      - grafana_data:/source/grafana_data:ro
+      - grafana_config:/source/grafana_config:ro
+      - /mnt/backup:/backup
+      - cache:/volumerize-cache
+    environment:
+      - VOLUMERIZE_SOURCE=/source
+      - VOLUMERIZE_TARGET=file:///backup
+      - VOLUMERIZE_CONTAINERS=grafana
+
+volumes:
+  cache:
+  grafana_data:
+  grafana_config:
