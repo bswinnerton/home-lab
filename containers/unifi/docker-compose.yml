@@ -11,7 +11,6 @@ services:
     image: jacobalberty/unifi:latest
     depends_on:
       - mongo
-    init: true
     networks:
       - unifi
     restart: always
