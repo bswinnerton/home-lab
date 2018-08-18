@@ -1,0 +1,44 @@
+version: '3'
+services:
+  volumerize:
+    image: blacklabelops/volumerize
+    container_name: volumerize
+    volumes:
+      - grafana_data:/source/grafana_data:ro
+      - grafana_config:/source/grafana_config:ro
+      - homebridge_config:/source/homebridge_config:ro
+      - prometheus_data:/source/prometheus_config:ro
+      - thelounge_data:/source/thelounge_data:ro
+      - traefik_acme:/source/traefik_acme:ro
+      - unifi_data:/source/unifi_data:ro
+      - unifi_db:/source/unifi_db:ro
+      - unifi_exporter_config:/source/unifi_exporter_config:ro
+
+      - /mnt/backups:/backup
+      - cache:/volumerize-cache
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - VOLUMERIZE_SOURCE=/source
+      - VOLUMERIZE_TARGET=file:///backup
+      - VOLUMERIZE_CONTAINERS=grafana homebridge prometheus thelounge traefik unifi_controller unifi_mongo unifi_exporter
+
+volumes:
+  cache:
+  grafana_data:
+    external: true
+  grafana_config:
+    external: true
+  homebridge_config:
+    external: true
+  prometheus_data:
+    external: true
+  thelounge_data:
+    external: true
+  traefik_acme:
+    external: true
+  unifi_data:
+    external: true
+  unifi_db:
+    external: true
+  unifi_exporter_config:
+    external: true
