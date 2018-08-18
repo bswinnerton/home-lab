@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  homebridge:
+    image: oznu/homebridge
+    container_name: homebridge
+    network_mode: host
+    volumes:
+      - config:/homebridge
+    environment:
+      - TZ=America/New_York
+
+volumes:
+  config:
