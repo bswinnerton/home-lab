@@ -16,6 +16,7 @@ services:
 
       - /mnt/backup:/backup
       - cache:/volumerize-cache
+      - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - VOLUMERIZE_SOURCE=/source
       - VOLUMERIZE_TARGET=file:///backup
