@@ -3,6 +3,7 @@ services:
   volumerize:
     image: blacklabelops/volumerize
     container_name: volumerize
+    restart: always
     volumes:
       - grafana_data:/source/grafana_data:ro
       - grafana_config:/source/grafana_config:ro
