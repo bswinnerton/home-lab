@@ -14,13 +14,13 @@ services:
       - unifi_db:/source/unifi_db:ro
       - unifi_exporter_config:/source/unifi_exporter_config:ro
 
-      - /mnt/backup:/backup
+      - /mnt/backups:/backup
       - cache:/volumerize-cache
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - VOLUMERIZE_SOURCE=/source
       - VOLUMERIZE_TARGET=file:///backup
-      - VOLUMERIZE_CONTAINERS=grafana homebridge prometheus thelounge traefik unifi-controller
+      - VOLUMERIZE_CONTAINERS=grafana homebridge prometheus thelounge traefik unifi_controller unifi_mongo unifi_exporter
 
 volumes:
   cache:
