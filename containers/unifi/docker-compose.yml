@@ -1,0 +1,47 @@
+version: '2.2'
+services:
+  mongo:
+    image: mongo:3.4
+    networks:
+      - unifi
+    restart: always
+    volumes:
+      - db:/data/db
+  controller:
+    image: jacobalberty/unifi:latest
+    depends_on:
+      - mongo
+    init: true
+    networks:
+      - unifi
+    restart: always
+    volumes:
+      - data:/unifi/data
+    environment:
+      DB_URI: mongodb://mongo/unifi
+      STATDB_URI: mongodb://mongo/unifi_stat
+      DB_NAME: unifi
+    ports:
+      - 8080:8080
+      - 8443:8443
+      - 3478:3478/udp
+      - 10001:10001/udp
+  exporter:
+    image: bswinnerton/unifi_exporter
+    container_name: unifi_exporter
+    depends_on:
+      - controller
+    command: -config.file /etc/unifi_exporter/config.yml
+    restart: always
+    ports:
+      - 9130:9130
+    volumes:
+      - exporter_config:/etc/unifi_exporter
+
+volumes:
+  db:
+  data:
+  exporter_config:
+
+networks:
+  unifi:
