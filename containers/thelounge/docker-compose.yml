@@ -1,13 +1,13 @@
 version: '3'
 services:
   lounge:
-    image: thelounge/lounge:latest
+    image: thelounge/thelounge:3.0.0-pre.7
     container_name: thelounge
     restart: always
     expose:
       - 9000
     volumes:
-      - data:/home/lounge/data
+      - data:/var/opt/thelounge
     networks:
       - web
       - default
