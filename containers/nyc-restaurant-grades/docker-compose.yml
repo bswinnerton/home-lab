@@ -4,6 +4,7 @@ services:
   db:
     image: postgres
     container_name: nyc-restaurant-grades-db
+    restart: always
     volumes:
       - db_data:/var/lib/postgresql/data
     networks:
@@ -11,6 +12,7 @@ services:
   web:
     image: bswinnerton/nyc-restaurant-grades
     container_name: nyc-restaurant-grades-web
+    restart: always
     depends_on:
       - db
     env_file:
@@ -28,6 +30,7 @@ services:
   nginx:
     image: nginx
     container_name: nyc-restaurant-grades-nginx
+    restart: always
     depends_on:
       - web
     volumes:
