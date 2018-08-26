@@ -21,7 +21,7 @@ services:
     environment:
       - VOLUMERIZE_SOURCE=/source
       - VOLUMERIZE_TARGET=file:///backup
-      - VOLUMERIZE_CONTAINERS=grafana homebridge prometheus thelounge traefik unifi_controller unifi_mongo unifi_exporter
+      - VOLUMERIZE_CONTAINERS=grafana prometheus unifi_controller unifi_mongo
 
 volumes:
   cache:
