@@ -3,13 +3,35 @@ services:
   prometheus:
     image: prom/prometheus
     container_name: prometheus
-    command: --config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus --storage.tsdb.retention=1y
     restart: always
+    command: --config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus --storage.tsdb.retention=1y
     ports:
       - 9090:9090
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
       - data:/prometheus
+
+  cadvisor:
+    image: google/cadvisor:latest
+    container_name: cadvisor
+    restart: always
+    ports:
+      - 9080:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+
+  snmp-exporter:
+    image: prom/snmp-exporter
+    container_name: snmp_exporter
+    restart: always
+    ports:
+      - 9116:9116
+    volumes:
+      - ./snmp.yml:/etc/snmp_exporter/snmp.yml
 
 volumes:
   data:
