@@ -45,6 +45,24 @@ services:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
       - "traefik.frontend.rule=Host:nyc-restaurant-grades.com"
+  redis:
+    image: redis:latest
+    container_name: nyc-restaurant-grades-redis
+    networks:
+      - backend
+  sidekiq:
+    image: bswinnerton/nyc-restaurant-grades
+    container_name: nyc-restaurant-grades-sidekiq
+    command: bundle exec sidekiq
+    depends_on:
+      - web
+      - redis
+    volumes:
+      - www_data:/var/www/app/
+    networks:
+      - backend
+    env_file:
+      - .env
 
 volumes:
   db_data:
