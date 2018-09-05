@@ -1,5 +1,5 @@
 <domain type='kvm'>
-  <name>kube-node-master-a</name>
+  <name>kube-master-a</name>
   <uuid>199a5967-74c3-49d2-8bd5-43b750e9b4b1</uuid>
   <memory>2097152</memory>
   <currentMemory>2097152</currentMemory>
