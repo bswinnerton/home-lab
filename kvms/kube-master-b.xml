@@ -1,6 +1,6 @@
 <domain type='kvm'>
-  <name>kube-node-master-a</name>
-  <uuid>199a5967-74c3-49d2-8bd5-43b750e9b4b1</uuid>
+  <name>kube-node-master-b</name>
+  <uuid>91f709e3-0cba-4c0c-a3dd-2192541b9f1b</uuid>
   <memory>2097152</memory>
   <currentMemory>2097152</currentMemory>
   <vcpu>2</vcpu>
@@ -25,7 +25,7 @@
     </interface>
     <disk type='file' device='disk'>
       <driver name="qemu" type="qcow2"/>
-      <source file='/var/lib/libvirt/images/kube-master-a.qcow2'/>
+      <source file='/var/lib/libvirt/images/kube-master-b.qcow2'/>
       <target dev='hda' bus='ide'/>
     </disk>
     <graphics type='vnc' port='-1' autoport='yes' passwd='virtualmachinesarecool'/>
