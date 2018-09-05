@@ -2,7 +2,7 @@ version: '3'
 
 services:
   homebridge:
-    image: oznu/homebridge
+    image: oznu/homebridge:raspberry-pi
     container_name: homebridge
     restart: always
     network_mode: host
