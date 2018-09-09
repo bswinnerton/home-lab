@@ -36,7 +36,7 @@ scrape_configs:
       - targets: ['nuc7i5a.brooks.network:9080']
   - job_name: 'node_exporter'
     static_configs:
-      - targets: ['nuc7i5a.brooks.network:9100', 'nuc7i5b.brooks.network:9100']
+      - targets: ['nuc7i5a.brooks.network:9100', 'nuc7i5b.brooks.network:9100', 'pi.brooks.network:9100']
   - job_name: 'traefik'
     static_configs:
       - targets: ['nuc7i5a.brooks.network:8081']
