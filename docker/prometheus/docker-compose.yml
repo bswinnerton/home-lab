@@ -33,5 +33,14 @@ services:
     volumes:
       - ./snmp.yml:/etc/snmp_exporter/snmp.yml
 
+  blackbox-exporter:
+    image: prom/blackbox-exporter:master
+    container_name: blackbox_exporter
+    restart: always
+    ports:
+      - 9115:9115
+    volumes:
+      - ./blackbox.yml:/etc/blackbox_exporter/config.yml
+
 volumes:
   data:
