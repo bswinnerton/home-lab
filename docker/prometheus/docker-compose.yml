@@ -41,7 +41,7 @@ services:
     ports:
       - 9115:9115
     volumes:
-      - ./blackbox.yml:/config
+      - ./blackbox.yml:/config/blackbox.yml
 
 volumes:
   data:
