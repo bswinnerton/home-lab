@@ -54,7 +54,7 @@ if_mib:
       type: gauge
   - name: ifPhysAddress
     oid: 1.3.6.1.2.1.2.2.1.6
-    type: OctetString
+    type: PhysAddress48
     help: The interface's address at the protocol layer immediately `below' the network
       layer in the protocol stack - 1.3.6.1.2.1.2.2.1.6
     indexes:
@@ -423,7 +423,7 @@ if_mib_ifalias:
       type: DisplayString
   - name: ifPhysAddress
     oid: 1.3.6.1.2.1.2.2.1.6
-    type: OctetString
+    type: PhysAddress48
     help: The interface's address at the protocol layer immediately `below' the network
       layer in the protocol stack - 1.3.6.1.2.1.2.2.1.6
     indexes:
@@ -1002,7 +1002,7 @@ if_mib_ifdescr:
       type: DisplayString
   - name: ifPhysAddress
     oid: 1.3.6.1.2.1.2.2.1.6
-    type: OctetString
+    type: PhysAddress48
     help: The interface's address at the protocol layer immediately `below' the network
       layer in the protocol stack - 1.3.6.1.2.1.2.2.1.6
     indexes:
@@ -1581,7 +1581,7 @@ if_mib_ifname:
       type: DisplayString
   - name: ifPhysAddress
     oid: 1.3.6.1.2.1.2.2.1.6
-    type: OctetString
+    type: PhysAddress48
     help: The interface's address at the protocol layer immediately `below' the network
       layer in the protocol stack - 1.3.6.1.2.1.2.2.1.6
     indexes:
@@ -2161,7 +2161,7 @@ ubiquiti_airmax:
       type: DisplayString
   - name: ifPhysAddress
     oid: 1.3.6.1.2.1.2.2.1.6
-    type: OctetString
+    type: PhysAddress48
     help: The interface's address at the protocol layer immediately `below' the network
       layer in the protocol stack - 1.3.6.1.2.1.2.2.1.6
     indexes:
@@ -3069,7 +3069,7 @@ ubiquiti_airmax:
       fixed_size: 6
   - name: ubntStaLastIp
     oid: 1.3.6.1.4.1.41112.1.4.7.1.10
-    type: IpAddr
+    type: InetAddressIPv4
     help: Last known IP address - 1.3.6.1.4.1.41112.1.4.7.1.10
     indexes:
     - labelname: ubntWlStatIndex
@@ -3328,7 +3328,7 @@ ubiquiti_edgemax:
       type: DisplayString
   - name: ifPhysAddress
     oid: 1.3.6.1.2.1.2.2.1.6
-    type: OctetString
+    type: PhysAddress48
     help: The interface's address at the protocol layer immediately `below' the network
       layer in the protocol stack - 1.3.6.1.2.1.2.2.1.6
     indexes:
@@ -3821,1903 +3821,6 @@ ubiquiti_edgemax:
       labelname: ifDescr
       oid: 1.3.6.1.2.1.2.2.1.2
       type: DisplayString
-  - name: inetCidrRouteNumber
-    oid: 1.3.6.1.2.1.4.24.6
-    type: gauge
-    help: The number of current inetCidrRouteTable entries that are not invalid. -
-      1.3.6.1.2.1.4.24.6
-  - name: inetCidrRouteDiscards
-    oid: 1.3.6.1.2.1.4.24.8
-    type: counter
-    help: The number of valid route entries discarded from the inetCidrRouteTable
-      - 1.3.6.1.2.1.4.24.8
-  - name: ipCidrRouteNumber
-    oid: 1.3.6.1.2.1.4.24.3
-    type: gauge
-    help: The number of current ipCidrRouteTable entries that are not invalid - 1.3.6.1.2.1.4.24.3
-  - name: ipCidrRouteDest
-    oid: 1.3.6.1.2.1.4.24.4.1.1
-    type: IpAddr
-    help: The destination IP address of this route - 1.3.6.1.2.1.4.24.4.1.1
-    indexes:
-    - labelname: ipCidrRouteDest
-      type: IpAddr
-    - labelname: ipCidrRouteMask
-      type: IpAddr
-    - labelname: ipCidrRouteTos
-      type: gauge
-    - labelname: ipCidrRouteNextHop
-      type: IpAddr
-  - name: ipCidrRouteMask
-    oid: 1.3.6.1.2.1.4.24.4.1.2
-    type: IpAddr
-    help: Indicate the mask to be logical-ANDed with the destination address before
-      being compared to the value in the ipCidrRouteDest field - 1.3.6.1.2.1.4.24.4.1.2
-    indexes:
-    - labelname: ipCidrRouteDest
-      type: IpAddr
-    - labelname: ipCidrRouteMask
-      type: IpAddr
-    - labelname: ipCidrRouteTos
-      type: gauge
-    - labelname: ipCidrRouteNextHop
-      type: IpAddr
-  - name: ipCidrRouteTos
-    oid: 1.3.6.1.2.1.4.24.4.1.3
-    type: gauge
-    help: The policy specifier is the IP TOS Field - 1.3.6.1.2.1.4.24.4.1.3
-    indexes:
-    - labelname: ipCidrRouteDest
-      type: IpAddr
-    - labelname: ipCidrRouteMask
-      type: IpAddr
-    - labelname: ipCidrRouteTos
-      type: gauge
-    - labelname: ipCidrRouteNextHop
-      type: IpAddr
-  - name: ipCidrRouteNextHop
-    oid: 1.3.6.1.2.1.4.24.4.1.4
-    type: IpAddr
-    help: On remote routes, the address of the next system en route; Otherwise, 0.0.0.0.
-      - 1.3.6.1.2.1.4.24.4.1.4
-    indexes:
-    - labelname: ipCidrRouteDest
-      type: IpAddr
-    - labelname: ipCidrRouteMask
-      type: IpAddr
-    - labelname: ipCidrRouteTos
-      type: gauge
-    - labelname: ipCidrRouteNextHop
-      type: IpAddr
-  - name: ipCidrRouteIfIndex
-    oid: 1.3.6.1.2.1.4.24.4.1.5
-    type: gauge
-    help: The ifIndex value that identifies the local interface through which the
-      next hop of this route should be reached. - 1.3.6.1.2.1.4.24.4.1.5
-    indexes:
-    - labelname: ipCidrRouteDest
-      type: IpAddr
-    - labelname: ipCidrRouteMask
-      type: IpAddr
-    - labelname: ipCidrRouteTos
-      type: gauge
-    - labelname: ipCidrRouteNextHop
-      type: IpAddr
-  - name: ipCidrRouteType
-    oid: 1.3.6.1.2.1.4.24.4.1.6
-    type: gauge
-    help: The type of route - 1.3.6.1.2.1.4.24.4.1.6
-    indexes:
-    - labelname: ipCidrRouteDest
-      type: IpAddr
-    - labelname: ipCidrRouteMask
-      type: IpAddr
-    - labelname: ipCidrRouteTos
-      type: gauge
-    - labelname: ipCidrRouteNextHop
-      type: IpAddr
-  - name: ipCidrRouteProto
-    oid: 1.3.6.1.2.1.4.24.4.1.7
-    type: gauge
-    help: The routing mechanism via which this route was learned - 1.3.6.1.2.1.4.24.4.1.7
-    indexes:
-    - labelname: ipCidrRouteDest
-      type: IpAddr
-    - labelname: ipCidrRouteMask
-      type: IpAddr
-    - labelname: ipCidrRouteTos
-      type: gauge
-    - labelname: ipCidrRouteNextHop
-      type: IpAddr
-  - name: ipCidrRouteAge
-    oid: 1.3.6.1.2.1.4.24.4.1.8
-    type: gauge
-    help: The number of seconds since this route was last updated or otherwise determined
-      to be correct - 1.3.6.1.2.1.4.24.4.1.8
-    indexes:
-    - labelname: ipCidrRouteDest
-      type: IpAddr
-    - labelname: ipCidrRouteMask
-      type: IpAddr
-    - labelname: ipCidrRouteTos
-      type: gauge
-    - labelname: ipCidrRouteNextHop
-      type: IpAddr
-  - name: ipCidrRouteNextHopAS
-    oid: 1.3.6.1.2.1.4.24.4.1.10
-    type: gauge
-    help: The Autonomous System Number of the Next Hop - 1.3.6.1.2.1.4.24.4.1.10
-    indexes:
-    - labelname: ipCidrRouteDest
-      type: IpAddr
-    - labelname: ipCidrRouteMask
-      type: IpAddr
-    - labelname: ipCidrRouteTos
-      type: gauge
-    - labelname: ipCidrRouteNextHop
-      type: IpAddr
-  - name: ipCidrRouteMetric1
-    oid: 1.3.6.1.2.1.4.24.4.1.11
-    type: gauge
-    help: The primary routing metric for this route - 1.3.6.1.2.1.4.24.4.1.11
-    indexes:
-    - labelname: ipCidrRouteDest
-      type: IpAddr
-    - labelname: ipCidrRouteMask
-      type: IpAddr
-    - labelname: ipCidrRouteTos
-      type: gauge
-    - labelname: ipCidrRouteNextHop
-      type: IpAddr
-  - name: ipCidrRouteMetric2
-    oid: 1.3.6.1.2.1.4.24.4.1.12
-    type: gauge
-    help: An alternate routing metric for this route - 1.3.6.1.2.1.4.24.4.1.12
-    indexes:
-    - labelname: ipCidrRouteDest
-      type: IpAddr
-    - labelname: ipCidrRouteMask
-      type: IpAddr
-    - labelname: ipCidrRouteTos
-      type: gauge
-    - labelname: ipCidrRouteNextHop
-      type: IpAddr
-  - name: ipCidrRouteMetric3
-    oid: 1.3.6.1.2.1.4.24.4.1.13
-    type: gauge
-    help: An alternate routing metric for this route - 1.3.6.1.2.1.4.24.4.1.13
-    indexes:
-    - labelname: ipCidrRouteDest
-      type: IpAddr
-    - labelname: ipCidrRouteMask
-      type: IpAddr
-    - labelname: ipCidrRouteTos
-      type: gauge
-    - labelname: ipCidrRouteNextHop
-      type: IpAddr
-  - name: ipCidrRouteMetric4
-    oid: 1.3.6.1.2.1.4.24.4.1.14
-    type: gauge
-    help: An alternate routing metric for this route - 1.3.6.1.2.1.4.24.4.1.14
-    indexes:
-    - labelname: ipCidrRouteDest
-      type: IpAddr
-    - labelname: ipCidrRouteMask
-      type: IpAddr
-    - labelname: ipCidrRouteTos
-      type: gauge
-    - labelname: ipCidrRouteNextHop
-      type: IpAddr
-  - name: ipCidrRouteMetric5
-    oid: 1.3.6.1.2.1.4.24.4.1.15
-    type: gauge
-    help: An alternate routing metric for this route - 1.3.6.1.2.1.4.24.4.1.15
-    indexes:
-    - labelname: ipCidrRouteDest
-      type: IpAddr
-    - labelname: ipCidrRouteMask
-      type: IpAddr
-    - labelname: ipCidrRouteTos
-      type: gauge
-    - labelname: ipCidrRouteNextHop
-      type: IpAddr
-  - name: ipCidrRouteStatus
-    oid: 1.3.6.1.2.1.4.24.4.1.16
-    type: gauge
-    help: The row status variable, used according to row installation and removal
-      conventions. - 1.3.6.1.2.1.4.24.4.1.16
-    indexes:
-    - labelname: ipCidrRouteDest
-      type: IpAddr
-    - labelname: ipCidrRouteMask
-      type: IpAddr
-    - labelname: ipCidrRouteTos
-      type: gauge
-    - labelname: ipCidrRouteNextHop
-      type: IpAddr
-  - name: ipForwardNumber
-    oid: 1.3.6.1.2.1.4.24.1
-    type: gauge
-    help: The number of current ipForwardTable entries that are not invalid. - 1.3.6.1.2.1.4.24.1
-  - name: ipForwardDest
-    oid: 1.3.6.1.2.1.4.24.2.1.1
-    type: IpAddr
-    help: The destination IP address of this route - 1.3.6.1.2.1.4.24.2.1.1
-    indexes:
-    - labelname: ipForwardDest
-      type: IpAddr
-    - labelname: ipForwardProto
-      type: gauge
-    - labelname: ipForwardPolicy
-      type: gauge
-    - labelname: ipForwardNextHop
-      type: IpAddr
-  - name: ipForwardMask
-    oid: 1.3.6.1.2.1.4.24.2.1.2
-    type: IpAddr
-    help: Indicate the mask to be logical-ANDed with the destination address before
-      being compared to the value in the ipForwardDest field - 1.3.6.1.2.1.4.24.2.1.2
-    indexes:
-    - labelname: ipForwardDest
-      type: IpAddr
-    - labelname: ipForwardProto
-      type: gauge
-    - labelname: ipForwardPolicy
-      type: gauge
-    - labelname: ipForwardNextHop
-      type: IpAddr
-  - name: ipForwardPolicy
-    oid: 1.3.6.1.2.1.4.24.2.1.3
-    type: gauge
-    help: The general set of conditions that would cause the selection of one multipath
-      route (set of next hops for a given destination) is referred to as 'policy'
-      - 1.3.6.1.2.1.4.24.2.1.3
-    indexes:
-    - labelname: ipForwardDest
-      type: IpAddr
-    - labelname: ipForwardProto
-      type: gauge
-    - labelname: ipForwardPolicy
-      type: gauge
-    - labelname: ipForwardNextHop
-      type: IpAddr
-  - name: ipForwardNextHop
-    oid: 1.3.6.1.2.1.4.24.2.1.4
-    type: IpAddr
-    help: On remote routes, the address of the next system en route; otherwise, 0.0.0.0.
-      - 1.3.6.1.2.1.4.24.2.1.4
-    indexes:
-    - labelname: ipForwardDest
-      type: IpAddr
-    - labelname: ipForwardProto
-      type: gauge
-    - labelname: ipForwardPolicy
-      type: gauge
-    - labelname: ipForwardNextHop
-      type: IpAddr
-  - name: ipForwardIfIndex
-    oid: 1.3.6.1.2.1.4.24.2.1.5
-    type: gauge
-    help: The ifIndex value that identifies the local interface through which the
-      next hop of this route should be reached. - 1.3.6.1.2.1.4.24.2.1.5
-    indexes:
-    - labelname: ipForwardDest
-      type: IpAddr
-    - labelname: ipForwardProto
-      type: gauge
-    - labelname: ipForwardPolicy
-      type: gauge
-    - labelname: ipForwardNextHop
-      type: IpAddr
-  - name: ipForwardType
-    oid: 1.3.6.1.2.1.4.24.2.1.6
-    type: gauge
-    help: The type of route - 1.3.6.1.2.1.4.24.2.1.6
-    indexes:
-    - labelname: ipForwardDest
-      type: IpAddr
-    - labelname: ipForwardProto
-      type: gauge
-    - labelname: ipForwardPolicy
-      type: gauge
-    - labelname: ipForwardNextHop
-      type: IpAddr
-  - name: ipForwardProto
-    oid: 1.3.6.1.2.1.4.24.2.1.7
-    type: gauge
-    help: The routing mechanism via which this route was learned - 1.3.6.1.2.1.4.24.2.1.7
-    indexes:
-    - labelname: ipForwardDest
-      type: IpAddr
-    - labelname: ipForwardProto
-      type: gauge
-    - labelname: ipForwardPolicy
-      type: gauge
-    - labelname: ipForwardNextHop
-      type: IpAddr
-  - name: ipForwardAge
-    oid: 1.3.6.1.2.1.4.24.2.1.8
-    type: gauge
-    help: The number of seconds since this route was last updated or otherwise determined
-      to be correct - 1.3.6.1.2.1.4.24.2.1.8
-    indexes:
-    - labelname: ipForwardDest
-      type: IpAddr
-    - labelname: ipForwardProto
-      type: gauge
-    - labelname: ipForwardPolicy
-      type: gauge
-    - labelname: ipForwardNextHop
-      type: IpAddr
-  - name: ipForwardNextHopAS
-    oid: 1.3.6.1.2.1.4.24.2.1.10
-    type: gauge
-    help: The Autonomous System Number of the Next Hop - 1.3.6.1.2.1.4.24.2.1.10
-    indexes:
-    - labelname: ipForwardDest
-      type: IpAddr
-    - labelname: ipForwardProto
-      type: gauge
-    - labelname: ipForwardPolicy
-      type: gauge
-    - labelname: ipForwardNextHop
-      type: IpAddr
-  - name: ipForwardMetric1
-    oid: 1.3.6.1.2.1.4.24.2.1.11
-    type: gauge
-    help: The primary routing metric for this route - 1.3.6.1.2.1.4.24.2.1.11
-    indexes:
-    - labelname: ipForwardDest
-      type: IpAddr
-    - labelname: ipForwardProto
-      type: gauge
-    - labelname: ipForwardPolicy
-      type: gauge
-    - labelname: ipForwardNextHop
-      type: IpAddr
-  - name: ipForwardMetric2
-    oid: 1.3.6.1.2.1.4.24.2.1.12
-    type: gauge
-    help: An alternate routing metric for this route - 1.3.6.1.2.1.4.24.2.1.12
-    indexes:
-    - labelname: ipForwardDest
-      type: IpAddr
-    - labelname: ipForwardProto
-      type: gauge
-    - labelname: ipForwardPolicy
-      type: gauge
-    - labelname: ipForwardNextHop
-      type: IpAddr
-  - name: ipForwardMetric3
-    oid: 1.3.6.1.2.1.4.24.2.1.13
-    type: gauge
-    help: An alternate routing metric for this route - 1.3.6.1.2.1.4.24.2.1.13
-    indexes:
-    - labelname: ipForwardDest
-      type: IpAddr
-    - labelname: ipForwardProto
-      type: gauge
-    - labelname: ipForwardPolicy
-      type: gauge
-    - labelname: ipForwardNextHop
-      type: IpAddr
-  - name: ipForwardMetric4
-    oid: 1.3.6.1.2.1.4.24.2.1.14
-    type: gauge
-    help: An alternate routing metric for this route - 1.3.6.1.2.1.4.24.2.1.14
-    indexes:
-    - labelname: ipForwardDest
-      type: IpAddr
-    - labelname: ipForwardProto
-      type: gauge
-    - labelname: ipForwardPolicy
-      type: gauge
-    - labelname: ipForwardNextHop
-      type: IpAddr
-  - name: ipForwardMetric5
-    oid: 1.3.6.1.2.1.4.24.2.1.15
-    type: gauge
-    help: An alternate routing metric for this route - 1.3.6.1.2.1.4.24.2.1.15
-    indexes:
-    - labelname: ipForwardDest
-      type: IpAddr
-    - labelname: ipForwardProto
-      type: gauge
-    - labelname: ipForwardPolicy
-      type: gauge
-    - labelname: ipForwardNextHop
-      type: IpAddr
-  - name: ipv6IpForwarding
-    oid: 1.3.6.1.2.1.4.25
-    type: gauge
-    help: The indication of whether this entity is acting as an IPv6 router on any
-      interface in respect to the forwarding of datagrams received by, but not addressed
-      to, this entity - 1.3.6.1.2.1.4.25
-  - name: ipv6IpDefaultHopLimit
-    oid: 1.3.6.1.2.1.4.26
-    type: gauge
-    help: The default value inserted into the Hop Limit field of the IPv6 header of
-      datagrams originated at this entity whenever a Hop Limit value is not supplied
-      by the transport layer protocol - 1.3.6.1.2.1.4.26
-  - name: ipv4InterfaceTableLastChange
-    oid: 1.3.6.1.2.1.4.27
-    type: gauge
-    help: The value of sysUpTime on the most recent occasion at which a row in the
-      ipv4InterfaceTable was added or deleted, or when an ipv4InterfaceReasmMaxSize
-      or an ipv4InterfaceEnableStatus object was modified - 1.3.6.1.2.1.4.27
-  - name: ipv4InterfaceIfIndex
-    oid: 1.3.6.1.2.1.4.28.1.1
-    type: gauge
-    help: The index value that uniquely identifies the interface to which this entry
-      is applicable - 1.3.6.1.2.1.4.28.1.1
-    indexes:
-    - labelname: ipv4InterfaceIfIndex
-      type: gauge
-  - name: ipv4InterfaceReasmMaxSize
-    oid: 1.3.6.1.2.1.4.28.1.2
-    type: gauge
-    help: The size of the largest IPv4 datagram that this entity can re-assemble from
-      incoming IPv4 fragmented datagrams received on this interface. - 1.3.6.1.2.1.4.28.1.2
-    indexes:
-    - labelname: ipv4InterfaceIfIndex
-      type: gauge
-  - name: ipv4InterfaceEnableStatus
-    oid: 1.3.6.1.2.1.4.28.1.3
-    type: gauge
-    help: The indication of whether IPv4 is enabled (up) or disabled (down) on this
-      interface - 1.3.6.1.2.1.4.28.1.3
-    indexes:
-    - labelname: ipv4InterfaceIfIndex
-      type: gauge
-  - name: ipv4InterfaceRetransmitTime
-    oid: 1.3.6.1.2.1.4.28.1.4
-    type: gauge
-    help: The time between retransmissions of ARP requests to a neighbor when resolving
-      the address or when probing the reachability of a neighbor. - 1.3.6.1.2.1.4.28.1.4
-    indexes:
-    - labelname: ipv4InterfaceIfIndex
-      type: gauge
-  - name: ipv6InterfaceTableLastChange
-    oid: 1.3.6.1.2.1.4.29
-    type: gauge
-    help: The value of sysUpTime on the most recent occasion at which a row in the
-      ipv6InterfaceTable was added or deleted or when an ipv6InterfaceReasmMaxSize,
-      ipv6InterfaceIdentifier, ipv6InterfaceEnableStatus, ipv6InterfaceReachableTime,
-      ipv6InterfaceRetransmitTime, or ipv6InterfaceForwarding object was modified
-      - 1.3.6.1.2.1.4.29
-  - name: ipv6InterfaceIfIndex
-    oid: 1.3.6.1.2.1.4.30.1.1
-    type: gauge
-    help: The index value that uniquely identifies the interface to which this entry
-      is applicable - 1.3.6.1.2.1.4.30.1.1
-    indexes:
-    - labelname: ipv6InterfaceIfIndex
-      type: gauge
-  - name: ipv6InterfaceReasmMaxSize
-    oid: 1.3.6.1.2.1.4.30.1.2
-    type: gauge
-    help: The size of the largest IPv6 datagram that this entity can re-assemble from
-      incoming IPv6 fragmented datagrams received on this interface. - 1.3.6.1.2.1.4.30.1.2
-    indexes:
-    - labelname: ipv6InterfaceIfIndex
-      type: gauge
-  - name: ipv6InterfaceIdentifier
-    oid: 1.3.6.1.2.1.4.30.1.3
-    type: OctetString
-    help: The Interface Identifier for this interface - 1.3.6.1.2.1.4.30.1.3
-    indexes:
-    - labelname: ipv6InterfaceIfIndex
-      type: gauge
-  - name: ipv6InterfaceEnableStatus
-    oid: 1.3.6.1.2.1.4.30.1.5
-    type: gauge
-    help: The indication of whether IPv6 is enabled (up) or disabled (down) on this
-      interface - 1.3.6.1.2.1.4.30.1.5
-    indexes:
-    - labelname: ipv6InterfaceIfIndex
-      type: gauge
-  - name: ipv6InterfaceReachableTime
-    oid: 1.3.6.1.2.1.4.30.1.6
-    type: gauge
-    help: The time a neighbor is considered reachable after receiving a reachability
-      confirmation. - 1.3.6.1.2.1.4.30.1.6
-    indexes:
-    - labelname: ipv6InterfaceIfIndex
-      type: gauge
-  - name: ipv6InterfaceRetransmitTime
-    oid: 1.3.6.1.2.1.4.30.1.7
-    type: gauge
-    help: The time between retransmissions of Neighbor Solicitation messages to a
-      neighbor when resolving the address or when probing the reachability of a neighbor.
-      - 1.3.6.1.2.1.4.30.1.7
-    indexes:
-    - labelname: ipv6InterfaceIfIndex
-      type: gauge
-  - name: ipv6InterfaceForwarding
-    oid: 1.3.6.1.2.1.4.30.1.8
-    type: gauge
-    help: The indication of whether this entity is acting as an IPv6 router on this
-      interface with respect to the forwarding of datagrams received by, but not addressed
-      to, this entity - 1.3.6.1.2.1.4.30.1.8
-    indexes:
-    - labelname: ipv6InterfaceIfIndex
-      type: gauge
-  - name: ipSystemStatsIPVersion
-    oid: 1.3.6.1.2.1.4.31.1.1.1
-    type: gauge
-    help: The IP version of this row. - 1.3.6.1.2.1.4.31.1.1.1
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsInReceives
-    oid: 1.3.6.1.2.1.4.31.1.1.3
-    type: counter
-    help: The total number of input IP datagrams received, including those received
-      in error - 1.3.6.1.2.1.4.31.1.1.3
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsHCInReceives
-    oid: 1.3.6.1.2.1.4.31.1.1.4
-    type: counter
-    help: The total number of input IP datagrams received, including those received
-      in error - 1.3.6.1.2.1.4.31.1.1.4
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsInOctets
-    oid: 1.3.6.1.2.1.4.31.1.1.5
-    type: counter
-    help: The total number of octets received in input IP datagrams, including those
-      received in error - 1.3.6.1.2.1.4.31.1.1.5
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsHCInOctets
-    oid: 1.3.6.1.2.1.4.31.1.1.6
-    type: counter
-    help: The total number of octets received in input IP datagrams, including those
-      received in error - 1.3.6.1.2.1.4.31.1.1.6
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsInHdrErrors
-    oid: 1.3.6.1.2.1.4.31.1.1.7
-    type: counter
-    help: The number of input IP datagrams discarded due to errors in their IP headers,
-      including version number mismatch, other format errors, hop count exceeded,
-      errors discovered in processing their IP options, etc - 1.3.6.1.2.1.4.31.1.1.7
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsInNoRoutes
-    oid: 1.3.6.1.2.1.4.31.1.1.8
-    type: counter
-    help: The number of input IP datagrams discarded because no route could be found
-      to transmit them to their destination - 1.3.6.1.2.1.4.31.1.1.8
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsInAddrErrors
-    oid: 1.3.6.1.2.1.4.31.1.1.9
-    type: counter
-    help: The number of input IP datagrams discarded because the IP address in their
-      IP header's destination field was not a valid address to be received at this
-      entity - 1.3.6.1.2.1.4.31.1.1.9
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsInUnknownProtos
-    oid: 1.3.6.1.2.1.4.31.1.1.10
-    type: counter
-    help: The number of locally-addressed IP datagrams received successfully but discarded
-      because of an unknown or unsupported protocol - 1.3.6.1.2.1.4.31.1.1.10
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsInTruncatedPkts
-    oid: 1.3.6.1.2.1.4.31.1.1.11
-    type: counter
-    help: The number of input IP datagrams discarded because the datagram frame didn't
-      carry enough data - 1.3.6.1.2.1.4.31.1.1.11
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsInForwDatagrams
-    oid: 1.3.6.1.2.1.4.31.1.1.12
-    type: counter
-    help: The number of input datagrams for which this entity was not their final
-      IP destination and for which this entity attempted to find a route to forward
-      them to that final destination - 1.3.6.1.2.1.4.31.1.1.12
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsHCInForwDatagrams
-    oid: 1.3.6.1.2.1.4.31.1.1.13
-    type: counter
-    help: The number of input datagrams for which this entity was not their final
-      IP destination and for which this entity attempted to find a route to forward
-      them to that final destination - 1.3.6.1.2.1.4.31.1.1.13
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsReasmReqds
-    oid: 1.3.6.1.2.1.4.31.1.1.14
-    type: counter
-    help: The number of IP fragments received that needed to be reassembled at this
-      interface - 1.3.6.1.2.1.4.31.1.1.14
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsReasmOKs
-    oid: 1.3.6.1.2.1.4.31.1.1.15
-    type: counter
-    help: The number of IP datagrams successfully reassembled - 1.3.6.1.2.1.4.31.1.1.15
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsReasmFails
-    oid: 1.3.6.1.2.1.4.31.1.1.16
-    type: counter
-    help: 'The number of failures detected by the IP re-assembly algorithm (for whatever
-      reason: timed out, errors, etc.) - 1.3.6.1.2.1.4.31.1.1.16'
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsInDiscards
-    oid: 1.3.6.1.2.1.4.31.1.1.17
-    type: counter
-    help: The number of input IP datagrams for which no problems were encountered
-      to prevent their continued processing, but were discarded (e.g., for lack of
-      buffer space) - 1.3.6.1.2.1.4.31.1.1.17
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsInDelivers
-    oid: 1.3.6.1.2.1.4.31.1.1.18
-    type: counter
-    help: The total number of datagrams successfully delivered to IP user-protocols
-      (including ICMP) - 1.3.6.1.2.1.4.31.1.1.18
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsHCInDelivers
-    oid: 1.3.6.1.2.1.4.31.1.1.19
-    type: counter
-    help: The total number of datagrams successfully delivered to IP user-protocols
-      (including ICMP) - 1.3.6.1.2.1.4.31.1.1.19
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsOutRequests
-    oid: 1.3.6.1.2.1.4.31.1.1.20
-    type: counter
-    help: The total number of IP datagrams that local IP user- protocols (including
-      ICMP) supplied to IP in requests for transmission - 1.3.6.1.2.1.4.31.1.1.20
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsHCOutRequests
-    oid: 1.3.6.1.2.1.4.31.1.1.21
-    type: counter
-    help: The total number of IP datagrams that local IP user- protocols (including
-      ICMP) supplied to IP in requests for transmission - 1.3.6.1.2.1.4.31.1.1.21
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsOutNoRoutes
-    oid: 1.3.6.1.2.1.4.31.1.1.22
-    type: counter
-    help: The number of locally generated IP datagrams discarded because no route
-      could be found to transmit them to their destination - 1.3.6.1.2.1.4.31.1.1.22
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsOutForwDatagrams
-    oid: 1.3.6.1.2.1.4.31.1.1.23
-    type: counter
-    help: The number of datagrams for which this entity was not their final IP destination
-      and for which it was successful in finding a path to their final destination
-      - 1.3.6.1.2.1.4.31.1.1.23
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsHCOutForwDatagrams
-    oid: 1.3.6.1.2.1.4.31.1.1.24
-    type: counter
-    help: The number of datagrams for which this entity was not their final IP destination
-      and for which it was successful in finding a path to their final destination
-      - 1.3.6.1.2.1.4.31.1.1.24
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsOutDiscards
-    oid: 1.3.6.1.2.1.4.31.1.1.25
-    type: counter
-    help: The number of output IP datagrams for which no problem was encountered to
-      prevent their transmission to their destination, but were discarded (e.g., for
-      lack of buffer space) - 1.3.6.1.2.1.4.31.1.1.25
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsOutFragReqds
-    oid: 1.3.6.1.2.1.4.31.1.1.26
-    type: counter
-    help: The number of IP datagrams that would require fragmentation in order to
-      be transmitted - 1.3.6.1.2.1.4.31.1.1.26
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsOutFragOKs
-    oid: 1.3.6.1.2.1.4.31.1.1.27
-    type: counter
-    help: The number of IP datagrams that have been successfully fragmented - 1.3.6.1.2.1.4.31.1.1.27
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsOutFragFails
-    oid: 1.3.6.1.2.1.4.31.1.1.28
-    type: counter
-    help: The number of IP datagrams that have been discarded because they needed
-      to be fragmented but could not be - 1.3.6.1.2.1.4.31.1.1.28
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsOutFragCreates
-    oid: 1.3.6.1.2.1.4.31.1.1.29
-    type: counter
-    help: The number of output datagram fragments that have been generated as a result
-      of IP fragmentation - 1.3.6.1.2.1.4.31.1.1.29
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsOutTransmits
-    oid: 1.3.6.1.2.1.4.31.1.1.30
-    type: counter
-    help: The total number of IP datagrams that this entity supplied to the lower
-      layers for transmission - 1.3.6.1.2.1.4.31.1.1.30
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsHCOutTransmits
-    oid: 1.3.6.1.2.1.4.31.1.1.31
-    type: counter
-    help: The total number of IP datagrams that this entity supplied to the lower
-      layers for transmission - 1.3.6.1.2.1.4.31.1.1.31
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsOutOctets
-    oid: 1.3.6.1.2.1.4.31.1.1.32
-    type: counter
-    help: The total number of octets in IP datagrams delivered to the lower layers
-      for transmission - 1.3.6.1.2.1.4.31.1.1.32
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsHCOutOctets
-    oid: 1.3.6.1.2.1.4.31.1.1.33
-    type: counter
-    help: The total number of octets in IP datagrams delivered to the lower layers
-      for transmission - 1.3.6.1.2.1.4.31.1.1.33
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsInMcastPkts
-    oid: 1.3.6.1.2.1.4.31.1.1.34
-    type: counter
-    help: The number of IP multicast datagrams received - 1.3.6.1.2.1.4.31.1.1.34
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsHCInMcastPkts
-    oid: 1.3.6.1.2.1.4.31.1.1.35
-    type: counter
-    help: The number of IP multicast datagrams received - 1.3.6.1.2.1.4.31.1.1.35
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsInMcastOctets
-    oid: 1.3.6.1.2.1.4.31.1.1.36
-    type: counter
-    help: The total number of octets received in IP multicast datagrams - 1.3.6.1.2.1.4.31.1.1.36
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsHCInMcastOctets
-    oid: 1.3.6.1.2.1.4.31.1.1.37
-    type: counter
-    help: The total number of octets received in IP multicast datagrams - 1.3.6.1.2.1.4.31.1.1.37
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsOutMcastPkts
-    oid: 1.3.6.1.2.1.4.31.1.1.38
-    type: counter
-    help: The number of IP multicast datagrams transmitted - 1.3.6.1.2.1.4.31.1.1.38
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsHCOutMcastPkts
-    oid: 1.3.6.1.2.1.4.31.1.1.39
-    type: counter
-    help: The number of IP multicast datagrams transmitted - 1.3.6.1.2.1.4.31.1.1.39
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsOutMcastOctets
-    oid: 1.3.6.1.2.1.4.31.1.1.40
-    type: counter
-    help: The total number of octets transmitted in IP multicast datagrams - 1.3.6.1.2.1.4.31.1.1.40
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsHCOutMcastOctets
-    oid: 1.3.6.1.2.1.4.31.1.1.41
-    type: counter
-    help: The total number of octets transmitted in IP multicast datagrams - 1.3.6.1.2.1.4.31.1.1.41
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsInBcastPkts
-    oid: 1.3.6.1.2.1.4.31.1.1.42
-    type: counter
-    help: The number of IP broadcast datagrams received - 1.3.6.1.2.1.4.31.1.1.42
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsHCInBcastPkts
-    oid: 1.3.6.1.2.1.4.31.1.1.43
-    type: counter
-    help: The number of IP broadcast datagrams received - 1.3.6.1.2.1.4.31.1.1.43
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsOutBcastPkts
-    oid: 1.3.6.1.2.1.4.31.1.1.44
-    type: counter
-    help: The number of IP broadcast datagrams transmitted - 1.3.6.1.2.1.4.31.1.1.44
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsHCOutBcastPkts
-    oid: 1.3.6.1.2.1.4.31.1.1.45
-    type: counter
-    help: The number of IP broadcast datagrams transmitted - 1.3.6.1.2.1.4.31.1.1.45
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsDiscontinuityTime
-    oid: 1.3.6.1.2.1.4.31.1.1.46
-    type: gauge
-    help: The value of sysUpTime on the most recent occasion at which any one or more
-      of this entry's counters suffered a discontinuity - 1.3.6.1.2.1.4.31.1.1.46
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipSystemStatsRefreshRate
-    oid: 1.3.6.1.2.1.4.31.1.1.47
-    type: gauge
-    help: The minimum reasonable polling interval for this entry - 1.3.6.1.2.1.4.31.1.1.47
-    indexes:
-    - labelname: ipSystemStatsIPVersion
-      type: gauge
-  - name: ipIfStatsTableLastChange
-    oid: 1.3.6.1.2.1.4.31.2
-    type: gauge
-    help: The value of sysUpTime on the most recent occasion at which a row in the
-      ipIfStatsTable was added or deleted - 1.3.6.1.2.1.4.31.2
-  - name: ipIfStatsIPVersion
-    oid: 1.3.6.1.2.1.4.31.3.1.1
-    type: gauge
-    help: The IP version of this row. - 1.3.6.1.2.1.4.31.3.1.1
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsIfIndex
-    oid: 1.3.6.1.2.1.4.31.3.1.2
-    type: gauge
-    help: The index value that uniquely identifies the interface to which this entry
-      is applicable - 1.3.6.1.2.1.4.31.3.1.2
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsInReceives
-    oid: 1.3.6.1.2.1.4.31.3.1.3
-    type: counter
-    help: The total number of input IP datagrams received, including those received
-      in error - 1.3.6.1.2.1.4.31.3.1.3
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsHCInReceives
-    oid: 1.3.6.1.2.1.4.31.3.1.4
-    type: counter
-    help: The total number of input IP datagrams received, including those received
-      in error - 1.3.6.1.2.1.4.31.3.1.4
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsInOctets
-    oid: 1.3.6.1.2.1.4.31.3.1.5
-    type: counter
-    help: The total number of octets received in input IP datagrams, including those
-      received in error - 1.3.6.1.2.1.4.31.3.1.5
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsHCInOctets
-    oid: 1.3.6.1.2.1.4.31.3.1.6
-    type: counter
-    help: The total number of octets received in input IP datagrams, including those
-      received in error - 1.3.6.1.2.1.4.31.3.1.6
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsInHdrErrors
-    oid: 1.3.6.1.2.1.4.31.3.1.7
-    type: counter
-    help: The number of input IP datagrams discarded due to errors in their IP headers,
-      including version number mismatch, other format errors, hop count exceeded,
-      errors discovered in processing their IP options, etc - 1.3.6.1.2.1.4.31.3.1.7
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsInNoRoutes
-    oid: 1.3.6.1.2.1.4.31.3.1.8
-    type: counter
-    help: The number of input IP datagrams discarded because no route could be found
-      to transmit them to their destination - 1.3.6.1.2.1.4.31.3.1.8
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsInAddrErrors
-    oid: 1.3.6.1.2.1.4.31.3.1.9
-    type: counter
-    help: The number of input IP datagrams discarded because the IP address in their
-      IP header's destination field was not a valid address to be received at this
-      entity - 1.3.6.1.2.1.4.31.3.1.9
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsInUnknownProtos
-    oid: 1.3.6.1.2.1.4.31.3.1.10
-    type: counter
-    help: The number of locally-addressed IP datagrams received successfully but discarded
-      because of an unknown or unsupported protocol - 1.3.6.1.2.1.4.31.3.1.10
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsInTruncatedPkts
-    oid: 1.3.6.1.2.1.4.31.3.1.11
-    type: counter
-    help: The number of input IP datagrams discarded because the datagram frame didn't
-      carry enough data - 1.3.6.1.2.1.4.31.3.1.11
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsInForwDatagrams
-    oid: 1.3.6.1.2.1.4.31.3.1.12
-    type: counter
-    help: The number of input datagrams for which this entity was not their final
-      IP destination and for which this entity attempted to find a route to forward
-      them to that final destination - 1.3.6.1.2.1.4.31.3.1.12
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsHCInForwDatagrams
-    oid: 1.3.6.1.2.1.4.31.3.1.13
-    type: counter
-    help: The number of input datagrams for which this entity was not their final
-      IP destination and for which this entity attempted to find a route to forward
-      them to that final destination - 1.3.6.1.2.1.4.31.3.1.13
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsReasmReqds
-    oid: 1.3.6.1.2.1.4.31.3.1.14
-    type: counter
-    help: The number of IP fragments received that needed to be reassembled at this
-      interface - 1.3.6.1.2.1.4.31.3.1.14
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsReasmOKs
-    oid: 1.3.6.1.2.1.4.31.3.1.15
-    type: counter
-    help: The number of IP datagrams successfully reassembled - 1.3.6.1.2.1.4.31.3.1.15
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsReasmFails
-    oid: 1.3.6.1.2.1.4.31.3.1.16
-    type: counter
-    help: 'The number of failures detected by the IP re-assembly algorithm (for whatever
-      reason: timed out, errors, etc.) - 1.3.6.1.2.1.4.31.3.1.16'
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsInDiscards
-    oid: 1.3.6.1.2.1.4.31.3.1.17
-    type: counter
-    help: The number of input IP datagrams for which no problems were encountered
-      to prevent their continued processing, but were discarded (e.g., for lack of
-      buffer space) - 1.3.6.1.2.1.4.31.3.1.17
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsInDelivers
-    oid: 1.3.6.1.2.1.4.31.3.1.18
-    type: counter
-    help: The total number of datagrams successfully delivered to IP user-protocols
-      (including ICMP) - 1.3.6.1.2.1.4.31.3.1.18
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsHCInDelivers
-    oid: 1.3.6.1.2.1.4.31.3.1.19
-    type: counter
-    help: The total number of datagrams successfully delivered to IP user-protocols
-      (including ICMP) - 1.3.6.1.2.1.4.31.3.1.19
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsOutRequests
-    oid: 1.3.6.1.2.1.4.31.3.1.20
-    type: counter
-    help: The total number of IP datagrams that local IP user- protocols (including
-      ICMP) supplied to IP in requests for transmission - 1.3.6.1.2.1.4.31.3.1.20
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsHCOutRequests
-    oid: 1.3.6.1.2.1.4.31.3.1.21
-    type: counter
-    help: The total number of IP datagrams that local IP user- protocols (including
-      ICMP) supplied to IP in requests for transmission - 1.3.6.1.2.1.4.31.3.1.21
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsOutForwDatagrams
-    oid: 1.3.6.1.2.1.4.31.3.1.23
-    type: counter
-    help: The number of datagrams for which this entity was not their final IP destination
-      and for which it was successful in finding a path to their final destination
-      - 1.3.6.1.2.1.4.31.3.1.23
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsHCOutForwDatagrams
-    oid: 1.3.6.1.2.1.4.31.3.1.24
-    type: counter
-    help: The number of datagrams for which this entity was not their final IP destination
-      and for which it was successful in finding a path to their final destination
-      - 1.3.6.1.2.1.4.31.3.1.24
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsOutDiscards
-    oid: 1.3.6.1.2.1.4.31.3.1.25
-    type: counter
-    help: The number of output IP datagrams for which no problem was encountered to
-      prevent their transmission to their destination, but were discarded (e.g., for
-      lack of buffer space) - 1.3.6.1.2.1.4.31.3.1.25
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsOutFragReqds
-    oid: 1.3.6.1.2.1.4.31.3.1.26
-    type: counter
-    help: The number of IP datagrams that would require fragmentation in order to
-      be transmitted - 1.3.6.1.2.1.4.31.3.1.26
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsOutFragOKs
-    oid: 1.3.6.1.2.1.4.31.3.1.27
-    type: counter
-    help: The number of IP datagrams that have been successfully fragmented - 1.3.6.1.2.1.4.31.3.1.27
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsOutFragFails
-    oid: 1.3.6.1.2.1.4.31.3.1.28
-    type: counter
-    help: The number of IP datagrams that have been discarded because they needed
-      to be fragmented but could not be - 1.3.6.1.2.1.4.31.3.1.28
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsOutFragCreates
-    oid: 1.3.6.1.2.1.4.31.3.1.29
-    type: counter
-    help: The number of output datagram fragments that have been generated as a result
-      of IP fragmentation - 1.3.6.1.2.1.4.31.3.1.29
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsOutTransmits
-    oid: 1.3.6.1.2.1.4.31.3.1.30
-    type: counter
-    help: The total number of IP datagrams that this entity supplied to the lower
-      layers for transmission - 1.3.6.1.2.1.4.31.3.1.30
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsHCOutTransmits
-    oid: 1.3.6.1.2.1.4.31.3.1.31
-    type: counter
-    help: The total number of IP datagrams that this entity supplied to the lower
-      layers for transmission - 1.3.6.1.2.1.4.31.3.1.31
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsOutOctets
-    oid: 1.3.6.1.2.1.4.31.3.1.32
-    type: counter
-    help: The total number of octets in IP datagrams delivered to the lower layers
-      for transmission - 1.3.6.1.2.1.4.31.3.1.32
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsHCOutOctets
-    oid: 1.3.6.1.2.1.4.31.3.1.33
-    type: counter
-    help: The total number of octets in IP datagrams delivered to the lower layers
-      for transmission - 1.3.6.1.2.1.4.31.3.1.33
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsInMcastPkts
-    oid: 1.3.6.1.2.1.4.31.3.1.34
-    type: counter
-    help: The number of IP multicast datagrams received - 1.3.6.1.2.1.4.31.3.1.34
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsHCInMcastPkts
-    oid: 1.3.6.1.2.1.4.31.3.1.35
-    type: counter
-    help: The number of IP multicast datagrams received - 1.3.6.1.2.1.4.31.3.1.35
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsInMcastOctets
-    oid: 1.3.6.1.2.1.4.31.3.1.36
-    type: counter
-    help: The total number of octets received in IP multicast datagrams - 1.3.6.1.2.1.4.31.3.1.36
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsHCInMcastOctets
-    oid: 1.3.6.1.2.1.4.31.3.1.37
-    type: counter
-    help: The total number of octets received in IP multicast datagrams - 1.3.6.1.2.1.4.31.3.1.37
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsOutMcastPkts
-    oid: 1.3.6.1.2.1.4.31.3.1.38
-    type: counter
-    help: The number of IP multicast datagrams transmitted - 1.3.6.1.2.1.4.31.3.1.38
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsHCOutMcastPkts
-    oid: 1.3.6.1.2.1.4.31.3.1.39
-    type: counter
-    help: The number of IP multicast datagrams transmitted - 1.3.6.1.2.1.4.31.3.1.39
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsOutMcastOctets
-    oid: 1.3.6.1.2.1.4.31.3.1.40
-    type: counter
-    help: The total number of octets transmitted in IP multicast datagrams - 1.3.6.1.2.1.4.31.3.1.40
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsHCOutMcastOctets
-    oid: 1.3.6.1.2.1.4.31.3.1.41
-    type: counter
-    help: The total number of octets transmitted in IP multicast datagrams - 1.3.6.1.2.1.4.31.3.1.41
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsInBcastPkts
-    oid: 1.3.6.1.2.1.4.31.3.1.42
-    type: counter
-    help: The number of IP broadcast datagrams received - 1.3.6.1.2.1.4.31.3.1.42
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsHCInBcastPkts
-    oid: 1.3.6.1.2.1.4.31.3.1.43
-    type: counter
-    help: The number of IP broadcast datagrams received - 1.3.6.1.2.1.4.31.3.1.43
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsOutBcastPkts
-    oid: 1.3.6.1.2.1.4.31.3.1.44
-    type: counter
-    help: The number of IP broadcast datagrams transmitted - 1.3.6.1.2.1.4.31.3.1.44
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsHCOutBcastPkts
-    oid: 1.3.6.1.2.1.4.31.3.1.45
-    type: counter
-    help: The number of IP broadcast datagrams transmitted - 1.3.6.1.2.1.4.31.3.1.45
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsDiscontinuityTime
-    oid: 1.3.6.1.2.1.4.31.3.1.46
-    type: gauge
-    help: The value of sysUpTime on the most recent occasion at which any one or more
-      of this entry's counters suffered a discontinuity - 1.3.6.1.2.1.4.31.3.1.46
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipIfStatsRefreshRate
-    oid: 1.3.6.1.2.1.4.31.3.1.47
-    type: gauge
-    help: The minimum reasonable polling interval for this entry - 1.3.6.1.2.1.4.31.3.1.47
-    indexes:
-    - labelname: ipIfStatsIPVersion
-      type: gauge
-    - labelname: ipIfStatsIfIndex
-      type: gauge
-  - name: ipAddressPrefixIfIndex
-    oid: 1.3.6.1.2.1.4.32.1.1
-    type: gauge
-    help: The index value that uniquely identifies the interface on which this prefix
-      is configured - 1.3.6.1.2.1.4.32.1.1
-    indexes:
-    - labelname: ipAddressPrefixIfIndex
-      type: gauge
-    - labelname: ipAddressPrefixType
-      type: gauge
-    - labelname: ipAddressPrefixPrefix
-      type: OctetString
-    - labelname: ipAddressPrefixLength
-      type: gauge
-  - name: ipAddressPrefixType
-    oid: 1.3.6.1.2.1.4.32.1.2
-    type: gauge
-    help: The address type of ipAddressPrefix. - 1.3.6.1.2.1.4.32.1.2
-    indexes:
-    - labelname: ipAddressPrefixIfIndex
-      type: gauge
-    - labelname: ipAddressPrefixType
-      type: gauge
-    - labelname: ipAddressPrefixPrefix
-      type: OctetString
-    - labelname: ipAddressPrefixLength
-      type: gauge
-  - name: ipAddressPrefixPrefix
-    oid: 1.3.6.1.2.1.4.32.1.3
-    type: OctetString
-    help: The address prefix - 1.3.6.1.2.1.4.32.1.3
-    indexes:
-    - labelname: ipAddressPrefixIfIndex
-      type: gauge
-    - labelname: ipAddressPrefixType
-      type: gauge
-    - labelname: ipAddressPrefixPrefix
-      type: OctetString
-    - labelname: ipAddressPrefixLength
-      type: gauge
-  - name: ipAddressPrefixLength
-    oid: 1.3.6.1.2.1.4.32.1.4
-    type: gauge
-    help: The prefix length associated with this prefix - 1.3.6.1.2.1.4.32.1.4
-    indexes:
-    - labelname: ipAddressPrefixIfIndex
-      type: gauge
-    - labelname: ipAddressPrefixType
-      type: gauge
-    - labelname: ipAddressPrefixPrefix
-      type: OctetString
-    - labelname: ipAddressPrefixLength
-      type: gauge
-  - name: ipAddressPrefixOrigin
-    oid: 1.3.6.1.2.1.4.32.1.5
-    type: gauge
-    help: The origin of this prefix. - 1.3.6.1.2.1.4.32.1.5
-    indexes:
-    - labelname: ipAddressPrefixIfIndex
-      type: gauge
-    - labelname: ipAddressPrefixType
-      type: gauge
-    - labelname: ipAddressPrefixPrefix
-      type: OctetString
-    - labelname: ipAddressPrefixLength
-      type: gauge
-  - name: ipAddressPrefixOnLinkFlag
-    oid: 1.3.6.1.2.1.4.32.1.6
-    type: gauge
-    help: This object has the value 'true(1)', if this prefix can be used for on-link
-      determination; otherwise, the value is 'false(2)' - 1.3.6.1.2.1.4.32.1.6
-    indexes:
-    - labelname: ipAddressPrefixIfIndex
-      type: gauge
-    - labelname: ipAddressPrefixType
-      type: gauge
-    - labelname: ipAddressPrefixPrefix
-      type: OctetString
-    - labelname: ipAddressPrefixLength
-      type: gauge
-  - name: ipAddressPrefixAutonomousFlag
-    oid: 1.3.6.1.2.1.4.32.1.7
-    type: gauge
-    help: Autonomous address configuration flag - 1.3.6.1.2.1.4.32.1.7
-    indexes:
-    - labelname: ipAddressPrefixIfIndex
-      type: gauge
-    - labelname: ipAddressPrefixType
-      type: gauge
-    - labelname: ipAddressPrefixPrefix
-      type: OctetString
-    - labelname: ipAddressPrefixLength
-      type: gauge
-  - name: ipAddressPrefixAdvPreferredLifetime
-    oid: 1.3.6.1.2.1.4.32.1.8
-    type: gauge
-    help: The remaining length of time, in seconds, that this prefix will continue
-      to be preferred, i.e., time until deprecation - 1.3.6.1.2.1.4.32.1.8
-    indexes:
-    - labelname: ipAddressPrefixIfIndex
-      type: gauge
-    - labelname: ipAddressPrefixType
-      type: gauge
-    - labelname: ipAddressPrefixPrefix
-      type: OctetString
-    - labelname: ipAddressPrefixLength
-      type: gauge
-  - name: ipAddressPrefixAdvValidLifetime
-    oid: 1.3.6.1.2.1.4.32.1.9
-    type: gauge
-    help: The remaining length of time, in seconds, that this prefix will continue
-      to be valid, i.e., time until invalidation - 1.3.6.1.2.1.4.32.1.9
-    indexes:
-    - labelname: ipAddressPrefixIfIndex
-      type: gauge
-    - labelname: ipAddressPrefixType
-      type: gauge
-    - labelname: ipAddressPrefixPrefix
-      type: OctetString
-    - labelname: ipAddressPrefixLength
-      type: gauge
-  - name: ipAddressSpinLock
-    oid: 1.3.6.1.2.1.4.33
-    type: gauge
-    help: An advisory lock used to allow cooperating SNMP managers to coordinate their
-      use of the set operation in creating or modifying rows within this table - 1.3.6.1.2.1.4.33
-  - name: ipAddressAddrType
-    oid: 1.3.6.1.2.1.4.34.1.1
-    type: gauge
-    help: The address type of ipAddressAddr. - 1.3.6.1.2.1.4.34.1.1
-    indexes:
-    - labelname: ipAddressAddrType
-      type: gauge
-    - labelname: ipAddressAddr
-      type: OctetString
-  - name: ipAddressAddr
-    oid: 1.3.6.1.2.1.4.34.1.2
-    type: OctetString
-    help: The IP address to which this entry's addressing information pertains - 1.3.6.1.2.1.4.34.1.2
-    indexes:
-    - labelname: ipAddressAddrType
-      type: gauge
-    - labelname: ipAddressAddr
-      type: OctetString
-  - name: ipAddressIfIndex
-    oid: 1.3.6.1.2.1.4.34.1.3
-    type: gauge
-    help: The index value that uniquely identifies the interface to which this entry
-      is applicable - 1.3.6.1.2.1.4.34.1.3
-    indexes:
-    - labelname: ipAddressAddrType
-      type: gauge
-    - labelname: ipAddressAddr
-      type: OctetString
-  - name: ipAddressType
-    oid: 1.3.6.1.2.1.4.34.1.4
-    type: gauge
-    help: The type of address - 1.3.6.1.2.1.4.34.1.4
-    indexes:
-    - labelname: ipAddressAddrType
-      type: gauge
-    - labelname: ipAddressAddr
-      type: OctetString
-  - name: ipAddressOrigin
-    oid: 1.3.6.1.2.1.4.34.1.6
-    type: gauge
-    help: The origin of the address. - 1.3.6.1.2.1.4.34.1.6
-    indexes:
-    - labelname: ipAddressAddrType
-      type: gauge
-    - labelname: ipAddressAddr
-      type: OctetString
-  - name: ipAddressStatus
-    oid: 1.3.6.1.2.1.4.34.1.7
-    type: gauge
-    help: The status of the address, describing if the address can be used for communication
-      - 1.3.6.1.2.1.4.34.1.7
-    indexes:
-    - labelname: ipAddressAddrType
-      type: gauge
-    - labelname: ipAddressAddr
-      type: OctetString
-  - name: ipAddressCreated
-    oid: 1.3.6.1.2.1.4.34.1.8
-    type: gauge
-    help: The value of sysUpTime at the time this entry was created - 1.3.6.1.2.1.4.34.1.8
-    indexes:
-    - labelname: ipAddressAddrType
-      type: gauge
-    - labelname: ipAddressAddr
-      type: OctetString
-  - name: ipAddressLastChanged
-    oid: 1.3.6.1.2.1.4.34.1.9
-    type: gauge
-    help: The value of sysUpTime at the time this entry was last updated - 1.3.6.1.2.1.4.34.1.9
-    indexes:
-    - labelname: ipAddressAddrType
-      type: gauge
-    - labelname: ipAddressAddr
-      type: OctetString
-  - name: ipAddressRowStatus
-    oid: 1.3.6.1.2.1.4.34.1.10
-    type: gauge
-    help: The status of this conceptual row - 1.3.6.1.2.1.4.34.1.10
-    indexes:
-    - labelname: ipAddressAddrType
-      type: gauge
-    - labelname: ipAddressAddr
-      type: OctetString
-  - name: ipAddressStorageType
-    oid: 1.3.6.1.2.1.4.34.1.11
-    type: gauge
-    help: The storage type for this conceptual row - 1.3.6.1.2.1.4.34.1.11
-    indexes:
-    - labelname: ipAddressAddrType
-      type: gauge
-    - labelname: ipAddressAddr
-      type: OctetString
-  - name: ipNetToPhysicalIfIndex
-    oid: 1.3.6.1.2.1.4.35.1.1
-    type: gauge
-    help: The index value that uniquely identifies the interface to which this entry
-      is applicable - 1.3.6.1.2.1.4.35.1.1
-    indexes:
-    - labelname: ipNetToPhysicalIfIndex
-      type: gauge
-    - labelname: ipNetToPhysicalNetAddressType
-      type: gauge
-    - labelname: ipNetToPhysicalNetAddress
-      type: OctetString
-  - name: ipNetToPhysicalNetAddressType
-    oid: 1.3.6.1.2.1.4.35.1.2
-    type: gauge
-    help: The type of ipNetToPhysicalNetAddress. - 1.3.6.1.2.1.4.35.1.2
-    indexes:
-    - labelname: ipNetToPhysicalIfIndex
-      type: gauge
-    - labelname: ipNetToPhysicalNetAddressType
-      type: gauge
-    - labelname: ipNetToPhysicalNetAddress
-      type: OctetString
-  - name: ipNetToPhysicalNetAddress
-    oid: 1.3.6.1.2.1.4.35.1.3
-    type: OctetString
-    help: The IP Address corresponding to the media-dependent `physical' address -
-      1.3.6.1.2.1.4.35.1.3
-    indexes:
-    - labelname: ipNetToPhysicalIfIndex
-      type: gauge
-    - labelname: ipNetToPhysicalNetAddressType
-      type: gauge
-    - labelname: ipNetToPhysicalNetAddress
-      type: OctetString
-  - name: ipNetToPhysicalPhysAddress
-    oid: 1.3.6.1.2.1.4.35.1.4
-    type: PhysAddress48
-    help: The media-dependent `physical' address - 1.3.6.1.2.1.4.35.1.4
-    indexes:
-    - labelname: ipNetToPhysicalIfIndex
-      type: gauge
-    - labelname: ipNetToPhysicalNetAddressType
-      type: gauge
-    - labelname: ipNetToPhysicalNetAddress
-      type: OctetString
-  - name: ipNetToPhysicalLastUpdated
-    oid: 1.3.6.1.2.1.4.35.1.5
-    type: gauge
-    help: The value of sysUpTime at the time this entry was last updated - 1.3.6.1.2.1.4.35.1.5
-    indexes:
-    - labelname: ipNetToPhysicalIfIndex
-      type: gauge
-    - labelname: ipNetToPhysicalNetAddressType
-      type: gauge
-    - labelname: ipNetToPhysicalNetAddress
-      type: OctetString
-  - name: ipNetToPhysicalType
-    oid: 1.3.6.1.2.1.4.35.1.6
-    type: gauge
-    help: The type of mapping - 1.3.6.1.2.1.4.35.1.6
-    indexes:
-    - labelname: ipNetToPhysicalIfIndex
-      type: gauge
-    - labelname: ipNetToPhysicalNetAddressType
-      type: gauge
-    - labelname: ipNetToPhysicalNetAddress
-      type: OctetString
-  - name: ipNetToPhysicalState
-    oid: 1.3.6.1.2.1.4.35.1.7
-    type: gauge
-    help: The Neighbor Unreachability Detection state for the interface when the address
-      mapping in this entry is used - 1.3.6.1.2.1.4.35.1.7
-    indexes:
-    - labelname: ipNetToPhysicalIfIndex
-      type: gauge
-    - labelname: ipNetToPhysicalNetAddressType
-      type: gauge
-    - labelname: ipNetToPhysicalNetAddress
-      type: OctetString
-  - name: ipNetToPhysicalRowStatus
-    oid: 1.3.6.1.2.1.4.35.1.8
-    type: gauge
-    help: The status of this conceptual row - 1.3.6.1.2.1.4.35.1.8
-    indexes:
-    - labelname: ipNetToPhysicalIfIndex
-      type: gauge
-    - labelname: ipNetToPhysicalNetAddressType
-      type: gauge
-    - labelname: ipNetToPhysicalNetAddress
-      type: OctetString
-  - name: ipv6ScopeZoneIndexIfIndex
-    oid: 1.3.6.1.2.1.4.36.1.1
-    type: gauge
-    help: The index value that uniquely identifies the interface to which these scopes
-      belong - 1.3.6.1.2.1.4.36.1.1
-    indexes:
-    - labelname: ipv6ScopeZoneIndexIfIndex
-      type: gauge
-  - name: ipv6ScopeZoneIndexLinkLocal
-    oid: 1.3.6.1.2.1.4.36.1.2
-    type: gauge
-    help: The zone index for the link-local scope on this interface. - 1.3.6.1.2.1.4.36.1.2
-    indexes:
-    - labelname: ipv6ScopeZoneIndexIfIndex
-      type: gauge
-  - name: ipv6ScopeZoneIndex3
-    oid: 1.3.6.1.2.1.4.36.1.3
-    type: gauge
-    help: The zone index for scope 3 on this interface. - 1.3.6.1.2.1.4.36.1.3
-    indexes:
-    - labelname: ipv6ScopeZoneIndexIfIndex
-      type: gauge
-  - name: ipv6ScopeZoneIndexAdminLocal
-    oid: 1.3.6.1.2.1.4.36.1.4
-    type: gauge
-    help: The zone index for the admin-local scope on this interface. - 1.3.6.1.2.1.4.36.1.4
-    indexes:
-    - labelname: ipv6ScopeZoneIndexIfIndex
-      type: gauge
-  - name: ipv6ScopeZoneIndexSiteLocal
-    oid: 1.3.6.1.2.1.4.36.1.5
-    type: gauge
-    help: The zone index for the site-local scope on this interface. - 1.3.6.1.2.1.4.36.1.5
-    indexes:
-    - labelname: ipv6ScopeZoneIndexIfIndex
-      type: gauge
-  - name: ipv6ScopeZoneIndex6
-    oid: 1.3.6.1.2.1.4.36.1.6
-    type: gauge
-    help: The zone index for scope 6 on this interface. - 1.3.6.1.2.1.4.36.1.6
-    indexes:
-    - labelname: ipv6ScopeZoneIndexIfIndex
-      type: gauge
-  - name: ipv6ScopeZoneIndex7
-    oid: 1.3.6.1.2.1.4.36.1.7
-    type: gauge
-    help: The zone index for scope 7 on this interface. - 1.3.6.1.2.1.4.36.1.7
-    indexes:
-    - labelname: ipv6ScopeZoneIndexIfIndex
-      type: gauge
-  - name: ipv6ScopeZoneIndexOrganizationLocal
-    oid: 1.3.6.1.2.1.4.36.1.8
-    type: gauge
-    help: The zone index for the organization-local scope on this interface. - 1.3.6.1.2.1.4.36.1.8
-    indexes:
-    - labelname: ipv6ScopeZoneIndexIfIndex
-      type: gauge
-  - name: ipv6ScopeZoneIndex9
-    oid: 1.3.6.1.2.1.4.36.1.9
-    type: gauge
-    help: The zone index for scope 9 on this interface. - 1.3.6.1.2.1.4.36.1.9
-    indexes:
-    - labelname: ipv6ScopeZoneIndexIfIndex
-      type: gauge
-  - name: ipv6ScopeZoneIndexA
-    oid: 1.3.6.1.2.1.4.36.1.10
-    type: gauge
-    help: The zone index for scope A on this interface. - 1.3.6.1.2.1.4.36.1.10
-    indexes:
-    - labelname: ipv6ScopeZoneIndexIfIndex
-      type: gauge
-  - name: ipv6ScopeZoneIndexB
-    oid: 1.3.6.1.2.1.4.36.1.11
-    type: gauge
-    help: The zone index for scope B on this interface. - 1.3.6.1.2.1.4.36.1.11
-    indexes:
-    - labelname: ipv6ScopeZoneIndexIfIndex
-      type: gauge
-  - name: ipv6ScopeZoneIndexC
-    oid: 1.3.6.1.2.1.4.36.1.12
-    type: gauge
-    help: The zone index for scope C on this interface. - 1.3.6.1.2.1.4.36.1.12
-    indexes:
-    - labelname: ipv6ScopeZoneIndexIfIndex
-      type: gauge
-  - name: ipv6ScopeZoneIndexD
-    oid: 1.3.6.1.2.1.4.36.1.13
-    type: gauge
-    help: The zone index for scope D on this interface. - 1.3.6.1.2.1.4.36.1.13
-    indexes:
-    - labelname: ipv6ScopeZoneIndexIfIndex
-      type: gauge
-  - name: ipDefaultRouterAddressType
-    oid: 1.3.6.1.2.1.4.37.1.1
-    type: gauge
-    help: The address type for this row. - 1.3.6.1.2.1.4.37.1.1
-    indexes:
-    - labelname: ipDefaultRouterAddressType
-      type: gauge
-    - labelname: ipDefaultRouterAddress
-      type: OctetString
-    - labelname: ipDefaultRouterIfIndex
-      type: gauge
-  - name: ipDefaultRouterAddress
-    oid: 1.3.6.1.2.1.4.37.1.2
-    type: OctetString
-    help: The IP address of the default router represented by this row - 1.3.6.1.2.1.4.37.1.2
-    indexes:
-    - labelname: ipDefaultRouterAddressType
-      type: gauge
-    - labelname: ipDefaultRouterAddress
-      type: OctetString
-    - labelname: ipDefaultRouterIfIndex
-      type: gauge
-  - name: ipDefaultRouterIfIndex
-    oid: 1.3.6.1.2.1.4.37.1.3
-    type: gauge
-    help: The index value that uniquely identifies the interface by which the router
-      can be reached - 1.3.6.1.2.1.4.37.1.3
-    indexes:
-    - labelname: ipDefaultRouterAddressType
-      type: gauge
-    - labelname: ipDefaultRouterAddress
-      type: OctetString
-    - labelname: ipDefaultRouterIfIndex
-      type: gauge
-  - name: ipDefaultRouterLifetime
-    oid: 1.3.6.1.2.1.4.37.1.4
-    type: gauge
-    help: The remaining length of time, in seconds, that this router will continue
-      to be useful as a default router - 1.3.6.1.2.1.4.37.1.4
-    indexes:
-    - labelname: ipDefaultRouterAddressType
-      type: gauge
-    - labelname: ipDefaultRouterAddress
-      type: OctetString
-    - labelname: ipDefaultRouterIfIndex
-      type: gauge
-  - name: ipDefaultRouterPreference
-    oid: 1.3.6.1.2.1.4.37.1.5
-    type: gauge
-    help: An indication of preference given to this router as a default router as
-      described in he Default Router Preferences document - 1.3.6.1.2.1.4.37.1.5
-    indexes:
-    - labelname: ipDefaultRouterAddressType
-      type: gauge
-    - labelname: ipDefaultRouterAddress
-      type: OctetString
-    - labelname: ipDefaultRouterIfIndex
-      type: gauge
-  - name: ipv6RouterAdvertSpinLock
-    oid: 1.3.6.1.2.1.4.38
-    type: gauge
-    help: An advisory lock used to allow cooperating SNMP managers to coordinate their
-      use of the set operation in creating or modifying rows within this table - 1.3.6.1.2.1.4.38
-  - name: ipv6RouterAdvertIfIndex
-    oid: 1.3.6.1.2.1.4.39.1.1
-    type: gauge
-    help: The index value that uniquely identifies the interface on which router advertisements
-      constructed with this information will be transmitted - 1.3.6.1.2.1.4.39.1.1
-    indexes:
-    - labelname: ipv6RouterAdvertIfIndex
-      type: gauge
-  - name: ipv6RouterAdvertSendAdverts
-    oid: 1.3.6.1.2.1.4.39.1.2
-    type: gauge
-    help: A flag indicating whether the router sends periodic router advertisements
-      and responds to router solicitations on this interface. - 1.3.6.1.2.1.4.39.1.2
-    indexes:
-    - labelname: ipv6RouterAdvertIfIndex
-      type: gauge
-  - name: ipv6RouterAdvertMaxInterval
-    oid: 1.3.6.1.2.1.4.39.1.3
-    type: gauge
-    help: The maximum time allowed between sending unsolicited router advertisements
-      from this interface. - 1.3.6.1.2.1.4.39.1.3
-    indexes:
-    - labelname: ipv6RouterAdvertIfIndex
-      type: gauge
-  - name: ipv6RouterAdvertMinInterval
-    oid: 1.3.6.1.2.1.4.39.1.4
-    type: gauge
-    help: The minimum time allowed between sending unsolicited router advertisements
-      from this interface - 1.3.6.1.2.1.4.39.1.4
-    indexes:
-    - labelname: ipv6RouterAdvertIfIndex
-      type: gauge
-  - name: ipv6RouterAdvertManagedFlag
-    oid: 1.3.6.1.2.1.4.39.1.5
-    type: gauge
-    help: The true/false value to be placed into the 'managed address configuration'
-      flag field in router advertisements sent from this interface. - 1.3.6.1.2.1.4.39.1.5
-    indexes:
-    - labelname: ipv6RouterAdvertIfIndex
-      type: gauge
-  - name: ipv6RouterAdvertOtherConfigFlag
-    oid: 1.3.6.1.2.1.4.39.1.6
-    type: gauge
-    help: The true/false value to be placed into the 'other stateful configuration'
-      flag field in router advertisements sent from this interface. - 1.3.6.1.2.1.4.39.1.6
-    indexes:
-    - labelname: ipv6RouterAdvertIfIndex
-      type: gauge
-  - name: ipv6RouterAdvertLinkMTU
-    oid: 1.3.6.1.2.1.4.39.1.7
-    type: gauge
-    help: The value to be placed in MTU options sent by the router on this interface
-      - 1.3.6.1.2.1.4.39.1.7
-    indexes:
-    - labelname: ipv6RouterAdvertIfIndex
-      type: gauge
-  - name: ipv6RouterAdvertReachableTime
-    oid: 1.3.6.1.2.1.4.39.1.8
-    type: gauge
-    help: The value to be placed in the reachable time field in router advertisement
-      messages sent from this interface - 1.3.6.1.2.1.4.39.1.8
-    indexes:
-    - labelname: ipv6RouterAdvertIfIndex
-      type: gauge
-  - name: ipv6RouterAdvertRetransmitTime
-    oid: 1.3.6.1.2.1.4.39.1.9
-    type: gauge
-    help: The value to be placed in the retransmit timer field in router advertisements
-      sent from this interface - 1.3.6.1.2.1.4.39.1.9
-    indexes:
-    - labelname: ipv6RouterAdvertIfIndex
-      type: gauge
-  - name: ipv6RouterAdvertCurHopLimit
-    oid: 1.3.6.1.2.1.4.39.1.10
-    type: gauge
-    help: The default value to be placed in the current hop limit field in router
-      advertisements sent from this interface - 1.3.6.1.2.1.4.39.1.10
-    indexes:
-    - labelname: ipv6RouterAdvertIfIndex
-      type: gauge
-  - name: ipv6RouterAdvertDefaultLifetime
-    oid: 1.3.6.1.2.1.4.39.1.11
-    type: gauge
-    help: The value to be placed in the router lifetime field of router advertisements
-      sent from this interface - 1.3.6.1.2.1.4.39.1.11
-    indexes:
-    - labelname: ipv6RouterAdvertIfIndex
-      type: gauge
-  - name: ipv6RouterAdvertRowStatus
-    oid: 1.3.6.1.2.1.4.39.1.12
-    type: gauge
-    help: The status of this conceptual row - 1.3.6.1.2.1.4.39.1.12
-    indexes:
-    - labelname: ipv6RouterAdvertIfIndex
-      type: gauge
   - name: ipForwarding
     oid: 1.3.6.1.2.1.4.1
     type: gauge
@@ -5822,12 +3925,12 @@ ubiquiti_edgemax:
       of fragmentation at this entity. - 1.3.6.1.2.1.4.19
   - name: ipAdEntAddr
     oid: 1.3.6.1.2.1.4.20.1.1
-    type: IpAddr
+    type: InetAddressIPv4
     help: The IP address to which this entry's addressing information pertains. -
       1.3.6.1.2.1.4.20.1.1
     indexes:
     - labelname: ipAdEntAddr
-      type: IpAddr
+      type: InetAddressIPv4
   - name: ipAdEntIfIndex
     oid: 1.3.6.1.2.1.4.20.1.2
     type: gauge
@@ -5835,14 +3938,14 @@ ubiquiti_edgemax:
       is applicable - 1.3.6.1.2.1.4.20.1.2
     indexes:
     - labelname: ipAdEntAddr
-      type: IpAddr
+      type: InetAddressIPv4
   - name: ipAdEntNetMask
     oid: 1.3.6.1.2.1.4.20.1.3
-    type: IpAddr
+    type: InetAddressIPv4
     help: The subnet mask associated with the IP address of this entry - 1.3.6.1.2.1.4.20.1.3
     indexes:
     - labelname: ipAdEntAddr
-      type: IpAddr
+      type: InetAddressIPv4
   - name: ipAdEntBcastAddr
     oid: 1.3.6.1.2.1.4.20.1.4
     type: gauge
@@ -5851,7 +3954,7 @@ ubiquiti_edgemax:
       of this entry - 1.3.6.1.2.1.4.20.1.4
     indexes:
     - labelname: ipAdEntAddr
-      type: IpAddr
+      type: InetAddressIPv4
   - name: ipAdEntReasmMaxSize
     oid: 1.3.6.1.2.1.4.20.1.5
     type: gauge
@@ -5859,14 +3962,14 @@ ubiquiti_edgemax:
       incoming IP fragmented datagrams received on this interface. - 1.3.6.1.2.1.4.20.1.5
     indexes:
     - labelname: ipAdEntAddr
-      type: IpAddr
+      type: InetAddressIPv4
   - name: ipRouteDest
     oid: 1.3.6.1.2.1.4.21.1.1
-    type: IpAddr
+    type: InetAddressIPv4
     help: The destination IP address of this route - 1.3.6.1.2.1.4.21.1.1
     indexes:
     - labelname: ipRouteDest
-      type: IpAddr
+      type: InetAddressIPv4
   - name: ipRouteIfIndex
     oid: 1.3.6.1.2.1.4.21.1.2
     type: gauge
@@ -5874,56 +3977,56 @@ ubiquiti_edgemax:
       the next hop of this route should be reached - 1.3.6.1.2.1.4.21.1.2
     indexes:
     - labelname: ipRouteDest
-      type: IpAddr
+      type: InetAddressIPv4
   - name: ipRouteMetric1
     oid: 1.3.6.1.2.1.4.21.1.3
     type: gauge
     help: The primary routing metric for this route - 1.3.6.1.2.1.4.21.1.3
     indexes:
     - labelname: ipRouteDest
-      type: IpAddr
+      type: InetAddressIPv4
   - name: ipRouteMetric2
     oid: 1.3.6.1.2.1.4.21.1.4
     type: gauge
     help: An alternate routing metric for this route - 1.3.6.1.2.1.4.21.1.4
     indexes:
     - labelname: ipRouteDest
-      type: IpAddr
+      type: InetAddressIPv4
   - name: ipRouteMetric3
     oid: 1.3.6.1.2.1.4.21.1.5
     type: gauge
     help: An alternate routing metric for this route - 1.3.6.1.2.1.4.21.1.5
     indexes:
     - labelname: ipRouteDest
-      type: IpAddr
+      type: InetAddressIPv4
   - name: ipRouteMetric4
     oid: 1.3.6.1.2.1.4.21.1.6
     type: gauge
     help: An alternate routing metric for this route - 1.3.6.1.2.1.4.21.1.6
     indexes:
     - labelname: ipRouteDest
-      type: IpAddr
+      type: InetAddressIPv4
   - name: ipRouteNextHop
     oid: 1.3.6.1.2.1.4.21.1.7
-    type: IpAddr
+    type: InetAddressIPv4
     help: The IP address of the next hop of this route - 1.3.6.1.2.1.4.21.1.7
     indexes:
     - labelname: ipRouteDest
-      type: IpAddr
+      type: InetAddressIPv4
   - name: ipRouteType
     oid: 1.3.6.1.2.1.4.21.1.8
     type: gauge
     help: The type of route - 1.3.6.1.2.1.4.21.1.8
     indexes:
     - labelname: ipRouteDest
-      type: IpAddr
+      type: InetAddressIPv4
   - name: ipRouteProto
     oid: 1.3.6.1.2.1.4.21.1.9
     type: gauge
     help: The routing mechanism via which this route was learned - 1.3.6.1.2.1.4.21.1.9
     indexes:
     - labelname: ipRouteDest
-      type: IpAddr
+      type: InetAddressIPv4
   - name: ipRouteAge
     oid: 1.3.6.1.2.1.4.21.1.10
     type: gauge
@@ -5931,22 +4034,22 @@ ubiquiti_edgemax:
       to be correct - 1.3.6.1.2.1.4.21.1.10
     indexes:
     - labelname: ipRouteDest
-      type: IpAddr
+      type: InetAddressIPv4
   - name: ipRouteMask
     oid: 1.3.6.1.2.1.4.21.1.11
-    type: IpAddr
+    type: InetAddressIPv4
     help: Indicate the mask to be logical-ANDed with the destination address before
       being compared to the value in the ipRouteDest field - 1.3.6.1.2.1.4.21.1.11
     indexes:
     - labelname: ipRouteDest
-      type: IpAddr
+      type: InetAddressIPv4
   - name: ipRouteMetric5
     oid: 1.3.6.1.2.1.4.21.1.12
     type: gauge
     help: An alternate routing metric for this route - 1.3.6.1.2.1.4.21.1.12
     indexes:
     - labelname: ipRouteDest
-      type: IpAddr
+      type: InetAddressIPv4
   - name: ipNetToMediaIfIndex
     oid: 1.3.6.1.2.1.4.22.1.1
     type: gauge
@@ -5955,26 +4058,26 @@ ubiquiti_edgemax:
     - labelname: ipNetToMediaIfIndex
       type: gauge
     - labelname: ipNetToMediaNetAddress
-      type: IpAddr
+      type: InetAddressIPv4
   - name: ipNetToMediaPhysAddress
     oid: 1.3.6.1.2.1.4.22.1.2
-    type: OctetString
+    type: PhysAddress48
     help: The media-dependent `physical' address. - 1.3.6.1.2.1.4.22.1.2
     indexes:
     - labelname: ipNetToMediaIfIndex
       type: gauge
     - labelname: ipNetToMediaNetAddress
-      type: IpAddr
+      type: InetAddressIPv4
   - name: ipNetToMediaNetAddress
     oid: 1.3.6.1.2.1.4.22.1.3
-    type: IpAddr
+    type: InetAddressIPv4
     help: The IpAddress corresponding to the media- dependent `physical' address.
       - 1.3.6.1.2.1.4.22.1.3
     indexes:
     - labelname: ipNetToMediaIfIndex
       type: gauge
     - labelname: ipNetToMediaNetAddress
-      type: IpAddr
+      type: InetAddressIPv4
   - name: ipNetToMediaType
     oid: 1.3.6.1.2.1.4.22.1.4
     type: gauge
@@ -5983,31 +4086,12 @@ ubiquiti_edgemax:
     - labelname: ipNetToMediaIfIndex
       type: gauge
     - labelname: ipNetToMediaNetAddress
-      type: IpAddr
+      type: InetAddressIPv4
   - name: ipRoutingDiscards
     oid: 1.3.6.1.2.1.4.23
     type: counter
     help: The number of routing entries which were chosen to be discarded even though
       they are valid - 1.3.6.1.2.1.4.23
-  - name: ucdDemoResetKeys
-    oid: 1.3.6.1.4.1.2021.14.1.1.1
-    type: gauge
-    help: A set of value 1 to this object resets the demonstration user's auth and
-      priv keys to the keys based on the P->Ku->Kul transformation of the value of
-      the ucdDemoPasspharse object - 1.3.6.1.4.1.2021.14.1.1.1
-  - name: ucdDemoPublicString
-    oid: 1.3.6.1.4.1.2021.14.1.1.2
-    type: OctetString
-    help: A publicly settable string that can be set for testing snmpsets - 1.3.6.1.4.1.2021.14.1.1.2
-  - name: ucdDemoUserList
-    oid: 1.3.6.1.4.1.2021.14.1.1.3
-    type: OctetString
-    help: The list of users affected by the ucdDemoResetKeys object. - 1.3.6.1.4.1.2021.14.1.1.3
-  - name: ucdDemoPassphrase
-    oid: 1.3.6.1.4.1.2021.14.1.1.4
-    type: OctetString
-    help: The demo passphrase that ucdDemoResetKeys changes each users localized key
-      to based on the P->Ku->Kul transformation. - 1.3.6.1.4.1.2021.14.1.1.4
   - name: processIndex
     oid: 1.3.6.1.4.1.2021.1.1
     type: gauge
@@ -6225,6 +4309,142 @@ ubiquiti_edgemax:
     indexes:
     - labelname: loadaveIndex
       type: gauge
+  - name: ucdDemoResetKeys
+    oid: 1.3.6.1.4.1.2021.14.1.1.1
+    type: gauge
+    help: A set of value 1 to this object resets the demonstration user's auth and
+      priv keys to the keys based on the P->Ku->Kul transformation of the value of
+      the ucdDemoPasspharse object - 1.3.6.1.4.1.2021.14.1.1.1
+  - name: ucdDemoPublicString
+    oid: 1.3.6.1.4.1.2021.14.1.1.2
+    type: OctetString
+    help: A publicly settable string that can be set for testing snmpsets - 1.3.6.1.4.1.2021.14.1.1.2
+  - name: ucdDemoUserList
+    oid: 1.3.6.1.4.1.2021.14.1.1.3
+    type: OctetString
+    help: The list of users affected by the ucdDemoResetKeys object. - 1.3.6.1.4.1.2021.14.1.1.3
+  - name: ucdDemoPassphrase
+    oid: 1.3.6.1.4.1.2021.14.1.1.4
+    type: OctetString
+    help: The demo passphrase that ucdDemoResetKeys changes each users localized key
+      to based on the P->Ku->Kul transformation. - 1.3.6.1.4.1.2021.14.1.1.4
+  - name: dlmodNextIndex
+    oid: 1.3.6.1.4.1.2021.13.14.1
+    type: gauge
+    help: The index number of next appropiate unassigned entry in the dlmodTable.
+      - 1.3.6.1.4.1.2021.13.14.1
+  - name: dlmodIndex
+    oid: 1.3.6.1.4.1.2021.13.14.2.1.1
+    type: gauge
+    help: An index that uniqely identifies an entry in the dlmodTable. - 1.3.6.1.4.1.2021.13.14.2.1.1
+    indexes:
+    - labelname: dlmodIndex
+      type: gauge
+  - name: dlmodName
+    oid: 1.3.6.1.4.1.2021.13.14.2.1.2
+    type: DisplayString
+    help: The module name. - 1.3.6.1.4.1.2021.13.14.2.1.2
+    indexes:
+    - labelname: dlmodIndex
+      type: gauge
+  - name: dlmodPath
+    oid: 1.3.6.1.4.1.2021.13.14.2.1.3
+    type: DisplayString
+    help: The path of the module executable file. - 1.3.6.1.4.1.2021.13.14.2.1.3
+    indexes:
+    - labelname: dlmodIndex
+      type: gauge
+  - name: dlmodError
+    oid: 1.3.6.1.4.1.2021.13.14.2.1.4
+    type: DisplayString
+    help: The last error from dlmod_load_module. - 1.3.6.1.4.1.2021.13.14.2.1.4
+    indexes:
+    - labelname: dlmodIndex
+      type: gauge
+  - name: dlmodStatus
+    oid: 1.3.6.1.4.1.2021.13.14.2.1.5
+    type: gauge
+    help: The current status of the loaded module. - 1.3.6.1.4.1.2021.13.14.2.1.5
+    indexes:
+    - labelname: dlmodIndex
+      type: gauge
+  - name: diskIOIndex
+    oid: 1.3.6.1.4.1.2021.13.15.1.1.1
+    type: gauge
+    help: Reference index for each observed device. - 1.3.6.1.4.1.2021.13.15.1.1.1
+    indexes:
+    - labelname: diskIOIndex
+      type: gauge
+  - name: diskIODevice
+    oid: 1.3.6.1.4.1.2021.13.15.1.1.2
+    type: DisplayString
+    help: The name of the device we are counting/checking. - 1.3.6.1.4.1.2021.13.15.1.1.2
+    indexes:
+    - labelname: diskIOIndex
+      type: gauge
+  - name: diskIONRead
+    oid: 1.3.6.1.4.1.2021.13.15.1.1.3
+    type: counter
+    help: The number of bytes read from this device since boot. - 1.3.6.1.4.1.2021.13.15.1.1.3
+    indexes:
+    - labelname: diskIOIndex
+      type: gauge
+  - name: diskIONWritten
+    oid: 1.3.6.1.4.1.2021.13.15.1.1.4
+    type: counter
+    help: The number of bytes written to this device since boot. - 1.3.6.1.4.1.2021.13.15.1.1.4
+    indexes:
+    - labelname: diskIOIndex
+      type: gauge
+  - name: diskIOReads
+    oid: 1.3.6.1.4.1.2021.13.15.1.1.5
+    type: counter
+    help: The number of read accesses from this device since boot. - 1.3.6.1.4.1.2021.13.15.1.1.5
+    indexes:
+    - labelname: diskIOIndex
+      type: gauge
+  - name: diskIOWrites
+    oid: 1.3.6.1.4.1.2021.13.15.1.1.6
+    type: counter
+    help: The number of write accesses to this device since boot. - 1.3.6.1.4.1.2021.13.15.1.1.6
+    indexes:
+    - labelname: diskIOIndex
+      type: gauge
+  - name: diskIOLA1
+    oid: 1.3.6.1.4.1.2021.13.15.1.1.9
+    type: gauge
+    help: The 1 minute average load of disk (%) - 1.3.6.1.4.1.2021.13.15.1.1.9
+    indexes:
+    - labelname: diskIOIndex
+      type: gauge
+  - name: diskIOLA5
+    oid: 1.3.6.1.4.1.2021.13.15.1.1.10
+    type: gauge
+    help: The 5 minute average load of disk (%) - 1.3.6.1.4.1.2021.13.15.1.1.10
+    indexes:
+    - labelname: diskIOIndex
+      type: gauge
+  - name: diskIOLA15
+    oid: 1.3.6.1.4.1.2021.13.15.1.1.11
+    type: gauge
+    help: The 15 minute average load of disk (%) - 1.3.6.1.4.1.2021.13.15.1.1.11
+    indexes:
+    - labelname: diskIOIndex
+      type: gauge
+  - name: diskIONReadX
+    oid: 1.3.6.1.4.1.2021.13.15.1.1.12
+    type: counter
+    help: The number of bytes read from this device since boot. - 1.3.6.1.4.1.2021.13.15.1.1.12
+    indexes:
+    - labelname: diskIOIndex
+      type: gauge
+  - name: diskIONWrittenX
+    oid: 1.3.6.1.4.1.2021.13.15.1.1.13
+    type: counter
+    help: The number of bytes written to this device since boot. - 1.3.6.1.4.1.2021.13.15.1.1.13
+    indexes:
+    - labelname: diskIOIndex
+      type: gauge
   - name: ipFwAccIndex
     oid: 1.3.6.1.4.1.2021.13.1.1.1.1
     type: gauge
@@ -6234,28 +4454,28 @@ ubiquiti_edgemax:
       type: gauge
   - name: ipFwAccSrcAddr
     oid: 1.3.6.1.4.1.2021.13.1.1.1.2
-    type: IpAddr
+    type: InetAddressIPv4
     help: The source address in the firewall rule. - 1.3.6.1.4.1.2021.13.1.1.1.2
     indexes:
     - labelname: ipFwAccIndex
       type: gauge
   - name: ipFwAccSrcNetMask
     oid: 1.3.6.1.4.1.2021.13.1.1.1.3
-    type: IpAddr
+    type: InetAddressIPv4
     help: The netmask of the source address in the firewall rule. - 1.3.6.1.4.1.2021.13.1.1.1.3
     indexes:
     - labelname: ipFwAccIndex
       type: gauge
   - name: ipFwAccDstAddr
     oid: 1.3.6.1.4.1.2021.13.1.1.1.4
-    type: IpAddr
+    type: InetAddressIPv4
     help: The destination address in the firewall rule. - 1.3.6.1.4.1.2021.13.1.1.1.4
     indexes:
     - labelname: ipFwAccIndex
       type: gauge
   - name: ipFwAccDstNetMask
     oid: 1.3.6.1.4.1.2021.13.1.1.1.5
-    type: IpAddr
+    type: InetAddressIPv4
     help: The netmask of the destination address in the firewall rule. - 1.3.6.1.4.1.2021.13.1.1.1.5
     indexes:
     - labelname: ipFwAccIndex
@@ -6269,7 +4489,7 @@ ubiquiti_edgemax:
       type: gauge
   - name: ipFwAccViaAddr
     oid: 1.3.6.1.4.1.2021.13.1.1.1.7
-    type: IpAddr
+    type: InetAddressIPv4
     help: The address of the interface to which the rule applies - 1.3.6.1.4.1.2021.13.1.1.1.7
     indexes:
     - labelname: ipFwAccIndex
@@ -6410,123 +4630,6 @@ ubiquiti_edgemax:
     help: Port number 10. - 1.3.6.1.4.1.2021.13.1.1.1.26
     indexes:
     - labelname: ipFwAccIndex
-      type: gauge
-  - name: dlmodNextIndex
-    oid: 1.3.6.1.4.1.2021.13.14.1
-    type: gauge
-    help: The index number of next appropiate unassigned entry in the dlmodTable.
-      - 1.3.6.1.4.1.2021.13.14.1
-  - name: dlmodIndex
-    oid: 1.3.6.1.4.1.2021.13.14.2.1.1
-    type: gauge
-    help: An index that uniqely identifies an entry in the dlmodTable. - 1.3.6.1.4.1.2021.13.14.2.1.1
-    indexes:
-    - labelname: dlmodIndex
-      type: gauge
-  - name: dlmodName
-    oid: 1.3.6.1.4.1.2021.13.14.2.1.2
-    type: DisplayString
-    help: The module name. - 1.3.6.1.4.1.2021.13.14.2.1.2
-    indexes:
-    - labelname: dlmodIndex
-      type: gauge
-  - name: dlmodPath
-    oid: 1.3.6.1.4.1.2021.13.14.2.1.3
-    type: DisplayString
-    help: The path of the module executable file. - 1.3.6.1.4.1.2021.13.14.2.1.3
-    indexes:
-    - labelname: dlmodIndex
-      type: gauge
-  - name: dlmodError
-    oid: 1.3.6.1.4.1.2021.13.14.2.1.4
-    type: DisplayString
-    help: The last error from dlmod_load_module. - 1.3.6.1.4.1.2021.13.14.2.1.4
-    indexes:
-    - labelname: dlmodIndex
-      type: gauge
-  - name: dlmodStatus
-    oid: 1.3.6.1.4.1.2021.13.14.2.1.5
-    type: gauge
-    help: The current status of the loaded module. - 1.3.6.1.4.1.2021.13.14.2.1.5
-    indexes:
-    - labelname: dlmodIndex
-      type: gauge
-  - name: diskIOIndex
-    oid: 1.3.6.1.4.1.2021.13.15.1.1.1
-    type: gauge
-    help: Reference index for each observed device. - 1.3.6.1.4.1.2021.13.15.1.1.1
-    indexes:
-    - labelname: diskIOIndex
-      type: gauge
-  - name: diskIODevice
-    oid: 1.3.6.1.4.1.2021.13.15.1.1.2
-    type: DisplayString
-    help: The name of the device we are counting/checking. - 1.3.6.1.4.1.2021.13.15.1.1.2
-    indexes:
-    - labelname: diskIOIndex
-      type: gauge
-  - name: diskIONRead
-    oid: 1.3.6.1.4.1.2021.13.15.1.1.3
-    type: counter
-    help: The number of bytes read from this device since boot. - 1.3.6.1.4.1.2021.13.15.1.1.3
-    indexes:
-    - labelname: diskIOIndex
-      type: gauge
-  - name: diskIONWritten
-    oid: 1.3.6.1.4.1.2021.13.15.1.1.4
-    type: counter
-    help: The number of bytes written to this device since boot. - 1.3.6.1.4.1.2021.13.15.1.1.4
-    indexes:
-    - labelname: diskIOIndex
-      type: gauge
-  - name: diskIOReads
-    oid: 1.3.6.1.4.1.2021.13.15.1.1.5
-    type: counter
-    help: The number of read accesses from this device since boot. - 1.3.6.1.4.1.2021.13.15.1.1.5
-    indexes:
-    - labelname: diskIOIndex
-      type: gauge
-  - name: diskIOWrites
-    oid: 1.3.6.1.4.1.2021.13.15.1.1.6
-    type: counter
-    help: The number of write accesses to this device since boot. - 1.3.6.1.4.1.2021.13.15.1.1.6
-    indexes:
-    - labelname: diskIOIndex
-      type: gauge
-  - name: diskIOLA1
-    oid: 1.3.6.1.4.1.2021.13.15.1.1.9
-    type: gauge
-    help: The 1 minute average load of disk (%) - 1.3.6.1.4.1.2021.13.15.1.1.9
-    indexes:
-    - labelname: diskIOIndex
-      type: gauge
-  - name: diskIOLA5
-    oid: 1.3.6.1.4.1.2021.13.15.1.1.10
-    type: gauge
-    help: The 5 minute average load of disk (%) - 1.3.6.1.4.1.2021.13.15.1.1.10
-    indexes:
-    - labelname: diskIOIndex
-      type: gauge
-  - name: diskIOLA15
-    oid: 1.3.6.1.4.1.2021.13.15.1.1.11
-    type: gauge
-    help: The 15 minute average load of disk (%) - 1.3.6.1.4.1.2021.13.15.1.1.11
-    indexes:
-    - labelname: diskIOIndex
-      type: gauge
-  - name: diskIONReadX
-    oid: 1.3.6.1.4.1.2021.13.15.1.1.12
-    type: counter
-    help: The number of bytes read from this device since boot. - 1.3.6.1.4.1.2021.13.15.1.1.12
-    indexes:
-    - labelname: diskIOIndex
-      type: gauge
-  - name: diskIONWrittenX
-    oid: 1.3.6.1.4.1.2021.13.15.1.1.13
-    type: counter
-    help: The number of bytes written to this device since boot. - 1.3.6.1.4.1.2021.13.15.1.1.13
-    indexes:
-    - labelname: diskIOIndex
       type: gauge
   - name: lmTempSensorsIndex
     oid: 1.3.6.1.4.1.2021.13.16.2.1.1
@@ -7495,7 +5598,7 @@ ubiquiti_unifi:
       type: gauge
   - name: ifPhysAddress
     oid: 1.3.6.1.2.1.2.2.1.6
-    type: OctetString
+    type: PhysAddress48
     help: The interface's address at the protocol layer immediately `below' the network
       layer in the protocol stack - 1.3.6.1.2.1.2.2.1.6
     indexes:
@@ -7778,3 +5881,363 @@ ubiquiti_unifi:
     indexes:
     - labelname: ifIndex
       type: gauge
+  - name: unifiRadioIndex
+    oid: 1.3.6.1.4.1.41112.1.6.1.1.1.1
+    type: gauge
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.1.1.1'
+    indexes:
+    - labelname: unifiRadioIndex
+      type: gauge
+  - name: unifiRadioName
+    oid: 1.3.6.1.4.1.41112.1.6.1.1.1.2
+    type: DisplayString
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.1.1.2'
+    indexes:
+    - labelname: unifiRadioIndex
+      type: gauge
+  - name: unifiRadioRadio
+    oid: 1.3.6.1.4.1.41112.1.6.1.1.1.3
+    type: DisplayString
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.1.1.3'
+    indexes:
+    - labelname: unifiRadioIndex
+      type: gauge
+  - name: unifiRadioRxPackets
+    oid: 1.3.6.1.4.1.41112.1.6.1.1.1.4
+    type: counter
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.1.1.4'
+    indexes:
+    - labelname: unifiRadioIndex
+      type: gauge
+  - name: unifiRadioTxPackets
+    oid: 1.3.6.1.4.1.41112.1.6.1.1.1.5
+    type: counter
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.1.1.5'
+    indexes:
+    - labelname: unifiRadioIndex
+      type: gauge
+  - name: unifiRadioCuTotal
+    oid: 1.3.6.1.4.1.41112.1.6.1.1.1.6
+    type: gauge
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.1.1.6'
+    indexes:
+    - labelname: unifiRadioIndex
+      type: gauge
+  - name: unifiRadioCuSelfRx
+    oid: 1.3.6.1.4.1.41112.1.6.1.1.1.7
+    type: gauge
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.1.1.7'
+    indexes:
+    - labelname: unifiRadioIndex
+      type: gauge
+  - name: unifiRadioCuSelfTx
+    oid: 1.3.6.1.4.1.41112.1.6.1.1.1.8
+    type: gauge
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.1.1.8'
+    indexes:
+    - labelname: unifiRadioIndex
+      type: gauge
+  - name: unifiRadioOtherBss
+    oid: 1.3.6.1.4.1.41112.1.6.1.1.1.9
+    type: gauge
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.1.1.9'
+    indexes:
+    - labelname: unifiRadioIndex
+      type: gauge
+  - name: unifiVapIndex
+    oid: 1.3.6.1.4.1.41112.1.6.1.2.1.1
+    type: gauge
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.2.1.1'
+    indexes:
+    - labelname: unifiVapIndex
+      type: gauge
+  - name: unifiVapBssId
+    oid: 1.3.6.1.4.1.41112.1.6.1.2.1.2
+    type: PhysAddress48
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.2.1.2'
+    indexes:
+    - labelname: unifiVapIndex
+      type: gauge
+  - name: unifiVapCcq
+    oid: 1.3.6.1.4.1.41112.1.6.1.2.1.3
+    type: gauge
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.2.1.3'
+    indexes:
+    - labelname: unifiVapIndex
+      type: gauge
+  - name: unifiVapChannel
+    oid: 1.3.6.1.4.1.41112.1.6.1.2.1.4
+    type: gauge
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.2.1.4'
+    indexes:
+    - labelname: unifiVapIndex
+      type: gauge
+  - name: unifiVapExtChannel
+    oid: 1.3.6.1.4.1.41112.1.6.1.2.1.5
+    type: gauge
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.2.1.5'
+    indexes:
+    - labelname: unifiVapIndex
+      type: gauge
+  - name: unifiVapEssId
+    oid: 1.3.6.1.4.1.41112.1.6.1.2.1.6
+    type: DisplayString
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.2.1.6'
+    indexes:
+    - labelname: unifiVapIndex
+      type: gauge
+  - name: unifiVapName
+    oid: 1.3.6.1.4.1.41112.1.6.1.2.1.7
+    type: DisplayString
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.2.1.7'
+    indexes:
+    - labelname: unifiVapIndex
+      type: gauge
+  - name: unifiVapNumStations
+    oid: 1.3.6.1.4.1.41112.1.6.1.2.1.8
+    type: gauge
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.2.1.8'
+    indexes:
+    - labelname: unifiVapIndex
+      type: gauge
+  - name: unifiVapRadio
+    oid: 1.3.6.1.4.1.41112.1.6.1.2.1.9
+    type: DisplayString
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.2.1.9'
+    indexes:
+    - labelname: unifiVapIndex
+      type: gauge
+  - name: unifiVapRxBytes
+    oid: 1.3.6.1.4.1.41112.1.6.1.2.1.10
+    type: counter
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.2.1.10'
+    indexes:
+    - labelname: unifiVapIndex
+      type: gauge
+  - name: unifiVapRxCrypts
+    oid: 1.3.6.1.4.1.41112.1.6.1.2.1.11
+    type: counter
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.2.1.11'
+    indexes:
+    - labelname: unifiVapIndex
+      type: gauge
+  - name: unifiVapRxDropped
+    oid: 1.3.6.1.4.1.41112.1.6.1.2.1.12
+    type: counter
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.2.1.12'
+    indexes:
+    - labelname: unifiVapIndex
+      type: gauge
+  - name: unifiVapRxErrors
+    oid: 1.3.6.1.4.1.41112.1.6.1.2.1.13
+    type: counter
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.2.1.13'
+    indexes:
+    - labelname: unifiVapIndex
+      type: gauge
+  - name: unifiVapRxFrags
+    oid: 1.3.6.1.4.1.41112.1.6.1.2.1.14
+    type: counter
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.2.1.14'
+    indexes:
+    - labelname: unifiVapIndex
+      type: gauge
+  - name: unifiVapRxPackets
+    oid: 1.3.6.1.4.1.41112.1.6.1.2.1.15
+    type: counter
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.2.1.15'
+    indexes:
+    - labelname: unifiVapIndex
+      type: gauge
+  - name: unifiVapTxBytes
+    oid: 1.3.6.1.4.1.41112.1.6.1.2.1.16
+    type: counter
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.2.1.16'
+    indexes:
+    - labelname: unifiVapIndex
+      type: gauge
+  - name: unifiVapTxDropped
+    oid: 1.3.6.1.4.1.41112.1.6.1.2.1.17
+    type: counter
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.2.1.17'
+    indexes:
+    - labelname: unifiVapIndex
+      type: gauge
+  - name: unifiVapTxErrors
+    oid: 1.3.6.1.4.1.41112.1.6.1.2.1.18
+    type: counter
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.2.1.18'
+    indexes:
+    - labelname: unifiVapIndex
+      type: gauge
+  - name: unifiVapTxPackets
+    oid: 1.3.6.1.4.1.41112.1.6.1.2.1.19
+    type: counter
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.2.1.19'
+    indexes:
+    - labelname: unifiVapIndex
+      type: gauge
+  - name: unifiVapTxRetries
+    oid: 1.3.6.1.4.1.41112.1.6.1.2.1.20
+    type: counter
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.2.1.20'
+    indexes:
+    - labelname: unifiVapIndex
+      type: gauge
+  - name: unifiVapTxPower
+    oid: 1.3.6.1.4.1.41112.1.6.1.2.1.21
+    type: gauge
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.2.1.21'
+    indexes:
+    - labelname: unifiVapIndex
+      type: gauge
+  - name: unifiVapUp
+    oid: 1.3.6.1.4.1.41112.1.6.1.2.1.22
+    type: gauge
+    help: ' - 1.3.6.1.4.1.41112.1.6.1.2.1.22'
+    indexes:
+    - labelname: unifiVapIndex
+      type: gauge
+  - name: unifiVapUsage
+    oid: 1.3.6.1.4.1.41112.1.6.1.2.1.23
+    type: DisplayString
+    help: guest or regular user - 1.3.6.1.4.1.41112.1.6.1.2.1.23
+    indexes:
+    - labelname: unifiVapIndex
+      type: gauge
+  - name: unifiIfIndex
+    oid: 1.3.6.1.4.1.41112.1.6.2.1.1.1
+    type: gauge
+    help: ' - 1.3.6.1.4.1.41112.1.6.2.1.1.1'
+    indexes:
+    - labelname: unifiIfIndex
+      type: gauge
+  - name: unifiIfFullDuplex
+    oid: 1.3.6.1.4.1.41112.1.6.2.1.1.2
+    type: gauge
+    help: ' - 1.3.6.1.4.1.41112.1.6.2.1.1.2'
+    indexes:
+    - labelname: unifiIfIndex
+      type: gauge
+  - name: unifiIfIp
+    oid: 1.3.6.1.4.1.41112.1.6.2.1.1.3
+    type: InetAddressIPv4
+    help: ' - 1.3.6.1.4.1.41112.1.6.2.1.1.3'
+    indexes:
+    - labelname: unifiIfIndex
+      type: gauge
+  - name: unifiIfMac
+    oid: 1.3.6.1.4.1.41112.1.6.2.1.1.4
+    type: PhysAddress48
+    help: ' - 1.3.6.1.4.1.41112.1.6.2.1.1.4'
+    indexes:
+    - labelname: unifiIfIndex
+      type: gauge
+  - name: unifiIfName
+    oid: 1.3.6.1.4.1.41112.1.6.2.1.1.5
+    type: DisplayString
+    help: ' - 1.3.6.1.4.1.41112.1.6.2.1.1.5'
+    indexes:
+    - labelname: unifiIfIndex
+      type: gauge
+  - name: unifiIfRxBytes
+    oid: 1.3.6.1.4.1.41112.1.6.2.1.1.6
+    type: counter
+    help: ' - 1.3.6.1.4.1.41112.1.6.2.1.1.6'
+    indexes:
+    - labelname: unifiIfIndex
+      type: gauge
+  - name: unifiIfRxDropped
+    oid: 1.3.6.1.4.1.41112.1.6.2.1.1.7
+    type: counter
+    help: ' - 1.3.6.1.4.1.41112.1.6.2.1.1.7'
+    indexes:
+    - labelname: unifiIfIndex
+      type: gauge
+  - name: unifiIfRxError
+    oid: 1.3.6.1.4.1.41112.1.6.2.1.1.8
+    type: counter
+    help: ' - 1.3.6.1.4.1.41112.1.6.2.1.1.8'
+    indexes:
+    - labelname: unifiIfIndex
+      type: gauge
+  - name: unifiIfRxMulticast
+    oid: 1.3.6.1.4.1.41112.1.6.2.1.1.9
+    type: counter
+    help: ' - 1.3.6.1.4.1.41112.1.6.2.1.1.9'
+    indexes:
+    - labelname: unifiIfIndex
+      type: gauge
+  - name: unifiIfRxPackets
+    oid: 1.3.6.1.4.1.41112.1.6.2.1.1.10
+    type: counter
+    help: ' - 1.3.6.1.4.1.41112.1.6.2.1.1.10'
+    indexes:
+    - labelname: unifiIfIndex
+      type: gauge
+  - name: unifiIfSpeed
+    oid: 1.3.6.1.4.1.41112.1.6.2.1.1.11
+    type: gauge
+    help: ' - 1.3.6.1.4.1.41112.1.6.2.1.1.11'
+    indexes:
+    - labelname: unifiIfIndex
+      type: gauge
+  - name: unifiIfTxBytes
+    oid: 1.3.6.1.4.1.41112.1.6.2.1.1.12
+    type: counter
+    help: ' - 1.3.6.1.4.1.41112.1.6.2.1.1.12'
+    indexes:
+    - labelname: unifiIfIndex
+      type: gauge
+  - name: unifiIfTxDropped
+    oid: 1.3.6.1.4.1.41112.1.6.2.1.1.13
+    type: counter
+    help: ' - 1.3.6.1.4.1.41112.1.6.2.1.1.13'
+    indexes:
+    - labelname: unifiIfIndex
+      type: gauge
+  - name: unifiIfTxError
+    oid: 1.3.6.1.4.1.41112.1.6.2.1.1.14
+    type: counter
+    help: ' - 1.3.6.1.4.1.41112.1.6.2.1.1.14'
+    indexes:
+    - labelname: unifiIfIndex
+      type: gauge
+  - name: unifiIfTxPackets
+    oid: 1.3.6.1.4.1.41112.1.6.2.1.1.15
+    type: counter
+    help: ' - 1.3.6.1.4.1.41112.1.6.2.1.1.15'
+    indexes:
+    - labelname: unifiIfIndex
+      type: gauge
+  - name: unifiIfUp
+    oid: 1.3.6.1.4.1.41112.1.6.2.1.1.16
+    type: gauge
+    help: ' - 1.3.6.1.4.1.41112.1.6.2.1.1.16'
+    indexes:
+    - labelname: unifiIfIndex
+      type: gauge
+  - name: unifiApSystemIp
+    oid: 1.3.6.1.4.1.41112.1.6.3.1
+    type: InetAddressIPv4
+    help: ' - 1.3.6.1.4.1.41112.1.6.3.1'
+  - name: unifiApSystemIsolated
+    oid: 1.3.6.1.4.1.41112.1.6.3.2
+    type: gauge
+    help: ' - 1.3.6.1.4.1.41112.1.6.3.2'
+  - name: unifiApSystemModel
+    oid: 1.3.6.1.4.1.41112.1.6.3.3
+    type: DisplayString
+    help: ' - 1.3.6.1.4.1.41112.1.6.3.3'
+  - name: unifiApSystemUplink
+    oid: 1.3.6.1.4.1.41112.1.6.3.4
+    type: DisplayString
+    help: ' - 1.3.6.1.4.1.41112.1.6.3.4'
+  - name: unifiApSystemUptime
+    oid: 1.3.6.1.4.1.41112.1.6.3.5
+    type: counter
+    help: ' - 1.3.6.1.4.1.41112.1.6.3.5'
+  - name: unifiApSystemVersion
+    oid: 1.3.6.1.4.1.41112.1.6.3.6
+    type: DisplayString
+    help: ' - 1.3.6.1.4.1.41112.1.6.3.6'
