@@ -20,6 +20,26 @@ The snmp\_exporter is a tool that extracts data from SNMP and offers it to Prome
 
 There is a configuration file that was created from [this generator](https://github.com/prometheus/snmp_exporter/blob/26b3c855fb72b64527881a5acb8597ef49b00f9f/generator/README.md), and boy was it a doozy. It required finding a variety of MIBs for the Ubiquiti devices (pro tip: the EdgeRouter's MIBs are available in `/usr/share/snmp/mibs/`). And then `snmpwalk`'ing the various devices to find OIDs that I found interesting. Once those OIDs were in hand, I could use them as starting points for the generator config.
 
+### Generating the snmp.yml file
+
+Start by building a local version of the image:
+
+```
+git clone https://github.com/prometheus/snmp_exporter
+cd snmp_exporter/generator/
+docker build -t snmp-generator .
+```
+
+Then `cd` back into this folder and:
+
+```
+docker run -ti \
+  -v $PWD/mibs:/root/.snmp/mibs \
+  -v $PWD/generator.yml:/opt/generator.yml:ro \
+  -v $PWD/:/opt/ \
+  snmp-generator generate
+```
+
 ## Unifi
 
 [Unifi](../unifi/) monitors my Unifi AP AC Pro.
