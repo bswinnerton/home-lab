@@ -1,6 +1,6 @@
 modules:
   icmp:
     prober: icmp
-    timeout: 5s
+    timeout: 1s
     icmp:
       preferred_ip_protocol: "ip4"
