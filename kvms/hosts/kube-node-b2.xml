@@ -31,7 +31,7 @@
     <disk type='file' device='disk'>
       <driver name="qemu" type="qcow2"/>
       <source file='/var/lib/libvirt/images/kube-node-b2-gluster.qcow2'/>
-      <target dev='hda' bus='ide'/>
+      <target dev='hdb' bus='ide'/>
     </disk>
     <graphics type='vnc' port='-1' autoport='yes' passwd='virtualmachinesarecool'/>
   </devices>
