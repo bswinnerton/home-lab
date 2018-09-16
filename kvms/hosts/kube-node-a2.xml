@@ -28,6 +28,11 @@
       <source file='/var/lib/libvirt/images/kube-node-a2.qcow2'/>
       <target dev='hda' bus='ide'/>
     </disk>
+    <disk type='file' device='disk'>
+      <driver name="qemu" type="qcow2"/>
+      <source file='/var/lib/libvirt/images/kube-node-a2-gluster.qcow2'/>
+      <target dev='hdb' bus='ide'/>
+    </disk>
     <graphics type='vnc' port='-1' autoport='yes' passwd='virtualmachinesarecool'/>
   </devices>
 </domain>
