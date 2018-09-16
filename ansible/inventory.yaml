@@ -1,10 +1,14 @@
 all:
   children:
     kubernetes:
-      hosts:
-        kube-master-a.brooks.network:
-        kube-master-b.brooks.network:
-        kube-node-a1.brooks.network:
-        kube-node-a2.brooks.network:
-        kube-node-b1.brooks.network:
-        kube-node-b2.brooks.network:
+        children:
+          masters:
+            hosts:
+              kube-master-a.brooks.network:
+              kube-master-b.brooks.network:
+          nodes:
+            hosts:
+              kube-node-a1.brooks.network:
+              kube-node-a2.brooks.network:
+              kube-node-b1.brooks.network:
+              kube-node-b2.brooks.network:
