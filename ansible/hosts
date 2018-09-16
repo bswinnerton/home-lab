@@ -10,11 +10,11 @@ all:
             nuc7i5b.brooks.network:
     kubernetes:
         children:
-          masters:
+          kubernetes-masters:
             hosts:
               kube-master-a.brooks.network:
               kube-master-b.brooks.network:
-          nodes:
+          kubernetes-nodes:
             hosts:
               kube-node-a1.brooks.network:
               kube-node-a2.brooks.network:
