@@ -1,0 +1,6 @@
+---
+- name: Install GlusterFS
+  hosts: kubernetes-nodes
+
+  roles:
+    - glusterfs
