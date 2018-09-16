@@ -1,8 +1,8 @@
 <domain type='kvm'>
   <name>kube-node-b2</name>
   <uuid>16ccb88b-0ef7-4b87-b04d-6356bbc46e38</uuid>
-  <memory>6291456</memory>
-  <currentMemory>6291456</currentMemory>
+  <memory>8388608</memory>
+  <currentMemory>8388608</currentMemory>
   <vcpu>2</vcpu>
   <os>
     <type arch='x86_64' machine='pc'>hvm</type>
