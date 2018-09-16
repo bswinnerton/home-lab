@@ -1,5 +1,10 @@
 all:
   children:
+    bare-metal:
+      hosts:
+        nuc7i5a.brooks.network:
+        nuc7i5b.brooks.network:
+        pi.brooks.network:
     kubernetes:
         children:
           masters:
