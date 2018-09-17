@@ -1,0 +1,3 @@
+---
+- name: Include common tasks
+  include_tasks: common-{{ ansible_os_family|lower}}.yml
