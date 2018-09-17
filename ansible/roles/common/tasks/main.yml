@@ -1,8 +1,3 @@
 ---
-- name: Import ClearLinux common tasks
-  import_tasks: clear_linux.yml
-  when: ansible_distribution == 'ClearLinux'
-
-- name: Import Debian-based common tasks
-  import_tasks: debian.yml
-  when: ansible_distribution == 'Debian'
+- name: Include common tasks
+  include_tasks: common-{{ ansible_distribution|lower }}.yml
