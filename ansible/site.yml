@@ -1,11 +1,14 @@
 ---
-# Set up common tasks across the fleet
 - name: Install and set up common tasks
   hosts: all
   roles:
     - common
 
-# Install GlusterFS on all kubernetes nodes
+- name: Install node_exporter on all bare-metal hosts
+  hosts: bare-metal
+  roles:
+    - ansible-node-exporter
+
 - name: Install GlusterFS
   hosts: kubernetes-nodes
   roles:
