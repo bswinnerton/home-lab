@@ -5,6 +5,12 @@
   roles:
     - common
 
+- name: Whitelist local IPs for Clear Linux
+  hosts: all
+  tags: security
+  roles:
+    - tallow
+
 - name: Install Docker
   become: true
   hosts: docker-hosts
