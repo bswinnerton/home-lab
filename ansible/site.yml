@@ -12,6 +12,14 @@
   roles:
     - geerlingguy.docker
 
+# https://github.com/clearlinux/distribution/issues/157
+- name: Use custom systemd Docker script for ClearLinux bug
+  become: true
+  hosts: docker-hosts
+  tags: docker
+  roles:
+    - docker-systemd-service-for-clear-linux-bug
+
 - name: Install GlusterFS
   hosts: kubernetes-nodes
   tags: glusterfs
