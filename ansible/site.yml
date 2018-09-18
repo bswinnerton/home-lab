@@ -1,12 +1,10 @@
 ---
-# Set up common tasks across the fleet
 - name: Install and set up common tasks
   hosts: all
   tags: common
   roles:
     - common
 
-# Install docker on docker hosts
 - name: Install Docker
   become: true
   hosts: docker-hosts
@@ -14,8 +12,6 @@
   roles:
     - geerlingguy.docker
 
-
-# Install GlusterFS on all kubernetes nodes
 - name: Install GlusterFS
   hosts: kubernetes-nodes
   tags: glusterfs
