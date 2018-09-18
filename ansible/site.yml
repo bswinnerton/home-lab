@@ -5,6 +5,13 @@
   roles:
     - common
 
+# Install docker on docker hosts
+- name: Install Docker
+  become: true
+  hosts: docker-hosts
+  roles:
+    - geerlingguy.docker
+
 # Install GlusterFS on all kubernetes nodes
 - name: Install GlusterFS
   hosts: kubernetes-nodes
