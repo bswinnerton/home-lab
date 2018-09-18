@@ -1,15 +1,38 @@
 ---
 - name: Install and set up common tasks
   hosts: all
+  tags: common
   roles:
     - common
+
+- name: Whitelist local IPs for Clear Linux
+  hosts: all
+  tags: security
+  roles:
+    - tallow
 
 - name: Install node_exporter on all bare-metal hosts
   hosts: bare-metal
   roles:
     - cloudalchemy.node-exporter
 
+- name: Install Docker
+  become: true
+  hosts: docker-hosts
+  tags: docker
+  roles:
+    - geerlingguy.docker
+
+# https://github.com/clearlinux/distribution/issues/157
+- name: Use custom systemd Docker script for ClearLinux bug
+  become: true
+  hosts: docker-hosts
+  tags: docker
+  roles:
+    - docker-systemd-service-for-clear-linux-bug
+
 - name: Install GlusterFS
   hosts: kubernetes-nodes
+  tags: glusterfs
   roles:
     - glusterfs
