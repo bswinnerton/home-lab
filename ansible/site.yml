@@ -7,7 +7,7 @@
 - name: Install node_exporter on all bare-metal hosts
   hosts: bare-metal
   roles:
-    - ansible-node-exporter
+    - cloudalchemy.node-exporter
 
 - name: Install GlusterFS
   hosts: kubernetes-nodes

@@ -1,1 +1,2 @@
-- src: https://github.com/bswinnerton/ansible-node-exporter
+# Node Exporter
+- src: cloudalchemy.node-exporter
