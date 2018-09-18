@@ -1,12 +1,27 @@
 ---
-# Set up common tasks across the fleet
 - name: Install and set up common tasks
   hosts: all
+  tags: common
   roles:
     - common
 
-# Install GlusterFS on all kubernetes nodes
+- name: Install Docker
+  become: true
+  hosts: docker-hosts
+  tags: docker
+  roles:
+    - geerlingguy.docker
+
+# https://github.com/clearlinux/distribution/issues/157
+- name: Use custom systemd Docker script for ClearLinux bug
+  become: true
+  hosts: docker-hosts
+  tags: docker
+  roles:
+    - docker-systemd-service-for-clear-linux-bug
+
 - name: Install GlusterFS
   hosts: kubernetes-nodes
+  tags: glusterfs
   roles:
     - glusterfs
