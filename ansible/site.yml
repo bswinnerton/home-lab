@@ -1,23 +1,23 @@
 ---
-- name: Install and set up common tasks
+- name: install and set up common tasks
   hosts: all
   tags: common
   roles:
     - common
 
-- name: Whitelist local IPs for Clear Linux
+- name: whitelist local IPs for Clear Linux
   hosts: all
   tags: security
   roles:
     - tallow
 
-- name: Enable libvirt-guests
+- name: enable libvirt-guests
   hosts: kvm-hosts
   tags: kvm
   roles:
     - libvirt-guests
 
-- name: Install Docker
+- name: install Docker
   become: true
   hosts: docker-hosts
   tags: docker
@@ -25,14 +25,14 @@
     - geerlingguy.docker
 
 # https://github.com/clearlinux/distribution/issues/157
-- name: Use custom systemd Docker script for ClearLinux bug
+- name: use custom systemd Docker script for ClearLinux bug
   become: true
   hosts: docker-hosts
   tags: docker
   roles:
     - docker-systemd-service-for-clear-linux-bug
 
-- name: Install GlusterFS
+- name: install GlusterFS
   hosts: kubernetes-nodes
   tags: glusterfs
   roles:

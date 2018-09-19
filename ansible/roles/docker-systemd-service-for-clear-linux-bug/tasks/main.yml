@@ -1,5 +1,5 @@
 ---
-- name: Place docker.service in systemd directory
+- name: place docker.service in systemd directory
   become: yes
   when: ansible_distribution == 'ClearLinux'
   copy:
@@ -9,13 +9,13 @@
     group: root
     mode: 0644
 
-- name: Disable Docker service to start on boot
+- name: disable Docker service to start on boot
   when: ansible_distribution == 'ClearLinux'
   systemd:
     name: docker
     enabled: no
 
-- name: Enable Docker to start on boot
+- name: enable Docker to start on boot
   when: ansible_distribution == 'ClearLinux'
   systemd:
     name: docker

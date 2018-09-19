@@ -1,5 +1,5 @@
 ---
-- name: Place tallow configuration in correct directory
+- name: place tallow configuration in correct directory
   become: yes
   when: ansible_distribution == 'ClearLinux'
   copy:
@@ -9,7 +9,7 @@
     group: root
     mode: 0644
 
-- name: Restart tallow
+- name: restart tallow
   become: yes
   when: ansible_distribution == 'ClearLinux'
   service:

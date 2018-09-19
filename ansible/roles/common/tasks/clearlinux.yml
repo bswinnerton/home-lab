@@ -1,10 +1,10 @@
 ---
-- name: Update the OS to the latest version
+- name: update the OS to the latest version
   become: yes
   swupd:
     update: yes
 
-- name: Install basic network tools
+- name: install basic network tools
   become: yes
   package:
     name: network-basic

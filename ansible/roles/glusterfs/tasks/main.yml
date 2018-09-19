@@ -1,21 +1,21 @@
 ---
-- name: Install glusterfs-client
+- name: install glusterfs-client
   become: yes
   apt: name=glusterfs-client state=latest
 
-- name: Enable dm_snapshot kernel module
+- name: enable dm_snapshot kernel module
   become: yes
   modprobe:
     name: dm_snapshot
     state: present
 
-- name: Enable dm_mirror kernel module
+- name: enable dm_mirror kernel module
   become: yes
   modprobe:
     name: dm_mirror
     state: present
 
-- name: Enable dm_thin_pool kernel module
+- name: enable dm_thin_pool kernel module
   become: yes
   modprobe:
     name: dm_thin_pool
