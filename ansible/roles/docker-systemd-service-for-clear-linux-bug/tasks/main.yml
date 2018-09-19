@@ -11,12 +11,12 @@
 
 - name: disable Docker service to start on boot
   when: ansible_distribution == 'ClearLinux'
-  systemd:
+  service:
     name: docker
     enabled: no
 
 - name: enable Docker to start on boot
   when: ansible_distribution == 'ClearLinux'
-  systemd:
+  service:
     name: docker
     enabled: yes

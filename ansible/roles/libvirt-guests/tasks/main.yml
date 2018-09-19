@@ -3,7 +3,7 @@
 # is shut down.
 - name: enable libvirt-guests systemd service
   become: true
-  systemd:
+  service:
     name: libvirt-guests
     enabled: yes
     state: started

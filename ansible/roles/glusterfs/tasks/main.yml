@@ -1,7 +1,9 @@
 ---
 - name: install glusterfs-client
   become: yes
-  apt: name=glusterfs-client state=latest
+  package:
+    name: glusterfs-client
+    state: latest
 
 - name: enable dm_snapshot kernel module
   become: yes

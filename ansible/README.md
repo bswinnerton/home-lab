@@ -5,5 +5,5 @@ configurations in this directory to the fleet, `cd` into this directory and run
 the following.
 
 ```
-ansible-playbook -i hosts --ask-become-pass site.yml
+ansible-playbook -i hosts.yml --ask-become-pass site.yml
 ```
