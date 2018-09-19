@@ -19,6 +19,7 @@
 
 - name: install node_exporter
   hosts: bare-metal
+  tags: monitoring
   roles:
     - cloudalchemy.node-exporter
 
