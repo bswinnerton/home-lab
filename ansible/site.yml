@@ -11,6 +11,12 @@
   roles:
     - tallow
 
+- name: Enable libvirt-guests
+  hosts: kvm-hosts
+  tags: kvm
+  roles:
+    - libvirt-guests
+
 - name: Install Docker
   become: true
   hosts: docker-hosts
