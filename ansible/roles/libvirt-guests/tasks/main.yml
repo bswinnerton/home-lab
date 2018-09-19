@@ -1,0 +1,9 @@
+---
+# libvirt-guests is a tool that will auto shut down KVM guests before the host
+# is shut down.
+- name: enable libvirt-guests systemd service
+  become: true
+  service:
+    name: libvirt-guests
+    enabled: yes
+    state: started

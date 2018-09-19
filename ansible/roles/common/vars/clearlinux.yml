@@ -1,0 +1,4 @@
+---
+mosh_package_name: sysadmin-basic
+tmux_package_name: sysadmin-basic
+vim_package_name: editors

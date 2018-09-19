@@ -1,0 +1,4 @@
+---
+- name: create dynamic OS-based groups
+  group_by:
+    key: "{{ ansible_distribution|lower }}"

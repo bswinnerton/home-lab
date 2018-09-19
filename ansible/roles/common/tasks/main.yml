@@ -1,3 +1,43 @@
 ---
-- name: Include common tasks
-  include_tasks: common-{{ ansible_os_family|lower}}.yml
+- name: gather os specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution|lower }}-{{ ansible_distribution_major_version|lower }}.yml"
+    - "{{ ansible_distribution|lower }}.yml"
+  tags: vars
+
+- name: install SSH server
+  become: yes
+  package:
+    name: openssh-server
+    state: present
+
+- name: install Mosh
+  become: yes
+  package:
+    name: "{{ mosh_package_name }}"
+    state: present
+
+- name: install Git
+  become: yes
+  package:
+    name: git
+    state: present
+
+- name: install Vim
+  become: yes
+  package:
+    name: "{{ vim_package_name }}"
+    state: present
+
+- name: install tmux
+  become: yes
+  package:
+    name: "{{ tmux_package_name }}"
+    state: present
+
+- name: include OS-specific common tasks
+  include_tasks: "{{ ansible_distribution|lower }}.yml"
+  # The only OS-specific tasks are for Clear Linux, so use a conditional for
+  # now.
+  when: ansible_distribution == "ClearLinux"
