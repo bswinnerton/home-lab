@@ -1,0 +1,4 @@
+---
+mosh_package_name: mosh
+tmux_package_name: tmux
+vim_package_name: vim
