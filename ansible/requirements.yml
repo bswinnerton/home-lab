@@ -1,2 +1,5 @@
-# Docker role
+# Node Exporter
+- src: cloudalchemy.node-exporter
+
+# Docker
 - src: geerlingguy.docker
