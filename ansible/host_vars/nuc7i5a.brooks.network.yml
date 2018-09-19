@@ -1,2 +1,3 @@
 ---
+# Overrides the package name in geerlingguy.docker: https://git.io/fASSj
 docker_package: container-basic
