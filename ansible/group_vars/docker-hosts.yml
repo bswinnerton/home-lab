@@ -1,0 +1,4 @@
+---
+# Used in geerlingguy.docker: https://git.io/fASQV
+docker_users:
+  - brooks
