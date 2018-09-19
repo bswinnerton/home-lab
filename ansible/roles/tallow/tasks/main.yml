@@ -8,10 +8,4 @@
     owner: root
     group: root
     mode: 0644
-
-- name: restart tallow
-  become: yes
-  when: ansible_distribution == 'ClearLinux'
-  service:
-    name: tallow
-    state: restarted
+  notify: restart tallow
