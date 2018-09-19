@@ -1,4 +1,10 @@
 ---
+- name: preflight tasks
+  hosts: all
+  tags: always
+  roles:
+    - preflight
+
 - name: install and set up common tasks
   hosts: all
   tags: common
@@ -6,7 +12,7 @@
     - common
 
 - name: whitelist local IPs for Clear Linux
-  hosts: all
+  hosts: clearlinux
   tags: security
   roles:
     - tallow
