@@ -67,8 +67,8 @@
     command: define
     xml: "{{ lookup('file', item) }}"
   with_fileglob:
-    - "kvms/hosts/{{ inventory_hostname }}/autostart/*"
-    - "kvms/hosts/{{ inventory_hostname }}/zombie/*"
+    - "kvms/hosts/{{ inventory_hostname }}/autostarted/*"
+    - "kvms/hosts/{{ inventory_hostname }}/orphaned/*"
 
 - name: start and autostart vms
   virt:
@@ -78,4 +78,4 @@
     command: define
     xml: "{{ lookup('file', item) }}"
   with_fileglob:
-    - "kvms/hosts/{{ inventory_hostname }}/autostart/*"
+    - "kvms/hosts/{{ inventory_hostname }}/autostarted/*"
