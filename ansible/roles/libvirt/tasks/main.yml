@@ -61,42 +61,21 @@
   notify:
     - restart systemd-networkd
 
-- name: determine defined vms
-  become: yes
-  check_mode: no
-  command: virsh list --name --all
-  register: defined_vms
-
-- name: determine autostarted vms
-  become: yes
-  check_mode: no
-  command: virsh list --name --autostart
-  register: autostarted_vms
-
-- name: determine started vms
-  become: yes
-  check_mode: no
-  command: virsh list --name
-  register: started_vms
-
 - name: define vms
-  become: yes
-  command: "virsh define {{ item }}"
-  when: "ansible_hostname not in defined_vms.stdout_lines"
+  virt:
+    name: "{{ item | splitext | first }}"
+    command: define
+    xml: "{{ lookup('file', item) }}"
   with_fileglob:
     - "kvms/hosts/{{ inventory_hostname }}/autostart/*"
     - "kvms/hosts/{{ inventory_hostname }}/zombie/*"
 
-- name: set vms to autostart
-  become: yes
-  command: "virsh autostart {{ item | splitext | first }}"
-  when: "ansible_hostname not in autostarted_vms.stdout_lines"
-  with_fileglob:
-    - "kvms/hosts/{{ inventory_hostname }}/autostart/*"
-
-- name: start vms
-  become: yes
-  command: "virsh start {{ item | splitext | first }}"
-  when: "ansible_hostname not in started_vms.stdout_lines"
+- name: start and autostart vms
+  virt:
+    name: "{{ item | splitext | first }}"
+    autostart: yes
+    state: running
+    command: define
+    xml: "{{ lookup('file', item) }}"
   with_fileglob:
     - "kvms/hosts/{{ inventory_hostname }}/autostart/*"
