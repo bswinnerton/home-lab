@@ -17,6 +17,12 @@
   roles:
     - tallow
 
+- name: set up mount points
+  hosts: kvm-hosts
+  tags: disk
+  roles:
+    - mount-points
+
 - name: install node_exporter
   hosts: bare-metal
   tags: monitoring
