@@ -60,3 +60,22 @@
     mode: 0644
   notify:
     - restart systemd-networkd
+
+- name: define vms
+  virt:
+    name: "{{ item | splitext | first }}"
+    command: define
+    xml: "{{ lookup('file', item) }}"
+  with_fileglob:
+    - "kvms/hosts/{{ inventory_hostname }}/autostart/*"
+    - "kvms/hosts/{{ inventory_hostname }}/zombie/*"
+
+- name: start and autostart vms
+  virt:
+    name: "{{ item | splitext | first }}"
+    autostart: yes
+    state: running
+    command: define
+    xml: "{{ lookup('file', item) }}"
+  with_fileglob:
+    - "kvms/hosts/{{ inventory_hostname }}/autostart/*"
