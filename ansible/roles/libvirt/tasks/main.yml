@@ -9,6 +9,11 @@
   package:
     name: kvm-host
 
+- name: install KVM extras
+  become: yes
+  package:
+    name: kvm-host-extras
+
 - name: add main account to KVM group
   become: yes
   user:
