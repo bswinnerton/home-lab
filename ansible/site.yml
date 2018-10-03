@@ -29,6 +29,12 @@
   roles:
     - cloudalchemy.node-exporter
 
+- name: install libvirt
+  hosts: kvm-hosts
+  tags: kvm
+  roles:
+    - libvirt
+
 - name: enable libvirt-guests
   hosts: kvm-hosts
   tags: kvm
