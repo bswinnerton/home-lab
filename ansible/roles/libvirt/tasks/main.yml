@@ -79,10 +79,8 @@
 - name: start and autostart vms
   become: yes
   virt:
-    name: "{{ item | splitext | first }}"
+    name: "{{ item | basename | splitext | first }}"
     autostart: yes
     state: running
-    command: define
-    xml: "{{ lookup('file', item) }}"
   with_fileglob:
     - "kvms/hosts/{{ inventory_hostname }}/autostarted/*"
