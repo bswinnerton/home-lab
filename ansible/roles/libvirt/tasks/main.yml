@@ -67,6 +67,7 @@
     - restart systemd-networkd
 
 - name: define vms
+  become: yes
   virt:
     name: "{{ item | splitext | first }}"
     command: define
@@ -76,6 +77,7 @@
     - "kvms/hosts/{{ inventory_hostname }}/orphaned/*"
 
 - name: start and autostart vms
+  become: yes
   virt:
     name: "{{ item | splitext | first }}"
     autostart: yes
