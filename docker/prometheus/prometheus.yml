@@ -78,8 +78,9 @@ scrape_configs:
     static_configs:
       - targets:
         - 10.70.117.1   # The brooks.network router
-        - 10.70.84.82   # The next hop (node 570)
-        - 199.167.59.1  # NYC Mesh peering router
+        - 10.70.117.2   # The brooks.network ptp antenna
+        - 10.70.117.6   # The brooks.network sector antenna
+        - 199.167.59.1  # NYC Mesh core router
         - 8.8.4.4       # The internet
     relabel_configs:
       - source_labels: [__address__]
