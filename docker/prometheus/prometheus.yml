@@ -79,7 +79,7 @@ scrape_configs:
       - targets:
         - 10.70.117.1   # The brooks.network router
         - 10.70.117.2   # The brooks.network ptp antenna
-        - 10.70.130.1   # NYC Mesh node 1340
+        - 10.70.131.129 # NYC Mesh node 1340
         - 10.70.117.6   # The brooks.network sector antenna
         - 10.70.116.1   # NYC Mesh node 570
         - 199.167.59.1  # NYC Mesh core router
