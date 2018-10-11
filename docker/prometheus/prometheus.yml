@@ -82,6 +82,7 @@ scrape_configs:
         - 10.70.131.129 # NYC Mesh node 1340
         - 10.70.117.6   # The brooks.network sector antenna
         - 10.70.116.1   # NYC Mesh node 570
+        - 10.70.148.1   # NYC Mesh node 1350
         - 199.167.59.1  # NYC Mesh core router
         - 8.8.4.4       # The internet
     relabel_configs:
