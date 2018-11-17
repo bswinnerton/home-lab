@@ -31,6 +31,11 @@ scrape_configs:
     static_configs:
       - targets: ['10.0.100.10:9090']
 
+  - job_name: 'vyos'
+    static_configs:
+      - targets:
+        - '10.10.10.1'
+        - '10.10.10.2'
   - job_name: 'cadvisor'
     static_configs:
       - targets: ['10.0.100.10:9080']
