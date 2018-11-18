@@ -55,9 +55,3 @@
   tags: docker
   roles:
     - clear-linux-docker-service-bugfix
-
-- name: install GlusterFS
-  hosts: kubernetes-nodes
-  tags: glusterfs
-  roles:
-    - glusterfs

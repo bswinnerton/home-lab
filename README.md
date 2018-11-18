@@ -21,7 +21,7 @@ Previous to this repostiory, I had each of these configurations stored in a mult
 
 ## The Home Lab
 
-I run two [Intel NUC7 i5](https://www.intel.com/content/www/us/en/products/boards-kits/nuc/kits/nuc7i5bnk.html)s. Each has 32GB of RAM, and one has 1TB of disk space, and the other has 256GB. They both run Clear Linux, an incredibly lightweight distribution of Linux that has support for downtimeless updates and a great community on IRC. My motivation towards using it was based heavily on Sophie Haskin's [blog article](https://blog.sophaskins.net/blog/setting-up-a-home-hypervisor/) on setting up a home hypervisor. On each NUC, there are three [VMs](./ansible/roles/libvirt/files/kvms/); one Kubernetes master and two worker nodes. Outside of Kubernetes, there are a few [Docker containers](./docker/) that run on the host(s).
+I run two [Intel NUC7 i5](https://www.intel.com/content/www/us/en/products/boards-kits/nuc/kits/nuc7i5bnk.html)s. Each has 32GB of RAM, and one has 1TB of disk space, and the other has 256GB. They both run Clear Linux, an incredibly lightweight distribution of Linux that has support for downtimeless updates and a great community on IRC. My motivation towards using it was based heavily on Sophie Haskin's [blog article](https://blog.sophaskins.net/blog/setting-up-a-home-hypervisor/) on setting up a home hypervisor. On each NUC, there are a variety of [VMs](./ansible/roles/libvirt/files/kvms/). There are also a few [Docker containers](./docker/) that run on the host(s).
 
 If you're interested in setting up KVM on Clear Linux, I've blogged about it over [here](https://brooks.sh/2017/12/22/configuring-kvm-on-clear-linux/).
 
