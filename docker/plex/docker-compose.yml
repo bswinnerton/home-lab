@@ -1,0 +1,42 @@
+version: '3'
+services:
+  plex:
+    image: plexinc/pms-docker
+    container_name: plex
+    restart: always
+    expose:
+      - 32400
+    ports:
+      - 3005:3005/tcp
+      - 8324:8324/tcp
+      - 32469:32469/tcp
+      - 1900:1900/udp
+      - 32410:32410/udp
+      - 32412:32412/udp
+      - 32413:32413/udp
+      - 32414:32414/udp
+    volumes:
+      - config:/config
+      - data:/data
+      - transcodoe:/transcode
+    networks:
+      - web
+    env_file:
+      - .env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.frontend.rule=Host:plex.brooks.network"
+
+volumes:
+  data:
+  config:
+  transcode:
+
+networks:
+  web:
+    external: true
+
+#-e PLEX_CLAIM="<claimToken>" \
+#-e ADVERTISE_IP="http://<hostIPAddress>:32400/" \
+#-h <HOSTNAME> \
