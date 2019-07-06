@@ -3,14 +3,23 @@ services:
   unms:
     image: oznu/unms:latest
     restart: always
+    expose:
+      - 443
     ports:
       - 80:80
-      - 443:443
       - 2055:2055/udp
     environment:
       - TZ=America/New_York
     volumes:
       - data:/config
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.frontend.rule=Host:unms.brooks.network"
 
 volumes:
   data:
+
+networks:
+  web:
+    external: true
