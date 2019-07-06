@@ -5,8 +5,8 @@ services:
     restart: always
     expose:
       - 443
+      - 80
     ports:
-      - 80:80
       - 2055:2055/udp
     environment:
       - TZ=America/New_York
