@@ -9,7 +9,7 @@ services:
     networks:
       - unifi
   controller:
-    image: jacobalberty/unifi:latest
+    image: jacobalberty/unifi:stable
     container_name: unifi_controller
     restart: always
     depends_on:
