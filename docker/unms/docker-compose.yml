@@ -1,0 +1,16 @@
+version: '2'
+services:
+  unms:
+    image: oznu/unms:latest
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+      - 2055:2055/udp
+    environment:
+      - TZ=America/New_York
+    volumes:
+      - data:/config
+
+volumes:
+  data:
