@@ -6,6 +6,8 @@ services:
     expose:
       - 443
       - 80
+    networks:
+      - web
     ports:
       - 2055:2055/udp
     environment:
