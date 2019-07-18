@@ -6,11 +6,139 @@
     - "{{ ansible_distribution|lower }}.yml"
   tags: vars
 
+- name: set hostname
+  become: yes
+  hostname:
+    name: "{{ inventory_hostname.split('.') | first | lower }}"
+  when: os != 'clearlinuxos'
+
+- name: set hostname
+  become: yes
+  copy:
+    dest: /etc/hostname
+    content: |
+      "{{ inventory_hostname.split('.') | first | lower }}"
+  when: os == 'clearlinuxos'
+
+- name: Check that /etc/hosts exists
+  become: yes
+  stat:
+    path: /etc/hosts
+  register: hosts_file
+
+- name: ensure /etc/hosts exists
+  become: yes
+  file:
+    path: /etc/hosts
+    state: touch
+    owner: root
+    group: root
+    mode: 0644
+  when: not hosts_file.stat.exists
+
+- name: add hostname to /etc/hosts
+  become: yes
+  lineinfile:
+    path: /etc/hosts
+    regexp: "^127.0.0.1.*{{ inventory_hostname.split('.') | first | lower }}"
+    line: "127.0.0.1 {{ inventory_hostname.split('.') | first | lower }}"
+
+- name: apt update
+  become: yes
+  apt:
+    update_cache: yes
+  when: os != 'clearlinuxos'
+
 - name: install SSH server
   become: yes
   package:
     name: openssh-server
     state: present
+
+- name: configure SSH server
+  become: yes
+  template:
+    src: sshd_config.j2
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: 0644
+
+# By default, Clear Linux relies on the wheel group for sudo access
+- name: add sudo users
+  become: yes
+  user:
+    name: "{{ item.key }}"
+    password: "{{ item.value.password }}"
+    groups: wheel
+    shell: /bin/bash
+    append: yes
+  with_dict: "{{ users }}"
+  when:
+    - os == 'clearlinuxos'
+    - item.key != 'root'
+    - "'sudo' in item.value.groups"
+
+- name: add sudo users
+  become: yes
+  user:
+    name: "{{ item.key }}"
+    password: "{{ item.value.password }}"
+    groups: sudo
+    shell: /bin/bash
+    append: yes
+  with_dict: "{{ users }}"
+  when:
+    - os != 'clearlinuxos'
+    - item.key != 'root'
+    - "'sudo' in item.value.groups"
+
+- name: add users
+  become: yes
+  user:
+    name: "{{ item.key }}"
+    password: "{{ item.value.password }}"
+    groups: "{{ item.value.groups | reject('search', 'sudo') | list }}"
+    shell: /bin/bash
+    append: yes
+  with_dict: "{{ users }}"
+  when:
+    - item.key != 'root'
+    - item.value.groups is defined
+
+- name: ensure ~/.ssh directory exists
+  become: yes
+  file:
+    path: "/home/{{ item.key }}/.ssh/"
+    state: directory
+    owner: "{{ item.key }}"
+    group: "{{ item.key }}"
+    mode: 0700
+  with_dict: "{{ users }}"
+  when: "item.value.ssh_public_keys is defined"
+
+- name: set SSH public keys
+  become: yes
+  template:
+    src: authorized_keys.j2
+    dest: "/home/{{ item.key }}/.ssh/authorized_keys"
+    owner: "{{ item.key }}"
+    group: "{{ item.key }}"
+    mode: 0644
+  no_log: true
+  with_dict: "{{ users }}"
+  when: "item.value.ssh_public_keys is defined"
+  notify: restart sshd
+
+  # Force the all notifys to execute now
+- meta: flush_handlers
+
+- name: remove default pi user if exists
+  become: yes
+  user:
+    name: pi
+    state: absent
+    force: yes
 
 - name: install Mosh
   become: yes
@@ -35,6 +163,39 @@
   package:
     name: "{{ tmux_package_name }}"
     state: present
+
+- name: install iperf
+  become: yes
+  package:
+    name: "{{ iperf_package_name }}"
+    state: present
+
+- name: install htop
+  become: yes
+  package:
+    name: "{{ htop_package_name }}"
+    state: present
+
+- name: install curl
+  become: yes
+  package:
+    name: "{{ curl_package_name }}"
+
+- name: install tcpdump
+  become: yes
+  package:
+    name: "{{ tcpdump_package_name }}"
+    state: present
+
+- name: install dns tools
+  become: yes
+  package:
+    name: "{{ dns_tools_package_name }}"
+
+- name: install mtr
+  become: yes
+  package:
+    name: "{{ mtr_package_name }}"
 
 - name: include OS-specific common tasks
   include_tasks: "{{ ansible_distribution|lower }}.yml"

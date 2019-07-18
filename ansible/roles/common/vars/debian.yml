@@ -1,4 +1,11 @@
 ---
+curl_package_name: curl
+dns_tools_package_name: dnsutils
+htop_package_name: htop
+iperf_package_name: iperf3
 mosh_package_name: mosh
+mtr_package_name: mtr-tiny
+tcpdump_package_name: tcpdump
 tmux_package_name: tmux
 vim_package_name: vim
+wireguard_package_name: wireguard

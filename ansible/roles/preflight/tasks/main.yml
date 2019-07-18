@@ -1,4 +1,8 @@
 ---
 - name: create dynamic OS-based groups
   group_by:
-    key: "{{ ansible_distribution|lower }}"
+    key: "{{ ansible_distribution|replace(' ', '')|lower }}"
+
+- name: create dynamic OS-based variable
+  set_fact:
+    os: "{{ ansible_distribution|replace(' ', '')|lower }}"
