@@ -2,26 +2,16 @@ version: '2'
 services:
   unms:
     image: oznu/unms:latest
+    container_name: unms
     restart: always
-    expose:
-      - 443
-      - 80
-    networks:
-      - web
     ports:
+      - 8444:443
+      - 8480:80
       - 2055:2055/udp
     environment:
       - TZ=America/New_York
     volumes:
       - data:/config
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=web"
-      - "traefik.frontend.rule=Host:unms.brooks.network"
 
 volumes:
   data:
-
-networks:
-  web:
-    external: true
