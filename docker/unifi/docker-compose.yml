@@ -34,6 +34,11 @@ services:
       DB_URI: mongodb://mongo/unifi
       STATDB_URI: mongodb://mongo/unifi_stat
       DB_NAME: unifi
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
   exporter:
     image: bswinnerton/unifi_exporter
     container_name: unifi_exporter
