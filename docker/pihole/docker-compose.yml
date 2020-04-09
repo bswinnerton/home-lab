@@ -8,6 +8,7 @@ services:
       - "53:53/tcp"
       - "53:53/udp"
       - "67:67/udp"
+    expose:
       - "80:80/tcp"
       - "443:443/tcp"
     environment:
@@ -18,6 +19,12 @@ services:
       - 127.0.0.1
       - 1.1.1.1
       - 8.8.8.8
+    networks:
+      - default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.frontend.rule=Host:pihole.brooks.network"
 
 volumes:
   data:
