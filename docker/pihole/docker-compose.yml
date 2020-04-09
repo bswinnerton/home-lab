@@ -1,0 +1,24 @@
+version: '3'
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    restart: unless-stopped
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "80:80/tcp"
+      - "443:443/tcp"
+    environment:
+      TZ: 'America/New_York'
+    volumes:
+      -
+       - 'data:/etc/pihole/'
+    dns:
+      - 127.0.0.1
+      - 1.1.1.1
+      - 8.8.8.8
+
+volumes:
+  data:
