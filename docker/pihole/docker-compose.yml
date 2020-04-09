@@ -13,8 +13,7 @@ services:
     environment:
       TZ: 'America/New_York'
     volumes:
-      -
-       - 'data:/etc/pihole/'
+      - 'data:/etc/pihole/'
     dns:
       - 127.0.0.1
       - 1.1.1.1
