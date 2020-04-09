@@ -9,8 +9,8 @@ services:
       - "53:53/udp"
       - "67:67/udp"
     expose:
-      - "80:80/tcp"
-      - "443:443/tcp"
+      - 80
+      - 443
     environment:
       TZ: 'America/New_York'
     volumes:
