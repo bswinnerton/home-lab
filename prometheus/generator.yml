@@ -22,21 +22,6 @@ modules:
         # Use OID to avoid conflict with Netscaler NS-ROOT-MIB.
         new_index: 1.3.6.1.2.1.31.1.1.1.1 # ifName
 
-# Ubiquiti / AirMAX
-#
-# https://dl.ubnt.com/firmwares/airos-ubnt-mib/ubnt-mib.zip
-#
-  ubiquiti_airmax:
-    version: 1
-    walk:
-      - sysUpTime
-      - interfaces
-      - ifXTable
-      - 1.3.6.1.4.1.41112.1.4 # ubntAirMAX
-    lookups:
-      - old_index: ifIndex
-        new_index: ifDescr
-
 # Ubiquiti / UniFi
 #
 # http://dl.ubnt-ut.com/snmp/UBNT-MIB

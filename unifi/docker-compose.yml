@@ -1,0 +1,77 @@
+version: '2.3'
+services:
+  mongo:
+    image: mongo:3.6
+    container_name: ${COMPOSE_PROJECT_NAME}_mongo
+    networks:
+      - unifi
+    restart: always
+    volumes:
+      - db:/data/db
+      - dbcfg:/data/configdb
+  controller:
+    image: "jacobalberty/unifi:${TAG:-latest}"
+    container_name: ${COMPOSE_PROJECT_NAME}_controller
+    depends_on:
+      - mongo
+    init: true
+    networks:
+      - unifi
+    restart: always
+    volumes:
+      - dir:/unifi
+      - data:/unifi/data
+      - log:/unifi/log
+      - cert:/unifi/cert
+      - init:/unifi/init.d
+      - run:/var/run/unifi
+      # Mount local folder for backups and autobackups
+      - ./backup:/unifi/data/backup
+    user: unifi
+    sysctls:
+      net.ipv4.ip_unprivileged_port_start: 0
+    environment:
+      DB_URI: mongodb://mongo/unifi
+      STATDB_URI: mongodb://mongo/unifi_stat
+      DB_NAME: unifi
+    ports:
+      - "3478:3478/udp" # STUN
+      - "6789:6789/tcp" # Speed test
+      - "8080:8080/tcp" # Device/ controller comm.
+      - "8443:8443/tcp" # Controller GUI/API as seen in a web browser
+      - "8880:8880/tcp" # HTTP portal redirection
+      - "8843:8843/tcp" # HTTPS portal redirection
+      - "10001:10001/udp" # AP discovery
+  logs:
+    image: bash
+    container_name: ${COMPOSE_PROJECT_NAME}_logs
+    depends_on:
+      - controller
+    command: bash -c 'tail -F /unifi/log/*.log'
+    restart: always
+    volumes:
+      - log:/unifi/log
+  exporter:
+    image: bswinnerton/unifi_exporter
+    container_name: unifi_exporter
+    restart: always
+    depends_on:
+      - controller
+    command: -config.file /etc/unifi_exporter/config.yml
+    volumes:
+      - exporter_config:/etc/unifi_exporter
+    ports:
+      - 9130:9130
+
+volumes:
+  db:
+  dbcfg:
+  data:
+  log:
+  cert:
+  init:
+  dir:
+  run:
+
+networks:
+  unifi:

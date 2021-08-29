@@ -36,7 +36,7 @@ scrape_configs:
       - targets: ['10.0.100.10:9080']
   - job_name: 'node_exporter'
     static_configs:
-      - targets: ['10.0.100.10:9100', 'nuc7i5b.brooks.network:9100', '10.0.90.10:9100']
+      - targets: ['10.0.100.10:9100', '10.0.90.10:9100']
   - job_name: 'traefik'
     static_configs:
       - targets: ['10.0.100.10:8081']
@@ -46,7 +46,7 @@ scrape_configs:
   - job_name: 'edgemax_exporter'
     static_configs:
       - targets:
-        - 10.70.117.1
+        - 10.0.100.1
     metrics_path: /snmp
     params:
       module: [ubiquiti_edgemax]
@@ -57,38 +57,3 @@ scrape_configs:
         target_label: instance
       - target_label: __address__
         replacement: 10.0.100.10:9116
-  - job_name: 'airmax_exporter'
-    static_configs:
-      - targets:
-        - 10.70.117.2
-    metrics_path: /snmp
-    params:
-      module: [ubiquiti_airmax]
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: __param_target
-      - source_labels: [__param_target]
-        target_label: instance
-      - target_label: __address__
-        replacement: 10.0.100.10:9116
-  - job_name: 'blackbox_exporter'
-    metrics_path: /probe
-    params:
-      module: [icmp]
-    static_configs:
-      - targets:
-        - 10.70.117.1   # The brooks.network router
-        - 10.70.117.2   # The brooks.network ptp antenna
-        - 10.70.131.129 # NYC Mesh node 1340
-        - 10.70.117.3   # The brooks.network sector antenna
-        - 10.70.116.1   # NYC Mesh node 570
-        - 10.70.148.1   # NYC Mesh node 1350
-        - 199.167.59.1  # NYC Mesh core router
-        - 8.8.4.4       # The internet
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: __param_target
-      - source_labels: [__param_target]
-        target_label: instance
-      - target_label: __address__
-        replacement: 10.0.100.10:9115  # The blackbox exporter's real hostname:port.

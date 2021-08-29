@@ -1,6 +1,0 @@
----
-- name: restart tallow
-  become: yes
-  service:
-    name: tallow
-    state: restarted

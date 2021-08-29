@@ -1,9 +1,0 @@
----
-- name: mount data partition
-  become: yes
-  when: data_device_partition is defined
-  mount:
-    path: /data
-    src: "{{ data_device_partition }}"
-    fstype: ext4
-    state: present
