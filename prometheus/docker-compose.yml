@@ -12,9 +12,8 @@ services:
       - data:/prometheus
 
   cadvisor:
-    image: google/cadvisor:latest
+    image: gcr.io/cadvisor/cadvisor:latest
     container_name: cadvisor
-    restart: always
     ports:
       - 9080:8080
     volumes:
@@ -22,7 +21,6 @@ services:
       - /var/run:/var/run:rw
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
-      - /dev/disk/:/dev/disk:ro
 
   snmp-exporter:
     image: prom/snmp-exporter
