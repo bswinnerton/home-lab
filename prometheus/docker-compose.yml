@@ -35,3 +35,6 @@ services:
 
 volumes:
   data:
+
+networks:
+  metrics:
