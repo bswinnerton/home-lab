@@ -23,5 +23,6 @@ volumes:
 
 networks:
   metrics:
+    external: true
   web:
     external: true
