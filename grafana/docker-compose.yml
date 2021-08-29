@@ -11,6 +11,7 @@ services:
       - config:/etc/grafana
     networks:
       - web
+      - metrics
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
