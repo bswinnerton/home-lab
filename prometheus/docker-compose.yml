@@ -41,8 +41,6 @@ services:
       - .env
     ports:
       - 9098:9098
-    networks:
-      - metrics
     volumes:
       - ecobee-exporter_data:/db
 
