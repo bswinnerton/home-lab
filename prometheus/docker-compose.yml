@@ -37,8 +37,8 @@ services:
     image: billykwooten/ecobee-exporter
     container_name: ecobee-exporter
     restart: always
-    expose:
-      - 9098
+    ports:
+      - 9098:9098
     networks:
       - metrics
     volumes:
