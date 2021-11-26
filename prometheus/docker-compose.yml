@@ -50,6 +50,7 @@ services:
 volumes:
   data:
   ecobee-exporter_data:
+    external: true
 
 networks:
   metrics:
