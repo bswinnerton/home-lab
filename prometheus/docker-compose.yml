@@ -33,8 +33,20 @@ services:
     volumes:
       - ./snmp.yml:/etc/snmp_exporter/snmp.yml
 
+  ecobee-exporter:
+    image: billykwooten/ecobee-exporter
+    container_name: ecobee-exporter
+    restart: always
+    expose:
+      - 9098
+    networks:
+      - metrics
+    volumes:
+      - data:/db
+
 volumes:
   data:
+  ecobee-exporter_data:
 
 networks:
   metrics:
