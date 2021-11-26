@@ -44,7 +44,7 @@ services:
     networks:
       - metrics
     volumes:
-      - data:/db
+      - ecobee-exporter_data:/db
 
 
 volumes:
