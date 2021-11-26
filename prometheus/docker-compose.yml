@@ -37,12 +37,15 @@ services:
     image: billykwooten/ecobee-exporter
     container_name: ecobee-exporter
     restart: always
+    env_file:
+      - .env
     ports:
       - 9098:9098
     networks:
       - metrics
     volumes:
       - data:/db
+
 
 volumes:
   data:
