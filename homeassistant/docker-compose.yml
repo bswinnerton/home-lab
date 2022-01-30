@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - config:/config
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
+      - /dev/ttyUSB1:/dev/ttyUSB1
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+
+volumes:
+  config:
