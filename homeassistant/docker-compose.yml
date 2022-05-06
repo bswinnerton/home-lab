@@ -2,9 +2,9 @@ version: '3'
 
 services:
   homeassistant:
+    image: "ghcr.io/home-assistant/home-assistant:stable"
     container_name: homeassistant
     restart: unless-stopped
-    image: "ghcr.io/home-assistant/home-assistant:stable"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - config:/config

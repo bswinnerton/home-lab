@@ -12,14 +12,3 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 
 prometheus:
-camera:
-  - platform: generic
-    name: Driveway
-    still_image_url: https://10.0.90.11/snap.jpeg
-    stream_source: rtsps://10.0.0.1:7441/Uvti23I4Kx53mAZC?enableSrtp
-    verify_ssl: false
-  - platform: generic
-    name: Living Room
-    still_image_url: https://10.0.90.12/snap.jpeg
-    stream_source: rtsps://10.0.0.1:7441/CYvUpbbWcpzOpz5r?enableSrtp
-    verify_ssl: false

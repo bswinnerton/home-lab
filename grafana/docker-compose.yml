@@ -15,7 +15,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
-      - "traefik.frontend.rule=Host:graphs.brooks.network"
+      - "traefik.frontend.rule=Host:graphs.cabin.brooks.network"
 
 volumes:
   data:
