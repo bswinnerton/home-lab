@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 
 services:
   pihole:
@@ -6,11 +6,25 @@ services:
     image: pihole/pihole:latest
     restart: unless-stopped
     ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "8080:80/tcp"
+      - '53:53/tcp'
+      - '53:53/udp'
+    networks:
+      - 'web'
     environment:
       TZ: 'America/New_York'
+      VIRTUAL_HOST: 'dns.cabin.brooks.network'
+      VIRTUAL_PORT: 80
     volumes:
       - './etc-pihole:/etc/pihole'
       - './etc-dnsmasq.d:/etc/dnsmasq.d'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=web'
+      - 'traefik.http.routers.pihole.rule=Host(`dns.cabin.brooks.network`)'
+      - 'traefik.http.routers.pihole.entrypoints=websecure'
+      - 'traefik.http.routers.pihole.tls.certresolver=letsencrypt'
+      - 'traefik.http.services.pihole.loadbalancer.server.port=80'
+
+networks:
+  web:
+    external: true
