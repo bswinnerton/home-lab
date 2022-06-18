@@ -1,7 +1,7 @@
 version: '3'
 services:
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana:latest
     container_name: grafana
     restart: always
     expose:
@@ -13,9 +13,11 @@ services:
       - web
       - metrics
     labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=web"
-      - "traefik.frontend.rule=Host:graphs.cabin.brooks.network"
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=web'
+      - 'traefik.http.routers.grafana.rule=Host(`graphs.cabin.brooks.network`)'
+      - 'traefik.http.routers.grafana.entrypoints=websecure'
+      - 'traefik.http.routers.grafana.tls.certresolver=letsencrypt'
 
 volumes:
   data:

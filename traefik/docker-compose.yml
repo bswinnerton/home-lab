@@ -2,20 +2,42 @@ version: '3'
 
 services:
   traefik:
-    image: traefik:v1.7.30
-    container_name: traefik
+    image: 'traefik'
+    container_name: 'traefik'
     restart: always
+    env_file:
+      - .env
+    command:
+      - '--log.level=INFO'
+      - '--api=true'
+      - '--api.dashboard=true'
+      - '--accesslog=true'
+      - '--providers.docker=true'
+      - '--providers.docker.exposedbydefault=false'
+      - '--entrypoints.web.address=:80'
+      - '--entrypoints.web.http.redirections.entrypoint.to=websecure'
+      - '--entrypoints.web.http.redirections.entrypoint.scheme=https'
+      - '--entrypoints.websecure.address=:443'
+      - '--certificatesresolvers.letsencrypt.acme.dnschallenge=true'
+      - '--certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare'
+      - '--certificatesresolvers.letsencrypt.acme.email=bswinnerton@gmail.com'
+      - '--certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme/acme.json'
+      - '--metrics.prometheus=true'
     ports:
-      - 80:80
-      - 443:443
-      - 8081:8080
+      - '80:80'
+      - '443:443'
+      - '8080:8080'
     networks:
-      - web
-      - default
+      - 'web'
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./traefik.toml:/traefik.toml
-      - acme:/etc/traefik/acme
+      - 'acme:/etc/traefik/acme'
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.api.rule=Host(`lb.cabin.brooks.network`)'
+      - 'traefik.http.routers.api.service=api@internal'
+      - 'traefik.http.routers.api.entrypoints=websecure'
+      - 'traefik.http.routers.api.tls.certresolver=letsencrypt'
 
 volumes:
   acme:
