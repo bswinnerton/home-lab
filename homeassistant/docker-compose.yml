@@ -2,7 +2,7 @@ version: '3'
 
 services:
   homeassistant:
-    image: "ghcr.io/home-assistant/home-assistant:stable"
+    image: 'ghcr.io/home-assistant/home-assistant:stable'
     container_name: homeassistant
     restart: unless-stopped
     volumes:
@@ -12,8 +12,19 @@ services:
     devices:
       - /dev/ttyUSB0:/dev/ttyUSB0
       - /dev/ttyUSB1:/dev/ttyUSB1
-    privileged: true
-    network_mode: host
+    networks:
+      - web
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=web'
+      - 'traefik.http.routers.homeassistant.rule=Host(`hass.cabin.brooks.network`)'
+      - 'traefik.http.routers.homeassistant.entrypoints=websecure'
+      - 'traefik.http.routers.homeassistant.tls.certresolver=letsencrypt'
+      - 'traefik.http.services.homeassistant.loadbalancer.server.port=8123'
 
 volumes:
   config:
+
+networks:
+  web:
+    external: true
