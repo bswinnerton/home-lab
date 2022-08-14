@@ -8,6 +8,10 @@ services:
     ports:
       - '53:53/tcp'
       - '53:53/udp'
+    dns:
+      - '127.0.0.1'
+      - '1.1.1.1'
+      - '8.8.8.8'
     networks:
       - 'web'
     environment:
