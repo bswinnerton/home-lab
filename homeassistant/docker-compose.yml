@@ -9,22 +9,11 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - config:/config
       - ./config/configuration.yaml:/config/configuration.yaml
+    privileged: true
+    network_mode: host
     devices:
       - /dev/ttyUSB0:/dev/ttyUSB0
       - /dev/ttyUSB1:/dev/ttyUSB1
-    networks:
-      - web
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.docker.network=web'
-      - 'traefik.http.routers.homeassistant.rule=Host(`hass.cabin.brooks.network`)'
-      - 'traefik.http.routers.homeassistant.entrypoints=websecure'
-      - 'traefik.http.routers.homeassistant.tls.certresolver=letsencrypt'
-      - 'traefik.http.services.homeassistant.loadbalancer.server.port=8123'
 
 volumes:
   config:
-
-networks:
-  web:
-    external: true
