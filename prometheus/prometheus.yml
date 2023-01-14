@@ -68,3 +68,6 @@ scrape_configs:
       credentials: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIxNmNjYTJmMzI3ZjM0MjYzYTE3MWY5YTJkYzgzMjBiMSIsImlhdCI6MTY0MzQ2NzI1OSwiZXhwIjoxOTU4ODI3MjU5fQ.VnSvvoB1flle0R_9ktVoShpY83VJ8pUtrO56kj2Z7NY"
     static_configs:
       - targets: ['10.1.90.10:8123']
+  - job_name: 'ambient-exporter'
+    static_configs:
+      - targets: ['10.1.90.10:9091']
