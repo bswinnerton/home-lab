@@ -44,6 +44,14 @@ services:
     volumes:
       - ecobee-exporter_data:/db
 
+  ambient-weather-exporter:
+    image: ghcr.io/ianunruh/ambient-exporter:main
+    container_name: ambient_exporter
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 9091:9090
 
 volumes:
   data:
