@@ -21,6 +21,7 @@ services:
       - '--certificatesresolvers.letsencrypt.acme.email=bswinnerton@gmail.com'
       - '--certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme/acme.json'
       - '--metrics.prometheus=true'
+      - '--api.dashboard=true'
     ports:
       - '80:80'
       - '443:443'
