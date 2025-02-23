@@ -10,8 +10,24 @@ services:
     privileged: true
     network_mode: host
     devices:
-      - /dev/ttyUSB0:/dev/ttyUSB0
       - /dev/ttyUSB1:/dev/ttyUSB1
+  zwave:
+    container_name: zwave
+    image: zwavejs/zwave-js-ui:latest
+    restart: always
+    tty: true
+    stop_signal: SIGINT
+    environment:
+      - SESSION_SECRET=mysupersecretkey
+    networks:
+      - zwave
+    devices:
+      - '/dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_7150097E-if00-port0:/dev/zwave'
+    volumes:
+      - zwave-config:/usr/src/app/store
+    ports:
+      - '8091:8091' # port for web interface
+      - '3000:3000' # port for Z-Wave JS websocket server
 
 volumes:
-  config:
+  zwave-config:
