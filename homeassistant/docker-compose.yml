@@ -9,8 +9,6 @@ services:
       - ./config/configuration.yaml:/config/configuration.yaml
     privileged: true
     network_mode: host
-    networks:
-      - zwave
     devices:
       - /dev/ttyUSB1:/dev/ttyUSB1
   zwave:
