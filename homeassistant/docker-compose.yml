@@ -17,8 +17,6 @@ services:
     restart: always
     tty: true
     stop_signal: SIGINT
-    environment:
-      - SESSION_SECRET=mysupersecretkey
     privileged: true
     network_mode: host
     devices:
