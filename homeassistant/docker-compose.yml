@@ -30,4 +30,5 @@ services:
       - '3000:3000' # port for Z-Wave JS websocket server
 
 volumes:
-  zwave-config:
+  config:
+  z-wave-config:
