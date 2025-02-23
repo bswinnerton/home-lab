@@ -18,21 +18,3 @@ http:
 prometheus:
 
 climate:
-  - platform: generic_thermostat
-    name: Office Space Heater
-    heater: switch.office_space_heater
-    target_sensor: sensor.office_temperature
-    unique_id: office_space_heater_thermostat
-    ac_mode: false
-  - platform: generic_thermostat
-    name: Guest Bedroom Space Heater
-    heater: switch.guest_bedroom_heater
-    target_sensor: sensor.kitchen_and_bedrooms_temperature
-    unique_id: guest_bedroom_space_heater_thermostat
-    ac_mode: false
-  - platform: generic_thermostat
-    name: Living Room Space Heater
-    heater: switch.living_room_heater
-    target_sensor: sensor.living_room_temperature
-    unique_id: living_room_space_heater_thermostat
-    ac_mode: false
