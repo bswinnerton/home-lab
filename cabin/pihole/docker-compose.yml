@@ -1,24 +1,24 @@
 services:
   pihole:
+    image: 'pihole/pihole:latest'
     container_name: pihole
-    image: pihole/pihole:latest
     restart: unless-stopped
-    ports:
-      - '53:53/tcp'
-      - '53:53/udp'
-    dns:
-      - '127.0.0.1'
-      - '1.1.1.1'
-      - '8.8.8.8'
-    networks:
-      - 'web'
     environment:
       TZ: 'America/New_York'
       VIRTUAL_HOST: 'dns.cabin.brooks.network'
       VIRTUAL_PORT: 80
+    dns:
+      - '127.0.0.1'
+      - '1.1.1.1'
+      - '8.8.8.8'
     volumes:
       - './etc-pihole:/etc/pihole'
       - './etc-dnsmasq.d:/etc/dnsmasq.d'
+    ports:
+      - '53:53/tcp'
+      - '53:53/udp'
+    networks:
+      - web
     labels:
       - 'traefik.enable=true'
       - 'traefik.docker.network=web'

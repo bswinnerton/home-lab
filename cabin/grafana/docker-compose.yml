@@ -1,13 +1,13 @@
 services:
   grafana:
-    image: grafana/grafana:latest
+    image: 'grafana/grafana:latest'
     container_name: grafana
     restart: always
+    volumes:
+      - 'data:/var/lib/grafana'
+      - 'config:/etc/grafana'
     expose:
       - 3000
-    volumes:
-      - data:/var/lib/grafana
-      - config:/etc/grafana
     networks:
       - web
       - metrics

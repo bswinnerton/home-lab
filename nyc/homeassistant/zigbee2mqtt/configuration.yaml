@@ -8,7 +8,7 @@ homeassistant:
 
 mqtt:
   base_topic: zigbee2mqtt
-  server: mqtt://mosquitto:1883
+  server: mqtt://mqtt:1883
 
 serial:
   port: /dev/zigbee
