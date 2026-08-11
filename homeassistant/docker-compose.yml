@@ -26,7 +26,36 @@ services:
     ports:
       - '8091:8091' # port for web interface
       - '3000:3000' # port for Z-Wave JS websocket server
+  mosquitto:
+    container_name: mosquitto
+    image: eclipse-mosquitto:2
+    restart: unless-stopped
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - mosquitto-data:/mosquitto/data
+    ports:
+      # Published on the host so that Home Assistant (which uses host
+      # networking) can reach the broker at localhost:1883
+      - '1883:1883'
+  zigbee2mqtt:
+    container_name: zigbee2mqtt
+    image: koenkk/zigbee2mqtt:latest
+    restart: unless-stopped
+    depends_on:
+      - mosquitto
+    devices:
+      # The Zigbee half of the HubZ combo stick (the Z-Wave half is used by
+      # the zwave service above)
+      - '/dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_7150097E-if01-port1:/dev/zigbee'
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - zigbee2mqtt-data:/app/data
+      - ./zigbee2mqtt/configuration.yaml:/app/data/configuration.yaml
+    ports:
+      - '8080:8080' # port for web interface
 
 volumes:
   config:
   zwave-config:
+  mosquitto-data:
+  zigbee2mqtt-data:
