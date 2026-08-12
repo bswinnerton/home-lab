@@ -1,0 +1,30 @@
+template:
+  - light:
+      - name: "Art Lamp"
+        unique_id: art_lamp
+        turn_on:
+          - action: script.turn_on_art_lamp
+        turn_off:
+          - action: script.turn_off_art_lamp
+        set_level:
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ brightness > state_attr('light.art_lamp', 'brightness') | default(128) }}"
+                sequence:
+                  - repeat:
+                      count: "{{ ((brightness - (state_attr('light.art_lamp', 'brightness') | default(128))) / 25) | int }}"
+                      sequence:
+                        - action: script.increase_brightness_of_art_lamp
+                        - delay:
+                            milliseconds: 300
+              - conditions:
+                  - condition: template
+                    value_template: "{{ brightness < state_attr('light.art_lamp', 'brightness') | default(128) }}"
+                sequence:
+                  - repeat:
+                      count: "{{ (((state_attr('light.art_lamp', 'brightness') | default(128)) - brightness) / 25) | int }}"
+                      sequence:
+                        - action: script.decrease_brightness_of_art_lamp
+                        - delay:
+                            milliseconds: 300
