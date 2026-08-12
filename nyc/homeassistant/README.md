@@ -6,7 +6,6 @@
 - **zwave**: [Z-Wave JS UI](https://github.com/zwave-js/zwave-js-ui), which drives the Z-Wave half of the HubZ (HUSBZB-1) combo stick. It stays host-networked, so its web interface is on port `8091` and the websocket server Home Assistant connects to is on port `3000`.
 - **mqtt**: [Eclipse Mosquitto](https://mosquitto.org/), the MQTT broker that Zigbee2MQTT and Home Assistant communicate through, addressable as `mqtt:1883` from any container on the compose network. It allows anonymous connections since it's only reachable from the home lab network.
 - **zigbee2mqtt**: [Zigbee2MQTT](https://www.zigbee2mqtt.io/), which drives the Zigbee half of the HubZ stick and publishes devices to MQTT with [Home Assistant discovery](https://www.zigbee2mqtt.io/guide/usage/integration/home_assistant.html) enabled, so paired devices show up in Home Assistant automatically. Its frontend is on port `8080`.
-- **avahi**: an [Avahi](https://avahi.org/) daemon in reflector mode on the host network. Because Home Assistant no longer uses host networking, its mDNS traffic (HomeKit advertisements, Chromecast/ESPHome discovery) can't cross the Docker bridge on its own — the reflector repeats mDNS packets between the LAN and the bridge so HomeKit keeps working.
 
 ## Setup
 
@@ -20,5 +19,4 @@
 
 - The HubZ ships with pre-7.4 EmberZNet firmware, so Zigbee2MQTT is configured with the legacy `ezsp` serial driver. If the stick is ever flashed with firmware ≥ 7.4, switch `serial.adapter` to `ember` in [`zigbee2mqtt/configuration.yaml`](./zigbee2mqtt/configuration.yaml).
 - Zigbee2MQTT writes runtime state (paired devices, the generated network key) back into `zigbee2mqtt/configuration.yaml`, so that file will drift from what's committed here. Don't lose the `network_key` — without it, every device has to be re-paired.
-- If the HomeKit bridge doesn't appear in the Home app, make sure nothing else on the host is bound to UDP 5353, and consider setting `advertise_ip` in the HomeKit integration to the host's LAN IP.
-- Integrations that rely on network discovery (Chromecast, Sonos, ESPHome, etc.) depend on the avahi reflector; anything it can't reflect can still be configured manually by IP.
+- Because Home Assistant runs on a bridge network, its mDNS traffic (HomeKit advertisements, Chromecast/ESPHome discovery) is multicast onto Docker's internal bridge and doesn't reach the LAN on its own — router-side mDNS reflection can't help, since the router never sees packets that stay inside the host. If HomeKit discovery fails, add an mDNS reflector on the host (e.g. an Avahi container in reflector mode); anything else that relies on discovery can be configured manually by IP.

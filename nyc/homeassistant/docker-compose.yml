@@ -63,14 +63,6 @@ services:
     ports:
       - '8080:8080'
 
-  avahi:
-    image: 'flungo/avahi'
-    container_name: avahi
-    restart: unless-stopped
-    network_mode: host
-    environment:
-      REFLECTOR_ENABLE_REFLECTOR: 'yes'
-
 volumes:
   config:
   zwave-config:
