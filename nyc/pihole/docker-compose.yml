@@ -1,0 +1,32 @@
+services:
+  pihole:
+    image: 'pihole/pihole:latest'
+    container_name: pihole
+    restart: unless-stopped
+    environment:
+      TZ: 'America/New_York'
+      VIRTUAL_HOST: 'dns.nyc.brooks.network'
+      VIRTUAL_PORT: 80
+    dns:
+      - '127.0.0.1'
+      - '1.1.1.1'
+      - '8.8.8.8'
+    volumes:
+      - './etc-pihole:/etc/pihole'
+      - './etc-dnsmasq.d:/etc/dnsmasq.d'
+    ports:
+      - '53:53/tcp'
+      - '53:53/udp'
+    networks:
+      - web
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=web'
+      - 'traefik.http.routers.pihole.rule=Host(`dns.nyc.brooks.network`)'
+      - 'traefik.http.routers.pihole.entrypoints=websecure'
+      - 'traefik.http.routers.pihole.tls.certresolver=letsencrypt'
+      - 'traefik.http.services.pihole.loadbalancer.server.port=80'
+
+networks:
+  web:
+    external: true
