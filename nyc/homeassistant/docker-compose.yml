@@ -10,8 +10,6 @@ services:
       - './config/configuration.yaml:/config/configuration.yaml'
       - './config/scenes.yaml:/config/scenes.yaml'
       - './config/scripts.yaml:/config/scripts.yaml'
-    extra_hosts:
-      - 'host.docker.internal:host-gateway'
     expose:
       - 8123
     networks:
@@ -24,19 +22,6 @@ services:
       - 'traefik.http.routers.homeassistant.entrypoints=websecure'
       - 'traefik.http.routers.homeassistant.tls.certresolver=letsencrypt'
       - 'traefik.http.services.homeassistant.loadbalancer.server.port=8123'
-
-  zwave:
-    image: 'zwavejs/zwave-js-ui:latest'
-    container_name: zwave
-    restart: unless-stopped
-    tty: true
-    stop_signal: SIGINT
-    privileged: true
-    network_mode: host
-    devices:
-      - '/dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_6160005F-if00-port0:/dev/zwave'
-    volumes:
-      - 'zwave-config:/usr/src/app/store'
 
   mqtt:
     image: 'eclipse-mosquitto:2'
@@ -65,7 +50,6 @@ services:
 
 volumes:
   config:
-  zwave-config:
   mqtt-data:
   zigbee2mqtt-data:
 
