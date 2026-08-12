@@ -34,7 +34,7 @@ services:
     privileged: true
     network_mode: host
     devices:
-      - '/dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_7150097E-if00-port0:/dev/zwave'
+      - '/dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_6160005F-if00-port0:/dev/zwave'
     volumes:
       - 'zwave-config:/usr/src/app/store'
 
@@ -55,7 +55,7 @@ services:
     depends_on:
       - mqtt
     devices:
-      - '/dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_7150097E-if01-port1:/dev/zigbee'
+      - '/dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_6160005F-if01-port0:/dev/zigbee'
     volumes:
       - '/etc/localtime:/etc/localtime:ro'
       - 'zigbee2mqtt-data:/app/data'
