@@ -3,17 +3,15 @@
 [Home Assistant](https://www.home-assistant.io/) is the hub for everything smart-home. It runs unprivileged on a bridge network and is served by [Traefik](../traefik/) at `https://home.nyc.brooks.network`. This directory runs it alongside the radios and services it depends on:
 
 - **homeassistant**: Home Assistant itself, exposed on port `8123` behind Traefik.
-- **zwave**: [Z-Wave JS UI](https://github.com/zwave-js/zwave-js-ui), which drives the Z-Wave half of the HubZ (HUSBZB-1) combo stick. It stays host-networked, so its web interface is on port `8091` and the websocket server Home Assistant connects to is on port `3000`.
 - **mqtt**: [Eclipse Mosquitto](https://mosquitto.org/), the MQTT broker that Zigbee2MQTT and Home Assistant communicate through, addressable as `mqtt:1883` from any container on the compose network. It allows anonymous connections since it's only reachable from the home lab network.
-- **zigbee2mqtt**: [Zigbee2MQTT](https://www.zigbee2mqtt.io/), which drives the Zigbee half of the HubZ stick and publishes devices to MQTT with [Home Assistant discovery](https://www.zigbee2mqtt.io/guide/usage/integration/home_assistant.html) enabled, so paired devices show up in Home Assistant automatically. Its frontend is on port `8080`.
+- **zigbee2mqtt**: [Zigbee2MQTT](https://www.zigbee2mqtt.io/), which drives the Zigbee half of the HubZ (HUSBZB-1) combo stick and publishes devices to MQTT with [Home Assistant discovery](https://www.zigbee2mqtt.io/guide/usage/integration/home_assistant.html) enabled, so paired devices show up in Home Assistant automatically. Its frontend is on port `8080`. The stick's Z-Wave radio is unused — there are no Z-Wave devices on this host.
 
 ## Setup
 
 1. Create the shared proxy network if it doesn't exist yet: `sudo docker network create web`.
 2. Bring up [Traefik](../traefik/) first, then this stack with `sudo docker compose up -d`.
 3. In Home Assistant, add the **MQTT** integration (Settings → Devices & Services) pointed at host `mqtt`, port `1883`. No credentials are required.
-4. Point the **Z-Wave JS** integration at `ws://host.docker.internal:3000` — the zwave container is host-networked, so it isn't addressable by service name from the bridge.
-5. Pair Zigbee devices through the Zigbee2MQTT frontend; they'll appear in Home Assistant via MQTT discovery.
+4. Pair Zigbee devices through the Zigbee2MQTT frontend; they'll appear in Home Assistant via MQTT discovery.
 
 ## Things to watch out for
 
