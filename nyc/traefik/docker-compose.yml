@@ -1,8 +1,8 @@
 services:
   traefik:
     image: 'traefik'
-    container_name: 'traefik'
-    restart: always
+    container_name: traefik
+    restart: unless-stopped
     env_file:
       - .env
     command:
@@ -21,19 +21,17 @@ services:
       - '--certificatesresolvers.letsencrypt.acme.email=bswinnerton@gmail.com'
       - '--certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme/acme.json'
       - '--metrics.prometheus=true'
-      - '--api.dashboard=true'
     ports:
       - '80:80'
       - '443:443'
-      - '8080:8080'
-    networks:
-      - 'web'
     volumes:
       - 'acme:/etc/traefik/acme'
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    networks:
+      - web
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.api.rule=Host(`lb.cabin.brooks.network`)'
+      - 'traefik.http.routers.api.rule=Host(`lb.nyc.brooks.network`)'
       - 'traefik.http.routers.api.service=api@internal'
       - 'traefik.http.routers.api.entrypoints=websecure'
       - 'traefik.http.routers.api.tls.certresolver=letsencrypt'

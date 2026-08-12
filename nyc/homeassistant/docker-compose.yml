@@ -1,0 +1,79 @@
+services:
+  homeassistant:
+    image: 'ghcr.io/home-assistant/home-assistant:stable'
+    container_name: homeassistant
+    restart: unless-stopped
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - 'config:/config'
+      - './config/configuration.yaml:/config/configuration.yaml'
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    expose:
+      - 8123
+    networks:
+      - web
+      - default
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=web'
+      - 'traefik.http.routers.homeassistant.rule=Host(`home.nyc.brooks.network`)'
+      - 'traefik.http.routers.homeassistant.entrypoints=websecure'
+      - 'traefik.http.routers.homeassistant.tls.certresolver=letsencrypt'
+      - 'traefik.http.services.homeassistant.loadbalancer.server.port=8123'
+
+  zwave:
+    image: 'zwavejs/zwave-js-ui:latest'
+    container_name: zwave
+    restart: unless-stopped
+    tty: true
+    stop_signal: SIGINT
+    privileged: true
+    network_mode: host
+    devices:
+      - '/dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_7150097E-if00-port0:/dev/zwave'
+    volumes:
+      - 'zwave-config:/usr/src/app/store'
+
+  mqtt:
+    image: 'eclipse-mosquitto:2'
+    container_name: mqtt
+    restart: unless-stopped
+    volumes:
+      - './mqtt/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro'
+      - 'mqtt-data:/mosquitto/data'
+    ports:
+      - '1883:1883'
+
+  zigbee2mqtt:
+    image: 'koenkk/zigbee2mqtt:latest'
+    container_name: zigbee2mqtt
+    restart: unless-stopped
+    depends_on:
+      - mqtt
+    devices:
+      - '/dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_7150097E-if01-port1:/dev/zigbee'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - 'zigbee2mqtt-data:/app/data'
+      - './zigbee2mqtt/configuration.yaml:/app/data/configuration.yaml'
+    ports:
+      - '8080:8080'
+
+  avahi:
+    image: 'flungo/avahi'
+    container_name: avahi
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      REFLECTOR_ENABLE_REFLECTOR: 'yes'
+
+volumes:
+  config:
+  zwave-config:
+  mqtt-data:
+  zigbee2mqtt-data:
+
+networks:
+  web:
+    external: true

@@ -2,17 +2,17 @@
 
 This repository is a collection of configuration files for my home lab.
 
-Each subdirectory has a `README.md` outlining what the service is, how you can find out more information, and any notes of things to watch out for if you're looking to set it up yourself.
+The lab spans two hosts, and the top-level directories are named for them: [`cabin/`](./cabin) (cabin.brooks.network) and [`nyc/`](./nyc) (nyc.brooks.network). Within each host directory, every service has its own subdirectory with a `README.md` outlining what the service is, how you can find out more information, and any notes of things to watch out for if you're looking to set it up yourself. The nyc host is mid-migration — it still runs older copies of several services that haven't been ported into [`nyc/`](./nyc) yet.
 
 ## Installation
 
-The [`docker/`](./docker) directory assumes that you use Docker Compose. Each directory has a `docker-compose.yml` file that will spin up the appropriate containers for you.
+Each service directory has a `docker-compose.yml` file that will spin up the appropriate containers for you.
 
 Installation is as simple as:
 
 ```
-cd <project directory>
-sudo docker-compose up -d
+cd <host>/<service directory>
+sudo docker compose up -d
 ```
 
 Some `docker-compose.yml` files are made for specific architectures (x86-64, arm64, etc), so keep an eye out for any configurations that you may need to change to run on your infrastructure.
@@ -27,6 +27,6 @@ If you're interested in setting up KVM on Clear Linux, I've blogged about it ove
 
 In addition to the NUC, I have a Ubiquiti [EdgeRouter X](https://www.ubnt.com/edgemax/edgerouter-x/), and my ISP is the community-owned, net-neutral [NYC Mesh](https://nycmesh.net/). A Ubiquiti UAP-AC-Pro is the access point for my apartment.
 
-This is all monitored by [Grafana](./containers/grafana/):
+This is all monitored by [Grafana](./cabin/grafana/):
 
 ![grafana](https://user-images.githubusercontent.com/934497/44185068-2a718000-a0e0-11e8-8201-b33aabf922e0.png)

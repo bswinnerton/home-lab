@@ -1,0 +1,27 @@
+# Zigbee2MQTT writes runtime changes (paired devices, the generated network
+# key, etc.) back to this file, so expect it to change after first boot.
+
+# Publish Home Assistant MQTT discovery messages so devices show up in Home
+# Assistant automatically
+homeassistant:
+  enabled: true
+
+mqtt:
+  base_topic: zigbee2mqtt
+  server: mqtt://mqtt:1883
+
+serial:
+  port: /dev/zigbee
+  # The HubZ (HUSBZB-1) ships with pre-7.4 EmberZNet firmware, which requires
+  # the legacy ezsp driver. Switch to 'ember' if the stick is ever flashed
+  # with firmware >= 7.4.
+  adapter: ezsp
+  baudrate: 57600
+
+frontend:
+  enabled: true
+  port: 8080
+
+advanced:
+  # Generate a random network key on first start
+  network_key: GENERATE
