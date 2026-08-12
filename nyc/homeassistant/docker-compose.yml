@@ -6,7 +6,10 @@ services:
     volumes:
       - '/etc/localtime:/etc/localtime:ro'
       - 'config:/config'
+      - './config/automations.yaml:/config/automations.yaml'
       - './config/configuration.yaml:/config/configuration.yaml'
+      - './config/lights.yaml:/config/lights.yaml'
+      - './config/scripts.yaml:/config/scripts.yaml'
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     expose:

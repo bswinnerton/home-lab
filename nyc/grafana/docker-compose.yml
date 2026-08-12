@@ -1,0 +1,29 @@
+services:
+  grafana:
+    image: 'grafana/grafana:latest'
+    container_name: grafana
+    restart: always
+    volumes:
+      - 'data:/var/lib/grafana'
+      - 'config:/etc/grafana'
+    expose:
+      - 3000
+    networks:
+      - web
+      - metrics
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=web'
+      - 'traefik.http.routers.grafana.rule=Host(`graphs.nyc.brooks.network`)'
+      - 'traefik.http.routers.grafana.entrypoints=websecure'
+      - 'traefik.http.routers.grafana.tls.certresolver=letsencrypt'
+
+volumes:
+  data:
+  config:
+
+networks:
+  metrics:
+    external: true
+  web:
+    external: true

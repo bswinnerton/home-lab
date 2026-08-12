@@ -18,6 +18,8 @@
 
 ## Things to watch out for
 
+- `automations.yaml`, `lights.yaml`, and `scripts.yaml` are bind-mounted from [`config/`](./config) but currently only exist on the nyc host — they haven't been committed here yet. They must exist as files before `docker compose up`, otherwise Docker will create empty *directories* at those paths and Home Assistant's config check will fail.
+
 - The HubZ ships with pre-7.4 EmberZNet firmware, so Zigbee2MQTT is configured with the legacy `ezsp` serial driver. If the stick is ever flashed with firmware ≥ 7.4, switch `serial.adapter` to `ember` in [`zigbee2mqtt/configuration.yaml`](./zigbee2mqtt/configuration.yaml).
 - Zigbee2MQTT writes runtime state (paired devices, the generated network key) back into `zigbee2mqtt/configuration.yaml`, so that file will drift from what's committed here. Don't lose the `network_key` — without it, every device has to be re-paired.
 - If the HomeKit bridge doesn't appear in the Home app, make sure nothing else on the host is bound to UDP 5353, and consider setting `advertise_ip` in the HomeKit integration to the host's LAN IP.
