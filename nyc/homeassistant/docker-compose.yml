@@ -12,6 +12,8 @@ services:
       - './config/scripts.yaml:/config/scripts.yaml'
     expose:
       - 8123
+    ports:
+      - '21063:21063'
     networks:
       - web
       - default
@@ -57,6 +59,14 @@ services:
       - 'traefik.http.routers.zigbee2mqtt.entrypoints=websecure'
       - 'traefik.http.routers.zigbee2mqtt.tls.certresolver=letsencrypt'
       - 'traefik.http.services.zigbee2mqtt.loadbalancer.server.port=8080'
+
+  avahi:
+    image: 'flungo/avahi'
+    container_name: avahi
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      REFLECTOR_ENABLE_REFLECTOR: 'yes'
 
 volumes:
   config:

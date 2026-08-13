@@ -5,6 +5,17 @@
 - **homeassistant**: Home Assistant itself, exposed on port `8123` behind Traefik.
 - **mqtt**: [Eclipse Mosquitto](https://mosquitto.org/), the MQTT broker that Zigbee2MQTT and Home Assistant communicate through, addressable as `mqtt:1883` from any container on the compose network. It allows anonymous connections since it's only reachable from the home lab network.
 - **zigbee2mqtt**: [Zigbee2MQTT](https://www.zigbee2mqtt.io/), which drives the Zigbee half of the HubZ (HUSBZB-1) combo stick and publishes devices to MQTT with [Home Assistant discovery](https://www.zigbee2mqtt.io/guide/usage/integration/home_assistant.html) enabled, so paired devices show up in Home Assistant automatically. Its frontend is served by Traefik at `https://zigbee.nyc.brooks.network`. The stick's Z-Wave radio is unused — there are no Z-Wave devices on this host.
+- **avahi**: an [Avahi](https://avahi.org/) daemon in reflector mode on the host network, which repeats Home Assistant's mDNS announcements onto the LAN so HomeKit works — see below.
+
+## HomeKit
+
+Because Home Assistant runs on a Docker bridge network, its HomeKit mDNS advertisements can't reach the LAN on their own, and phones couldn't reach the announced container IP even if they did. Per the [HomeKit docs' considerations](https://www.home-assistant.io/integrations/homekit/#considerations), three pieces fix this and all are required:
+
+1. the avahi reflector container (in this compose file),
+2. host port `21063` published on the `homeassistant` container (also in this compose file), and
+3. the `homekit:` block in [`config/configuration.yaml`](./config/configuration.yaml) with `advertise_ip` set to the host's LAN IP, so phones connect to the host's published port instead of the unroutable container address.
+
+Configure HomeKit through that YAML block rather than the UI — `advertise_ip` is YAML-only — and pair from the Home app using the QR code in Home Assistant's notifications panel.
 
 ## Setup
 
@@ -17,4 +28,4 @@
 
 - The HubZ ships with pre-7.4 EmberZNet firmware, so Zigbee2MQTT is configured with the legacy `ezsp` serial driver. If the stick is ever flashed with firmware ≥ 7.4, switch `serial.adapter` to `ember` in [`zigbee2mqtt/configuration.yaml`](./zigbee2mqtt/configuration.yaml).
 - Zigbee2MQTT writes runtime state (paired devices, the generated network key) back into `zigbee2mqtt/configuration.yaml`, so that file will drift from what's committed here. Don't lose the `network_key` — without it, every device has to be re-paired.
-- Because Home Assistant runs on a bridge network, its mDNS traffic (HomeKit advertisements, Chromecast/ESPHome discovery) is multicast onto Docker's internal bridge and doesn't reach the LAN on its own — router-side mDNS reflection can't help, since the router never sees packets that stay inside the host. If HomeKit discovery fails, add an mDNS reflector on the host (e.g. an Avahi container in reflector mode); anything else that relies on discovery can be configured manually by IP.
+- Discovery-reliant integrations other than HomeKit (Chromecast, Sonos, ESPHome, etc.) also depend on the avahi reflector; anything it can't reflect can still be configured manually by IP.
