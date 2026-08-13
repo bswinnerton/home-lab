@@ -6,3 +6,12 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 
 prometheus:
+
+# HomeKit needs three things to work from a Docker bridge network: the avahi
+# reflector container, port 21063 published on the host, and advertise_ip set
+# to the host's LAN address so iPhones connect to the host rather than the
+# unroutable container IP. Uncomment and fill in the IP, then remove any
+# UI-created HomeKit integration so there's a single bridge.
+homekit:
+  - port: 21063
+    advertise_ip: 10.0.90.10
