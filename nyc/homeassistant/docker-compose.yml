@@ -45,8 +45,18 @@ services:
       - '/etc/localtime:/etc/localtime:ro'
       - 'zigbee2mqtt-data:/app/data'
       - './zigbee2mqtt/configuration.yaml:/app/data/configuration.yaml'
-    ports:
-      - '8080:8080'
+    expose:
+      - 8080
+    networks:
+      - web
+      - default
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=web'
+      - 'traefik.http.routers.zigbee2mqtt.rule=Host(`zigbee.nyc.brooks.network`)'
+      - 'traefik.http.routers.zigbee2mqtt.entrypoints=websecure'
+      - 'traefik.http.routers.zigbee2mqtt.tls.certresolver=letsencrypt'
+      - 'traefik.http.services.zigbee2mqtt.loadbalancer.server.port=8080'
 
 volumes:
   config:
