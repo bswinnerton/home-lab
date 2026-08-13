@@ -12,6 +12,6 @@ prometheus:
 # to the host's LAN address so iPhones connect to the host rather than the
 # unroutable container IP. Uncomment and fill in the IP, then remove any
 # UI-created HomeKit integration so there's a single bridge.
-#homekit:
-#  - port: 21063
-#    advertise_ip: NYC_SERVER_LAN_IP
+homekit:
+  - port: 21063
+    advertise_ip: 10.0.90.10
