@@ -18,7 +18,6 @@ homekit:
     filter:
       include_domains:
         - light
-        - climate
       exclude_entities:
         - light.office_lamp_left
         - light.office_lamp_right
