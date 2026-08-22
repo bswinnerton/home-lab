@@ -17,6 +17,8 @@ Because Home Assistant runs on a Docker bridge network, its HomeKit mDNS adverti
 
 Configure HomeKit through that YAML block rather than the UI — `advertise_ip` is YAML-only — and pair from the Home app using the QR code in Home Assistant's notifications panel.
 
+The bridge exposes the `light` and `binary_sensor` domains, minus the two office lamps. Including `binary_sensor` wholesale means contact, motion and smoke sensors paired through Zigbee2MQTT show up in the Home app on their own — HomeKit bridges only the [device classes it maps](https://www.home-assistant.io/integrations/homekit/#supported-integrations) (`door`, `window`, `motion`, `smoke`, `moisture` and friends), and the battery and tamper entities Zigbee2MQTT creates alongside them are diagnostic, which HomeKit skips unless a filter names the entity explicitly. To keep a supported sensor out of the Home app, add its entity to `exclude_entities`.
+
 ## Setup
 
 1. Create the shared proxy network if it doesn't exist yet: `sudo docker network create web`.
