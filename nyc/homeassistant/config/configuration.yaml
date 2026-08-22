@@ -16,15 +16,10 @@ homekit:
   - port: 21063
     advertise_ip: 10.0.90.10
     filter:
-      # binary_sensor is included as a whole domain so contact, motion and
-      # smoke sensors paired through Zigbee2MQTT are bridged without listing
-      # each entity here. HomeKit only maps the device classes it understands
-      # (door, window, motion, smoke, moisture, etc.), and the per-device
-      # battery and tamper entities Zigbee2MQTT creates are diagnostic, which
-      # HomeKit skips unless a filter names them explicitly.
       include_domains:
         - light
-        - binary_sensor
+      include_entity_globs:
+        - binary_sensor.*_contact
       exclude_entities:
         - light.office_lamp_left
         - light.office_lamp_right
