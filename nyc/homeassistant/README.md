@@ -17,6 +17,8 @@ Because Home Assistant runs on a Docker bridge network, its HomeKit mDNS adverti
 
 Configure HomeKit through that YAML block rather than the UI — `advertise_ip` is YAML-only — and pair from the Home app using the QR code in Home Assistant's notifications panel.
 
+The filter is deliberately narrow. Contact sensors are matched by the `binary_sensor.*_contact` glob rather than by including the whole `binary_sensor` domain, because HomeKit falls back to advertising an occupancy sensor for any device class it doesn't map — so a domain-wide include turns the `tamper` entity Zigbee2MQTT pairs alongside a contact sensor into a phantom motion sensor in the Home app. Zigbee2MQTT names a contact sensor's entity `binary_sensor.<device>_contact`, so the glob catches new door and window sensors as they're paired; a sensor renamed in Home Assistant needs its entity listed explicitly.
+
 ## Setup
 
 1. Create the shared proxy network if it doesn't exist yet: `sudo docker network create web`.

@@ -18,6 +18,8 @@ homekit:
     filter:
       include_domains:
         - light
+      include_entity_globs:
+        - binary_sensor.*_contact
       exclude_entities:
         - light.office_lamp_left
         - light.office_lamp_right
