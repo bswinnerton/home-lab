@@ -1,0 +1,11 @@
+# Home Assistant owns this directory now that it's bind mounted whole, and it
+# writes its runtime state here: the SQLite recorder database, logs, and
+# .storage/, which holds auth tokens, the entity registry and every
+# integration's config entry. None of that belongs in git. Track only the
+# YAML this repo manages, so ignore everything and allow those files back in.
+/*
+!.gitignore
+!automations.yaml
+!configuration.yaml
+!scenes.yaml
+!scripts.yaml
