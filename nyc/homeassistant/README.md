@@ -26,8 +26,23 @@ The filter is deliberately narrow. Contact sensors are matched by the `binary_se
 3. In Home Assistant, add the **MQTT** integration (Settings → Devices & Services) pointed at host `mqtt`, port `1883`. No credentials are required.
 4. Pair Zigbee devices through the Zigbee2MQTT frontend; they'll appear in Home Assistant via MQTT discovery.
 
+## Migrating off the `config` volume
+
+Home Assistant's config directory used to be a named `config` volume with the four tracked YAML files bind mounted in over the top of it, one file at a time. That broke every save from the UI automation, scene and script editors: those editors write a temp file and rename it into place, and the kernel won't rename over a mount point, so each save failed with `OSError: [Errno 16] Resource busy: '/config/tmpXXXXXXXX' -> '/config/automations.yaml'`. The whole directory is bind mounted now, which makes those files ordinary files inside the mount and lets the rename succeed.
+
+An existing install has to copy the old volume's contents across first — `.storage/` holds the auth tokens, the entity registry, the HomeKit pairing and every integration's config entry, and the recorder database holds the history. Skipping this starts Home Assistant at the onboarding wizard with all of that gone:
+
+1. Stop the container: `sudo docker compose stop homeassistant`.
+2. Confirm the volume's name with `sudo docker volume ls` — Compose prefixes it with the project, so it's `homeassistant_config` unless this directory was renamed.
+3. Copy it into `config/`: `sudo docker run --rm -v homeassistant_config:/from -v "$PWD/config:/to" alpine sh -c 'cp -a /from/. /to/'`.
+4. Restore the tracked YAML with `git checkout -- config/`. The old volume holds empty placeholder copies of the four files at the paths the single-file mounts covered, and step 3 copies those over the real ones.
+5. Bring it back up with `sudo docker compose up -d`, check the logs, and save an automation from the UI to confirm the write works.
+6. Once it's healthy, drop the old volume: `sudo docker volume rm homeassistant_config`.
+
 ## Things to watch out for
 
 - The HubZ ships with pre-7.4 EmberZNet firmware, so Zigbee2MQTT is configured with the legacy `ezsp` serial driver. If the stick is ever flashed with firmware ≥ 7.4, switch `serial.adapter` to `ember` in [`zigbee2mqtt/configuration.yaml`](./zigbee2mqtt/configuration.yaml).
 - Zigbee2MQTT writes runtime state (paired devices, the generated network key) back into `zigbee2mqtt/configuration.yaml`, so that file will drift from what's committed here. Don't lose the `network_key` — without it, every device has to be re-paired.
+- Bind mount `config/` as a directory, never the individual YAML files inside it. Mounting a single file makes that path a mount point, and anything that replaces the file by renaming a temp file over it — which is how Home Assistant's UI editors save `automations.yaml`, `scenes.yaml` and `scripts.yaml` — fails with `Errno 16 Resource busy`. The editors write to those exact paths under `/config`, so moving the files into a subdirectory doesn't help either.
+- Home Assistant writes its database, logs and `.storage/` into `config/` now that the directory is mounted whole. [`config/.gitignore`](./config/.gitignore) ignores everything and allows the four tracked YAML files back in, so leave it in place — `.storage/` holds auth tokens.
 - Discovery-reliant integrations other than HomeKit (Chromecast, Sonos, ESPHome, etc.) also depend on the avahi reflector; anything it can't reflect can still be configured manually by IP.

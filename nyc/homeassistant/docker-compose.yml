@@ -5,11 +5,12 @@ services:
     restart: unless-stopped
     volumes:
       - '/etc/localtime:/etc/localtime:ro'
-      - 'config:/config'
-      - './config/automations.yaml:/config/automations.yaml'
-      - './config/configuration.yaml:/config/configuration.yaml'
-      - './config/scenes.yaml:/config/scenes.yaml'
-      - './config/scripts.yaml:/config/scripts.yaml'
+      # Mount the whole config directory, never the individual YAML files.
+      # The UI editors rewrite automations.yaml, scenes.yaml and scripts.yaml
+      # by writing a temp file and renaming it into place, and the kernel
+      # refuses to rename over a mount point, so a single-file bind mount
+      # makes every save fail with "Errno 16 Resource busy". See the README.
+      - './config:/config'
     expose:
       - 8123
     ports:
@@ -69,7 +70,6 @@ services:
       REFLECTOR_ENABLE_REFLECTOR: 'yes'
 
 volumes:
-  config:
   mqtt-data:
   zigbee2mqtt-data:
 
