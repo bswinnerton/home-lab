@@ -20,6 +20,8 @@ homekit:
         - light
       include_entity_globs:
         - binary_sensor.*_contact
+        - sensor.*_carbon_dioxide
+        - sensor.*_volatile_organic_compounds
       exclude_entities:
         - light.office_lamp_left
         - light.office_lamp_right

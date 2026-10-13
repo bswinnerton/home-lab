@@ -19,6 +19,8 @@ Configure HomeKit through that YAML block rather than the UI — `advertise_ip` 
 
 The filter is deliberately narrow. Contact sensors are matched by the `binary_sensor.*_contact` glob rather than by including the whole `binary_sensor` domain, because HomeKit falls back to advertising an occupancy sensor for any device class it doesn't map — so a domain-wide include turns the `tamper` entity Zigbee2MQTT pairs alongside a contact sensor into a phantom motion sensor in the Home app. Zigbee2MQTT names a contact sensor's entity `binary_sensor.<device>_contact`, so the glob catches new door and window sensors as they're paired; a sensor renamed in Home Assistant needs its entity listed explicitly.
 
+The ecobee thermostats' air quality readings are bridged the same way. The ecobee integration names them `sensor.<thermostat>_carbon_dioxide` and `sensor.<thermostat>_volatile_organic_compounds`, so the two `sensor.*` globs pick up the living room and bedroom thermostats (and any ecobee added later) without listing each one. HomeKit maps their device classes to native CO₂ and VOC accessories; the CO₂ accessory also flags "detected" above 1000 ppm, which can be tuned per entity with `threshold_co2` under `entity_config`. The ecobee's *Air quality index* is deliberately not bridged: HomeKit has no mapping for the `aqi` device class and would silently drop it. Temperature, humidity and occupancy are left out because the ecobee exposes those itself when paired directly with HomeKit, and bridging them again would show duplicate sensors in the Home app.
+
 ## Setup
 
 1. Create the shared proxy network if it doesn't exist yet: `sudo docker network create web`.
