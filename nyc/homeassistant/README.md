@@ -7,6 +7,14 @@
 - **zigbee2mqtt**: [Zigbee2MQTT](https://www.zigbee2mqtt.io/), which drives the Zigbee half of the HubZ (HUSBZB-1) combo stick and publishes devices to MQTT with [Home Assistant discovery](https://www.zigbee2mqtt.io/guide/usage/integration/home_assistant.html) enabled, so paired devices show up in Home Assistant automatically. Its frontend is served by Traefik at `https://zigbee.nyc.brooks.network`. The stick's Z-Wave radio is unused — there are no Z-Wave devices on this host.
 - **avahi**: an [Avahi](https://avahi.org/) daemon in reflector mode on the host network, which repeats Home Assistant's mDNS announcements onto the LAN so HomeKit works — see below.
 
+## Bluetooth and Aranet
+
+The host must have BlueZ running and a powered Bluetooth adapter (`systemctl is-active bluetooth` and `bluetoothctl show`). Home Assistant accesses the host adapter through the read-only `/run/dbus` mount. The `NET_ADMIN` and `NET_RAW` capabilities enable Bluetooth management and adapter recovery, following the [Home Assistant Container requirements](https://www.home-assistant.io/integrations/bluetooth/#additional-details-for-container).
+
+After changing the Compose configuration, run `sudo docker compose up -d --no-deps homeassistant` from this directory to recreate Home Assistant with the new mount and capabilities. A container restart alone does not apply these changes.
+
+In Home Assistant, open **Settings → Devices & services** and configure the discovered Bluetooth adapter, or use **Add integration → Bluetooth**. For an Aranet monitor, enable **Smart Home integration** in the Aranet Home mobile app and ensure its firmware is at least 1.2.0. The [Aranet integration](https://www.home-assistant.io/integrations/aranet/) should then discover the monitor; select it to finish setup, or use **Add integration → Aranet**.
+
 ## HomeKit
 
 Because Home Assistant runs on a Docker bridge network, its HomeKit mDNS advertisements can't reach the LAN on their own, and phones couldn't reach the announced container IP even if they did. Per the [HomeKit docs' considerations](https://www.home-assistant.io/integrations/homekit/#considerations), three pieces fix this and all are required:

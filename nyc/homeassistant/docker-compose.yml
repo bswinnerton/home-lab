@@ -3,8 +3,12 @@ services:
     image: 'ghcr.io/home-assistant/home-assistant:stable'
     container_name: homeassistant
     restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
     volumes:
       - '/etc/localtime:/etc/localtime:ro'
+      - '/run/dbus:/run/dbus:ro'
       - 'config:/config'
       - './config/automations.yaml:/config/automations.yaml'
       - './config/configuration.yaml:/config/configuration.yaml'
