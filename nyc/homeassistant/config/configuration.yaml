@@ -25,3 +25,15 @@ homekit:
       exclude_entities:
         - light.office_lamp_left
         - light.office_lamp_right
+    # The Aranet4 monitors' CO2 readings match the sensor.*_carbon_dioxide
+    # glob above. The Aranet integration names each device after its
+    # Bluetooth name, so without these overrides the Home app would show them
+    # as e.g. "Aranet4 39F04 Carbon Dioxide" next to the ecobee's "Bedroom
+    # Carbon dioxide".
+    entity_config:
+      sensor.aranet4_3b572_carbon_dioxide:
+        name: Living Room Aranet CO2
+      sensor.aranet4_39f04_carbon_dioxide:
+        name: Bedroom Aranet CO2
+      sensor.aranet4_3c2c7_carbon_dioxide:
+        name: Office Aranet CO2
