@@ -20,15 +20,8 @@ homekit:
         - light
       include_entity_globs:
         - binary_sensor.*_contact
-        - sensor.aranet4_*_carbon_dioxide
+        - sensor.*_co2_carbon_dioxide
         - sensor.*_volatile_organic_compounds
       exclude_entities:
         - light.office_lamp_left
         - light.office_lamp_right
-    entity_config:
-      sensor.aranet4_3b572_carbon_dioxide:
-        name: Living Room Aranet CO2
-      sensor.aranet4_39f04_carbon_dioxide:
-        name: Bedroom Aranet CO2
-      sensor.aranet4_3c2c7_carbon_dioxide:
-        name: Office Aranet CO2
